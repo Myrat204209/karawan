@@ -18,7 +18,7 @@ class LoginView extends StatelessWidget {
               children: [
                 DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(35.22),
+                    borderRadius: kCircular35Border,
                     border: Border.all(
                       width: 1.96,
                       color: AppColors.mainAccent,
@@ -26,7 +26,10 @@ class LoginView extends StatelessWidget {
                   ),
                   child: Column(
                     spacing: 38,
-                    children: [TextFormField(), TextFormField()],
+                    children: [
+                      AppTextField(hintText: 'Login'),
+                      AppTextField(hintText: 'Password'),
+                    ],
                   ).paddingSymmetric(horizontal: 47, vertical: 80),
                 ),
               ],
@@ -37,6 +40,7 @@ class LoginView extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
+                fixedSize: const Size(228.54, 74.36),
                 backgroundColor: AppColors.mainAccent,
               ),
               child: Text('Login'),
@@ -44,6 +48,34 @@ class LoginView extends StatelessWidget {
           ),
         ],
       ).centralize(),
+    );
+  }
+}
+
+class AppTextField extends StatelessWidget {
+  const AppTextField({super.key, required this.hintText});
+  final String hintText;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: Color(0xFFA3A2A2)),
+        filled: true,
+        fillColor: Color(0xFF313535),
+        border: OutlineInputBorder(
+          borderRadius: kCircular35Border,
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: kCircular35Border,
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: kCircular35Border,
+          borderSide: BorderSide(color: Colors.tealAccent),
+        ),
+      ),
     );
   }
 }
