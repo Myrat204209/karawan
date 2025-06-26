@@ -13,7 +13,7 @@ import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:ojak/app/router/app_bottom_navigation.dart' as _i1;
 import 'package:ojak/features/home/view/home_page.dart' as _i2;
 import 'package:ojak/login/ui/view/login_page.dart' as _i3;
-import 'package:ojak/profile/view/profile_page.dart' as _i4;
+import 'package:ojak/features/profile/ui/view/profile_page.dart' as _i4;
 
 /// generated route for
 /// [_i1.AppBottomNavigation]
