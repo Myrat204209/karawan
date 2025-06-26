@@ -11,7 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:ojak/app/router/app_bottom_navigation.dart' as _i1;
-import 'package:ojak/home/view/home_page.dart' as _i2;
+import 'package:ojak/features/home/view/home_page.dart' as _i2;
 import 'package:ojak/login/ui/view/login_page.dart' as _i3;
 import 'package:ojak/profile/view/profile_page.dart' as _i4;
 

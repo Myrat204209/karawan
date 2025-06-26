@@ -5,6 +5,21 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Login'),);
+    return SafeArea(
+      child: Scaffold(
+        body: ColoredBox(
+          color: Colors.green,
+          child: Center(child: Text('Login')),
+        ),
+        appBar: AppBar(
+          leading: Icon(Icons.mark_email_read),
+          centerTitle: true,
+          title: Text(
+            'Login',
+            style: TextStyle(color: Colors.yellow, fontSize: 50),
+          ),
+        ),
+      ),
+    );
   }
 }

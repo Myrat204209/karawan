@@ -18,6 +18,7 @@ class _AppViewState extends State<AppView> {
   @override
   void initState() {
     super.initState();
+
     _talker = GetIt.I<Talker>();
     _router = GetIt.I<AppRouter>();
   }
