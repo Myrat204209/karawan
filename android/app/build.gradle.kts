@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.jantehnologiya.ojak"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "28.0.12674087"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
