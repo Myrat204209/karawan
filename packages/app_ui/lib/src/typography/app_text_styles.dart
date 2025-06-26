@@ -39,7 +39,7 @@ class AppTextStyle extends TextStyle {
     super.color = AppColors.textColor,
   }) : super(
          package: 'app_ui',
-         fontFamily: 'Inter',
+         //  fontFamily: 'Inter',
          decoration: TextDecoration.none,
          textBaseline: TextBaseline.alphabetic,
          height:
@@ -67,7 +67,7 @@ class AppTextStyle extends TextStyle {
     double? fontSize,
     FontWeight? fontWeight,
     double? lineHeight,
-    Color? color,
+    Color? color = Colors.white,
     double? height,
     double? letterSpacing,
   }) {

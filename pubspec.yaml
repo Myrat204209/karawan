@@ -39,6 +39,7 @@ dev_dependencies:
   build_runner: ^2.5.4
   hive_ce_generator: ^1.9.2
   bloc_lint: 0.2.0-dev.1
+  # lean_builder: ^0.1.0-alpha.13
 
 flutter:
   uses-material-design: true

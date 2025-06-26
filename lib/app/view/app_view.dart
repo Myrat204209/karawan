@@ -18,7 +18,6 @@ class _AppViewState extends State<AppView> {
   @override
   void initState() {
     super.initState();
-
     _talker = GetIt.I<Talker>();
     _router = GetIt.I<AppRouter>();
   }
@@ -28,7 +27,7 @@ class _AppViewState extends State<AppView> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppTheme().themeData,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       routerConfig: _router.config(
         navigatorObservers: () => [
           TalkerRouteObserver(_talker),

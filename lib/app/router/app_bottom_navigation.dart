@@ -24,13 +24,34 @@ class AppBottomNavigation extends StatelessWidget {
           FadeTransition(opacity: animation, child: child),
       routes: [HomeRoute(), AutomationRoute(), MarketRoute(), ProfileRoute()],
 
-      backgroundColor: AppColors.bgMain,
       bottomNavigationBuilder: (context, tabsRouter) {
-        return const SizedBox.shrink();
-      },
-
-      floatingActionButtonBuilder: (context, tabsRouter) {
-        return const SizedBox.shrink();
+        return NavigationBar(
+          indicatorColor: Colors.transparent,
+          selectedIndex: tabsRouter.activeIndex,
+          onDestinationSelected: (index) {
+            if (tabsRouter.activeIndex != index) {
+              tabsRouter.setActiveIndex(index);
+            } else {
+              tabsRouter
+                  .innerRouterOf<StackRouter>(tabsRouter.current.name)
+                  ?.popUntilRoot();
+            }
+          },
+          destinations: [
+            ...bottomNavigationBarItems.map((icon) {
+              int destinationIndex = bottomNavigationBarItems.indexOf(icon);
+              return NavigationDestinationIcon(
+                tabsRouterIndex: tabsRouter.activeIndex,
+                destinationIndex: destinationIndex,
+                icon: icon,
+                label: 'as$destinationIndex',
+              );
+            }),
+          ],
+          height: 56,
+          indicatorShape: null,
+          backgroundColor: Colors.white,
+        );
       },
     );
   }
