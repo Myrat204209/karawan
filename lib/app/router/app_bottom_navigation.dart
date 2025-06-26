@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart' show AppColors;
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter/material.dart';
+import 'package:ojak/app/router/router.dart';
 
 // Your bottomNavigationBarItems list remains the same
 const List<IconData> bottomNavigationBarItems = [
@@ -9,7 +9,6 @@ const List<IconData> bottomNavigationBarItems = [
   Icons.grid_view,
   Icons.emoji_food_beverage_rounded,
   Icons.discount_rounded,
-  CupertinoIcons.smiley,
 ];
 
 @RoutePage()
@@ -23,7 +22,7 @@ class AppBottomNavigation extends StatelessWidget {
 
       transitionBuilder: (context, child, animation) =>
           FadeTransition(opacity: animation, child: child),
-      routes: [],
+      routes: [HomeRoute(), AutomationRoute(), MarketRoute(), ProfileRoute()],
 
       backgroundColor: AppColors.bgMain,
       bottomNavigationBuilder: (context, tabsRouter) {
