@@ -7,6 +7,7 @@ class AppRouter extends RootStackRouter {
   RouteType get defaultRouteType => RouteType.adaptive();
   @override
   List<AutoRoute> get routes => [
+    AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(
       page: AppBottomNavigation.page,
       // initial: true,
@@ -20,7 +21,7 @@ class AppRouter extends RootStackRouter {
       // guards: [
       //   AuthGuard(),]
     ),
-    AutoRoute(page: LoginRoute.page, initial: true),
+    AutoRoute(page: LoginRoute.page,),
 
     // AutoRoute(page: LoginRoute.page, initial: true),
   ];

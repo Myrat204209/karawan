@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:ojak/app/app.dart';
-import 'package:ojak/features/splash/splash.dart';
 import 'package:ojak/main/bootstrap/bootstrap.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -32,8 +31,6 @@ Future<void> main() async {
 
     await Hive.initFlutter();
     // Hive.registerAdapters();
-    return SplashScreen(child: App());
+    return App();
   });
 }
-
-

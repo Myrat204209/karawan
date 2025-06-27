@@ -51,23 +51,26 @@ class _LoginViewState extends State<LoginView> {
                     child: SizedBox(
                       width: 836.69 / 1.33,
                       height: 400.34 / 1.33,
-                      child: Column(
-                        spacing: 38,
-                        children: [
-                          AppTextField(hintText: 'Login'),
-                          AppTextField(hintText: 'Password'),
-                        ],
-                      ).paddingSymmetric(horizontal: 47).paddingOnly(top: 80),
+                      child:
+                          Column(
+                                spacing: 38 / 1.33,
+                                children: [
+                                  AppTextField(hintText: 'Login'),
+                                  AppTextField(hintText: 'Password'),
+                                ],
+                              )
+                              .paddingSymmetric(horizontal: 47 / 1.33)
+                              .paddingOnly(top: 80 / 1.33),
                     ),
                   ).paddingOnly(bottom: 74),
                   Positioned(
-                    top: 358,
+                    top: 358 / 1.33,
                     child: OutlinedButton(
                       onPressed: () {
                         context.router.popAndPush(AppBottomNavigation());
                       },
                       style: OutlinedButton.styleFrom(
-                        fixedSize: const Size(228.54, 74.36),
+                        fixedSize: const Size(228.54 / 1.33, 74.36 / 1.33),
                         backgroundColor: AppColors.mainAccent,
                       ),
                       child: Text(
@@ -133,10 +136,15 @@ class _AppTextFieldState extends State<AppTextField> {
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         isDense: false,
-
-        contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 58.4),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: 30 / 1.33,
+          horizontal: 58.4 / 1.33,
+        ),
         hintText: widget.hintText,
-        constraints: BoxConstraints.tightFor(width: 742.71, height: 82.17),
+        constraints: BoxConstraints.tightFor(
+          width: 742.71 / 1.33,
+          height: 82.17 / 1.33,
+        ),
         hintStyle: TextStyle(color: Color(0xFFA3A2A2)),
 
         filled: true,
