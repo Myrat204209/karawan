@@ -43,3 +43,6 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - flutter_native_splash.yaml
+
+    
