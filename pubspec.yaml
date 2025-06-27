@@ -29,6 +29,7 @@ dependencies:
   hydrated_bloc: ^10.0.0
   flutter_gen: ^5.10.0
   flutter_native_splash: ^2.4.6
+  another_flutter_splash_screen: ^1.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -43,6 +44,5 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-    - flutter_native_splash.yaml
 
     

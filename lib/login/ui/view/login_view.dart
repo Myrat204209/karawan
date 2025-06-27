@@ -32,7 +32,7 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Welcome home!!',
+                'Welcome home!',
                 style: AppTextStyle.display().md().bold().withColor(
                   AppColors.alertLightAccent,
                 ),
@@ -49,8 +49,8 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     child: SizedBox(
-                      width: 836.69,
-                      height: 400.34,
+                      width: 836.69 / 1.33,
+                      height: 400.34 / 1.33,
                       child: Column(
                         spacing: 38,
                         children: [
