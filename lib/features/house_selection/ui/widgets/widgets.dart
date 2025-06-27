@@ -1,1 +1,1 @@
-// TODO Implement this library.
+export 'property_card.dart';
