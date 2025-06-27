@@ -27,6 +27,7 @@ class AppBottomNavigation extends StatelessWidget {
       bottomNavigationBuilder: (context, tabsRouter) {
         return NavigationBar(
           indicatorColor: Colors.transparent,
+
           selectedIndex: tabsRouter.activeIndex,
           onDestinationSelected: (index) {
             if (tabsRouter.activeIndex != index) {
@@ -44,13 +45,16 @@ class AppBottomNavigation extends StatelessWidget {
                 tabsRouterIndex: tabsRouter.activeIndex,
                 destinationIndex: destinationIndex,
                 icon: icon,
+
                 label: 'as$destinationIndex',
               );
             }),
           ],
-          height: 56,
+          height: 73.28,
+
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           indicatorShape: null,
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xFF021618),
         );
       },
     );
@@ -76,6 +80,7 @@ class NavigationDestinationIcon extends StatelessWidget {
     return NavigationDestination(
       icon: Icon(
         icon,
+        size: 34,
         color: tabsRouterIndex == destinationIndex
             ? AppColors.mainAccent
             : AppColors.iconColor,
