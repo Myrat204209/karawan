@@ -8,11 +8,9 @@
 cd existing_repo
 git remote add origin https://github.com/Myrat204209/karawan.git
 git branch -M main
-git push -uf origin main
+git push origin main
 ```
 
-asas
-as
 ## Integrate with your tools
 
 

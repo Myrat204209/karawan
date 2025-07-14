@@ -2,7 +2,6 @@ import 'dart:async' show FutureOr;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome;
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
@@ -18,10 +17,7 @@ Future<void> bootStrap(Talker talker, AppBuilder builder) async {
       //   options.dsn = 'https://b3aa888e7f33c4ed1bf258b42a1389d1@o4509077517172736.ingest.de.sentry.io/4509077619343440';
       // });
       Bloc.observer = TalkerBlocObserver(talker: talker);
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
+
       runApp(await builder());
     },
 
