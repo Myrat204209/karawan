@@ -1,4 +1,4 @@
-# Ojak
+# Karawan
 
 
 
@@ -15,7 +15,7 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/Myrat204209/ojak.git
+git remote add origin https://gitlab.com/Myrat204209/karawan.git
 git branch -M main
 git push -uf origin main
 ```
@@ -24,7 +24,7 @@ asas
 as
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/Myrat204209/ojak/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/Myrat204209/karawan/-/settings/integrations)
 
 ## Collaborate with your team
 

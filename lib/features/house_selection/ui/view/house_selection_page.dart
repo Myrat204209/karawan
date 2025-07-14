@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ojak/features/features.dart';
+import 'package:karawan/features/features.dart';
 
 class HouseSelectionPage extends StatelessWidget {
   const HouseSelectionPage({super.key});

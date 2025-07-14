@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:ojak/features/home/home.dart';
+import 'package:karawan/features/home/home.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {

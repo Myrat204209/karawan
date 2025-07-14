@@ -1,6 +1,6 @@
-name: ojak
+name: karawan
 description: "Smart home application."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   app_ui:
     path: packages/app_ui
-  data_provider: 
+  data_provider:
     path: packages/data_provider
   flutter_bloc: ^9.1.1
   path_provider: ^2.1.5
@@ -43,5 +43,3 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-
-    

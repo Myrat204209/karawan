@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ojak/app/router/router.dart';
+import 'package:karawan/app/router/router.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page|Screen,Route')
 class AppRouter extends RootStackRouter {
@@ -21,7 +21,7 @@ class AppRouter extends RootStackRouter {
       // guards: [
       //   AuthGuard(),]
     ),
-    AutoRoute(page: LoginRoute.page,),
+    AutoRoute(page: LoginRoute.page),
 
     // AutoRoute(page: LoginRoute.page, initial: true),
   ];

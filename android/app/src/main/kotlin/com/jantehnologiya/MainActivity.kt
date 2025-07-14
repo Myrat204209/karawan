@@ -1,4 +1,4 @@
-package com.jantehnologiya.ojak
+package com.zeta_it_labs.karawan
 
 import io.flutter.embedding.android.FlutterActivity
 

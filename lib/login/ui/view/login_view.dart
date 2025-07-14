@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:ojak/app/router/app_router.gr.dart';
+import 'package:karawan/app/router/app_router.gr.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});

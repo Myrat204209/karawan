@@ -2,7 +2,7 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:ojak/app/app.dart' show LoginRoute;
+import 'package:karawan/app/app.dart' show LoginRoute;
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {

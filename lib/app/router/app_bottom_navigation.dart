@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart' show AppColors;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:ojak/app/router/router.dart';
+import 'package:karawan/app/router/router.dart';
 
 // Your bottomNavigationBarItems list remains the same
 const List<IconData> bottomNavigationBarItems = [

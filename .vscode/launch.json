@@ -5,20 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ojak",
+            "name": "karawan",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main.dart",
         },
         {
-            "name": "ojak (profile mode)",
+            "name": "karawan (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
             "program": "lib/main/main.dart",
         },
         {
-            "name": "ojak (release mode)",
+            "name": "karawan (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",

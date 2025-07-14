@@ -10,13 +10,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:ojak/app/router/app_bottom_navigation.dart' as _i1;
-import 'package:ojak/features/automation/ui/view/automation_page.dart' as _i2;
-import 'package:ojak/features/home/view/home_page.dart' as _i3;
-import 'package:ojak/features/market/ui/view/market_page.dart' as _i5;
-import 'package:ojak/features/profile/ui/view/profile_page.dart' as _i6;
-import 'package:ojak/features/splash/splash_screen.dart' as _i7;
-import 'package:ojak/login/ui/view/login_page.dart' as _i4;
+import 'package:karawan/app/router/app_bottom_navigation.dart' as _i1;
+import 'package:karawan/features/automation/ui/view/automation_page.dart'
+    as _i2;
+import 'package:karawan/features/home/view/home_page.dart' as _i3;
+import 'package:karawan/features/market/ui/view/market_page.dart' as _i5;
+import 'package:karawan/features/profile/ui/view/profile_page.dart' as _i6;
+import 'package:karawan/features/splash/splash_screen.dart' as _i7;
+import 'package:karawan/login/ui/view/login_page.dart' as _i4;
 
 /// generated route for
 /// [_i1.AppBottomNavigation]

@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:ojak/app/router/router.dart';
+import 'package:karawan/app/router/router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class AppView extends StatefulWidget {
