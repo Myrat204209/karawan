@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:karawan/app/router/router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -24,15 +25,20 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme().themeData,
-      themeMode: ThemeMode.dark,
-      routerConfig: _router.config(
-        navigatorObservers: () => [
-          TalkerRouteObserver(_talker),
-          // SentryNavigatorObserver(),
-        ],
+    return ScreenUtilInit(
+      designSize: const Size(428, 926),
+      minTextAdapt: true,
+      useInheritedMediaQuery: true,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme().themeData,
+        themeMode: ThemeMode.dark,
+        routerConfig: _router.config(
+          navigatorObservers: () => [
+            TalkerRouteObserver(_talker),
+            // SentryNavigatorObserver(),
+          ],
+        ),
       ),
     );
   }

@@ -11,13 +11,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i8;
 import 'package:karawan/app/router/app_bottom_navigation.dart' as _i1;
-import 'package:karawan/features/automation/ui/view/automation_page.dart'
-    as _i2;
-import 'package:karawan/features/home/view/home_page.dart' as _i3;
-import 'package:karawan/features/market/ui/view/market_page.dart' as _i5;
-import 'package:karawan/features/profile/ui/view/profile_page.dart' as _i6;
+import 'package:karawan/features/home/view/home_page.dart' as _i2;
+import 'package:karawan/features/main_host/ui/view/main_host_page.dart' as _i4;
+import 'package:karawan/features/profile/ui/view/profile_page.dart' as _i5;
+import 'package:karawan/features/restaurant/ui/view/restaurant_page.dart'
+    as _i6;
 import 'package:karawan/features/splash/splash_screen.dart' as _i7;
-import 'package:karawan/login/ui/view/login_page.dart' as _i4;
+import 'package:karawan/login/ui/view/login_page.dart' as _i3;
 
 /// generated route for
 /// [_i1.AppBottomNavigation]
@@ -36,23 +36,7 @@ class AppBottomNavigation extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.AutomationPage]
-class AutomationRoute extends _i8.PageRouteInfo<void> {
-  const AutomationRoute({List<_i8.PageRouteInfo>? children})
-    : super(AutomationRoute.name, initialChildren: children);
-
-  static const String name = 'AutomationRoute';
-
-  static _i8.PageInfo page = _i8.PageInfo(
-    name,
-    builder: (data) {
-      return const _i2.AutomationPage();
-    },
-  );
-}
-
-/// generated route for
-/// [_i3.HomePage]
+/// [_i2.HomePage]
 class HomeRoute extends _i8.PageRouteInfo<void> {
   const HomeRoute({List<_i8.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
@@ -62,13 +46,13 @@ class HomeRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i3.HomePage();
+      return const _i2.HomePage();
     },
   );
 }
 
 /// generated route for
-/// [_i4.LoginPage]
+/// [_i3.LoginPage]
 class LoginRoute extends _i8.PageRouteInfo<void> {
   const LoginRoute({List<_i8.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
@@ -78,29 +62,29 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i4.LoginPage();
+      return const _i3.LoginPage();
     },
   );
 }
 
 /// generated route for
-/// [_i5.MarketPage]
-class MarketRoute extends _i8.PageRouteInfo<void> {
-  const MarketRoute({List<_i8.PageRouteInfo>? children})
-    : super(MarketRoute.name, initialChildren: children);
+/// [_i4.MainHostPage]
+class MainHostRoute extends _i8.PageRouteInfo<void> {
+  const MainHostRoute({List<_i8.PageRouteInfo>? children})
+    : super(MainHostRoute.name, initialChildren: children);
 
-  static const String name = 'MarketRoute';
+  static const String name = 'MainHostRoute';
 
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i5.MarketPage();
+      return const _i4.MainHostPage();
     },
   );
 }
 
 /// generated route for
-/// [_i6.ProfilePage]
+/// [_i5.ProfilePage]
 class ProfileRoute extends _i8.PageRouteInfo<void> {
   const ProfileRoute({List<_i8.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
@@ -110,7 +94,23 @@ class ProfileRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i6.ProfilePage();
+      return const _i5.ProfilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i6.RestaurantPage]
+class RestaurantRoute extends _i8.PageRouteInfo<void> {
+  const RestaurantRoute({List<_i8.PageRouteInfo>? children})
+    : super(RestaurantRoute.name, initialChildren: children);
+
+  static const String name = 'RestaurantRoute';
+
+  static _i8.PageInfo page = _i8.PageInfo(
+    name,
+    builder: (data) {
+      return const _i6.RestaurantPage();
     },
   );
 }
