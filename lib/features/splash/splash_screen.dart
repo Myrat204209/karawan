@@ -2,7 +2,7 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:karawan/app/app.dart' show LoginRoute;
+import 'package:karawan/app/router/app_router.gr.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {
@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
       backgroundImage: Image.asset('assets/images/Vector.png'),
       setStateTimer: Duration(milliseconds: 1500),
       animationDuration: Duration(milliseconds: 2000),
-      onAnimationEnd: () => context.router.replace(LoginRoute()),
+      onAnimationEnd: () => context.router.replace(StoreRoute()),
     );
   }
 }

@@ -1,4 +1,5 @@
 export 'home/home.dart';
-export 'main_host/main_host.dart';
+export 'host/host.dart';
 export 'restaurant/restaurant.dart';
 export 'profile/profile.dart';
+export 'store/store.dart';
