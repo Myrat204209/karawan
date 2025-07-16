@@ -10,7 +10,16 @@ class RestaurantPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: RestaurantView());
+    return const Scaffold(
+      backgroundColor: Colors.deepOrange, // Different color for visibility
+      body: Center(
+        child: Text(
+          'Restaurant Section',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+      ),
+      // body: RestaurantView(),
+    );
     // return BlocProvider(
     //   create: (_) => RestaurantBloc(
     //     restaurantRepository: RestaurantRepository(

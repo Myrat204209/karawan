@@ -6,8 +6,8 @@ import 'package:karawan/app/router/router.dart';
 // Your bottomNavigationBarItems list remains the same
 const List<IconData> bottomNavigationBarItems = [
   Icons.home,
-  Icons.grid_view,
-  Icons.emoji_food_beverage_rounded,
+  // Icons.grid_view,
+  // Icons.emoji_food_beverage_rounded,
   Icons.discount_rounded,
 ];
 
@@ -22,7 +22,8 @@ class AppBottomNavigation extends StatelessWidget {
 
       transitionBuilder: (context, child, animation) =>
           FadeTransition(opacity: animation, child: child),
-      routes: [HomeRoute(), AutomationRoute(), MarketRoute(), ProfileRoute()],
+      routes: [HomeRoute(),
+       ProfileRoute()],
 
       bottomNavigationBuilder: (context, tabsRouter) {
         return NavigationBar(
