@@ -25,16 +25,18 @@ class AppSectionScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     // We now use AutoTabsRouter to handle the logic internally.
     return AutoTabsScaffold(
-      // The routes are provided directly to the router.
+      backgroundColor: const Color(0xFFFBFBFD),
       routes: navigationItems.map((item) => item.route).toList(),
       bottomNavigationBuilder: (context, tabsRouter) {
         // The bottomNavigationBar is built using the tabsRouter's state.
         return NavigationBar(
-          backgroundColor: const Color(0xFF021618),
+          elevation: 4,
+          shadowColor: Color(0xFF000000).withValues(alpha: 5),
+          backgroundColor: const Color(0xFFFFFFFF),
           indicatorColor: Colors.transparent,
-          height: 73.28,
+          height: 90,
           selectedIndex: tabsRouter.activeIndex,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           onDestinationSelected: (index) {
             if (tabsRouter.activeIndex != index) {
               tabsRouter.setActiveIndex(index);

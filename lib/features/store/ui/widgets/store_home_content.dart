@@ -7,6 +7,9 @@ class StoreHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Store Home'));
+    return CustomScrollView(slivers: [
+  
+],
+    );
   }
 }

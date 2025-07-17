@@ -5,7 +5,7 @@ import 'package:karawan/app/app.dart';
 final storeNavigationItems = [
   NavigationItem(
     route: const StoreHomeRoute(),
-    icon: Icons.store,
+    icon: Icons.home_rounded,
     label: 'Home',
   ),
   NavigationItem(

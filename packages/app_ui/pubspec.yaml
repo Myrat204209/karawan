@@ -8,6 +8,7 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
+  carousel_slider_plus: ^7.1.1
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.3
