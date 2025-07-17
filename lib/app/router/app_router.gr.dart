@@ -19,7 +19,7 @@ import 'package:karawan/features/restaurant/ui/view/restaurant_page.dart'
     as _i4;
 import 'package:karawan/features/restaurant/ui/view/restaurant_profile_page.dart'
     as _i5;
-import 'package:karawan/features/splash/splash_screen.dart' as _i6;
+import 'package:karawan/features/splash/splash_page.dart' as _i6;
 import 'package:karawan/features/store/ui/view/store_home_page.dart' as _i7;
 import 'package:karawan/features/store/ui/view/store_orders_page.dart' as _i8;
 import 'package:karawan/features/store/ui/view/store_page.dart' as _i9;
@@ -106,7 +106,7 @@ class RestaurantProfileRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.SplashScreen]
+/// [_i6.SplashPage]
 class SplashRoute extends _i11.PageRouteInfo<void> {
   const SplashRoute({List<_i11.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
@@ -116,7 +116,7 @@ class SplashRoute extends _i11.PageRouteInfo<void> {
   static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      return const _i6.SplashScreen();
+      return const _i6.SplashPage();
     },
   );
 }

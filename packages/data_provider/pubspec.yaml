@@ -10,9 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   dio: ^5.8.0+1
-  talker_dio_logger: ^4.9.1
-  talker_flutter: ^4.9.1
-  retrofit: ^4.4.2
+  talker_dio_logger: ^4.9.2
+  talker_flutter: ^4.9.2
+  retrofit: ^4.6.0
   json_annotation: ^4.9.0
 
 dev_dependencies:
@@ -20,5 +20,5 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   json_serializable: ^6.9.5
-  build_runner: ^2.5.4
-  retrofit_generator: ^9.2.0
+  build_runner: ^2.6.0
+  retrofit_generator: ^10.0.0
