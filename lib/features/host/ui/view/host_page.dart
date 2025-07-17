@@ -31,7 +31,7 @@ class _HostPageState extends State<HostPage>
   }
 
   void _onDragUpdate(DragUpdateDetails details) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     // Update the animation value based on the horizontal drag
     _controller.value -= details.primaryDelta! / screenWidth;
   }
@@ -56,7 +56,7 @@ class _HostPageState extends State<HostPage>
           // Calculate transforms based on animation value (0.0 to 1.0)
           final value = _controller.value;
           final scale = 0.8 + (0.2 * value);
-          final offset = MediaQuery.of(context).size.width * (value - 1) * 0.7;
+          final offset = MediaQuery.sizeOf(context).width * (value - 1) * 0.7;
 
           return Stack(
             children: [

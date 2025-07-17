@@ -32,7 +32,7 @@ class _AppViewState extends State<AppView> {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: AppTheme().themeData,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         routerConfig: _router.config(
           navigatorObservers: () => [
             TalkerRouteObserver(_talker),

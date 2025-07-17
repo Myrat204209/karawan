@@ -58,7 +58,7 @@ class AppTheme extends AppBaseTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: AppColors.bgMain, // Distinct background color
+      scaffoldBackgroundColor: Colors.white, // Distinct background color
       appBarTheme: AppBarTheme(
         elevation: 0,
         backgroundColor: colorScheme.surface, // Distinct app bar surface

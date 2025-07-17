@@ -7,10 +7,6 @@ class RestaurantHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Restaurant Home'),
-      ),
-    );
+    return Center(child: Text('Restaurant Home'));
   }
 }

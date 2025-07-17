@@ -10,26 +10,30 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     AutoRoute(page: SplashRoute.page, initial: true),
 
-    // The main entry point is now the HostPage
-    AutoRoute(page: HostRoute.page),
-
-    // Define the Market section with its nested tabs
+    // CORRECTED: HostRoute now contains the two main sections as its children.
     AutoRoute(
-      page: StoreRoute.page,
+      page: HostRoute.page,
       children: [
-        AutoRoute(page: StoreHomeRoute.page, initial: true),
-        AutoRoute(page: StoreOrdersRoute.page),
-        AutoRoute(page: StoreProfileRoute.page),
-      ],
-    ),
+        // Store (Market) section with its nested tabs
+        AutoRoute(
+          page: StoreRoute.page,
+          initial: true, // This is the default child to show
+          children: [
+            AutoRoute(page: StoreHomeRoute.page, initial: true),
+            AutoRoute(page: StoreOrdersRoute.page),
+            AutoRoute(page: StoreProfileRoute.page),
+          ],
+        ),
 
-    // Define the Restaurant section with its nested tabs
-    AutoRoute(
-      page: RestaurantRoute.page,
-      children: [
-        AutoRoute(page: RestaurantHomeRoute.page, initial: true),
-        AutoRoute(page: RestaurantOrdersRoute.page),
-        AutoRoute(page: RestaurantProfileRoute.page),
+        // Restaurant section with its nested tabs
+        AutoRoute(
+          page: RestaurantRoute.page,
+          children: [
+            AutoRoute(page: RestaurantHomeRoute.page, initial: true),
+            AutoRoute(page: RestaurantOrdersRoute.page),
+            AutoRoute(page: RestaurantProfileRoute.page),
+          ],
+        ),
       ],
     ),
   ];

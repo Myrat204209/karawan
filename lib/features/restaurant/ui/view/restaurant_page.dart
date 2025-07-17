@@ -9,6 +9,8 @@ class RestaurantPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
+      
+      backgroundColor: Colors.red,
       // Define the routes for the restaurant section's tabs
       routes: const [
         RestaurantHomeRoute(),

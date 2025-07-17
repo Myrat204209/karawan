@@ -7,10 +7,6 @@ class RestaurantOrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Restaurant Orders'),
-      ),
-    );
+    return Center(child: Text('Restaurant Orders'));
   }
 }
