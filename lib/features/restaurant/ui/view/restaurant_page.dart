@@ -22,7 +22,7 @@ class RestaurantPage extends StatelessWidget {
       ),
       NavigationItem(
         route: const RestaurantProfileRoute(),
-        icon: Icons.account_circle_outlined,
+        icon: Icons.person,
         label: 'Profile',
       ),
     ];

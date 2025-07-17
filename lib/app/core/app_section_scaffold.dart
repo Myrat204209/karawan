@@ -2,64 +2,48 @@ import 'package:app_ui/app_ui.dart' show AppColors;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-/// A simple data class to hold information for a navigation bar item.
+// The NavigationItem class remains the same.
 class NavigationItem {
   const NavigationItem({
     required this.route,
     required this.icon,
     required this.label,
   });
-  
+
   final PageRouteInfo route;
   final IconData icon;
   final String label;
 }
 
-/// A reusable scaffold for the main app sections (Store, Restaurant).
-/// It sets up an [AutoTabsScaffold] with a consistent [NavigationBar] style.
+// This is the updated, self-contained scaffold widget.
 class AppSectionScaffold extends StatelessWidget {
-  const AppSectionScaffold({
-    super.key,
-    required this.navigationItems,
-  });
+  const AppSectionScaffold({super.key, required this.navigationItems});
 
-  /// The list of items to display in the bottom navigation bar.
   final List<NavigationItem> navigationItems;
 
   @override
   Widget build(BuildContext context) {
+    // We now use AutoTabsRouter to handle the logic internally.
     return AutoTabsScaffold(
-      // The routes are now derived from the navigationItems list.
+      // The routes are provided directly to the router.
       routes: navigationItems.map((item) => item.route).toList(),
-      
-      // Keep the background color to prevent transparency issues.
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      
-      // The fade transition is preserved.
-      transitionBuilder: (context, child, animation) =>
-          FadeTransition(opacity: animation, child: child),
-      
       bottomNavigationBuilder: (context, tabsRouter) {
+        // The bottomNavigationBar is built using the tabsRouter's state.
         return NavigationBar(
-          // The background color is now consistent.
           backgroundColor: const Color(0xFF021618),
           indicatorColor: Colors.transparent,
           height: 73.28,
           selectedIndex: tabsRouter.activeIndex,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          
-          // This logic correctly handles tab switching and popping the stack.
           onDestinationSelected: (index) {
             if (tabsRouter.activeIndex != index) {
               tabsRouter.setActiveIndex(index);
             } else {
-              // Pop to the root of the current tab's navigator
-              tabsRouter.innerRouterOf<StackRouter>(tabsRouter.current.name)
+              tabsRouter
+                  .innerRouterOf<StackRouter>(tabsRouter.current.name)
                   ?.popUntilRoot();
             }
           },
-
-          // The destinations are now built dynamically from the navigationItems list.
           destinations: [
             for (final (index, item) in navigationItems.indexed)
               _NavigationDestinationIcon(

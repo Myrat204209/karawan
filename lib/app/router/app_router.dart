@@ -8,16 +8,16 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: SplashRoute.page),
+        // // The splash screen is the only initial route.
+        // AutoRoute(page: SplashRoute.page, initial: true),
 
-    AutoRoute(
-      initial: true,
-      
-      page: HomeRoute.page,
-      children: [
+        // // HomePage is a simple route that hosts the swipe view. It has NO children.
+        // AutoRoute(page: HomeRoute.page),
+
+        // StoreRoute is a top-level route that contains its own children (tabs).
         AutoRoute(
-          page: StoreRoute.page,
           initial: true,
+          page: StoreRoute.page,
           children: [
             AutoRoute(page: StoreHomeRoute.page, initial: true),
             AutoRoute(page: StoreOrdersRoute.page),
@@ -25,6 +25,7 @@ class AppRouter extends RootStackRouter {
           ],
         ),
 
+        // RestaurantRoute is also a top-level route with its own children.
         AutoRoute(
           page: RestaurantRoute.page,
           children: [
@@ -33,7 +34,5 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: RestaurantProfileRoute.page),
           ],
         ),
-      ],
-    ),
-  ];
+      ];
 }
