@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:karawan/app/router/router.dart';
+import 'package:karawan/app/app.dart';
 
 @RoutePage()
 class StorePage extends StatelessWidget {
@@ -8,24 +8,25 @@ class StorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsScaffold(
-      // Define the routes for the Store section's tabs
-      routes: const [
-        StoreHomeRoute(),
-        StoreOrdersRoute(),
-        StoreProfileRoute(),
-      ],
-      bottomNavigationBuilder: (context, tabsRouter) {
-        return NavigationBar(
-          selectedIndex: tabsRouter.activeIndex,
-          onDestinationSelected: (index) => tabsRouter.setActiveIndex(index),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.ramen_dining), label: 'Stores'),
-            NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Orders'),
-            NavigationDestination(icon: Icon(Icons.person_outline), label: 'Profile'),
-          ],
-        );
-      },
-    );
+    // Define the items specific to the Store section.
+    final storeNavigationItems = [
+      NavigationItem(
+        route: const StoreHomeRoute(),
+        icon: Icons.store,
+        label: 'Home',
+      ),
+      NavigationItem(
+        route: const StoreOrdersRoute(),
+        icon: Icons.receipt_long,
+        label: 'Orders',
+      ),
+      NavigationItem(
+        route: const StoreProfileRoute(),
+        icon: Icons.person_outline,
+        label: 'Profile',
+      ),
+    ];
+
+    return AppSectionScaffold(navigationItems: storeNavigationItems);
   }
 }

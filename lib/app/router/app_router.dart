@@ -8,16 +8,16 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: SplashRoute.page, initial: true),
+    AutoRoute(page: SplashRoute.page),
 
-    // CORRECTED: HostRoute now contains the two main sections as its children.
     AutoRoute(
-      page: HostRoute.page,
+      initial: true,
+      
+      page: HomeRoute.page,
       children: [
-        // Store (Market) section with its nested tabs
         AutoRoute(
           page: StoreRoute.page,
-          initial: true, // This is the default child to show
+          initial: true,
           children: [
             AutoRoute(page: StoreHomeRoute.page, initial: true),
             AutoRoute(page: StoreOrdersRoute.page),
@@ -25,7 +25,6 @@ class AppRouter extends RootStackRouter {
           ],
         ),
 
-        // Restaurant section with its nested tabs
         AutoRoute(
           page: RestaurantRoute.page,
           children: [

@@ -10,7 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:karawan/features/host/ui/view/host_page.dart' as _i1;
+import 'package:karawan/features/home/view/home_page.dart' as _i1;
 import 'package:karawan/features/restaurant/ui/view/restaurant_home_page.dart'
     as _i2;
 import 'package:karawan/features/restaurant/ui/view/restaurant_orders_page.dart'
@@ -26,17 +26,17 @@ import 'package:karawan/features/store/ui/view/store_page.dart' as _i9;
 import 'package:karawan/features/store/ui/view/store_profile_page.dart' as _i10;
 
 /// generated route for
-/// [_i1.HostPage]
-class HostRoute extends _i11.PageRouteInfo<void> {
-  const HostRoute({List<_i11.PageRouteInfo>? children})
-    : super(HostRoute.name, initialChildren: children);
+/// [_i1.HomePage]
+class HomeRoute extends _i11.PageRouteInfo<void> {
+  const HomeRoute({List<_i11.PageRouteInfo>? children})
+    : super(HomeRoute.name, initialChildren: children);
 
-  static const String name = 'HostRoute';
+  static const String name = 'HomeRoute';
 
   static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      return const _i1.HostPage();
+      return const _i1.HomePage();
     },
   );
 }

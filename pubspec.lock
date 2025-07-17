@@ -883,6 +883,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  slide_reveal_screen:
+    dependency: "direct main"
+    description:
+      name: slide_reveal_screen
+      sha256: "44402d2639df689c42b22095e982f1708ab07c6a924c5e92f6a6e145e27fe6df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   source_gen:
     dependency: transitive
     description:

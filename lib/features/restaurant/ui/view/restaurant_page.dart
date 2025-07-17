@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:karawan/app/router/router.dart';
+import 'package:karawan/app/app.dart';
 
 @RoutePage()
 class RestaurantPage extends StatelessWidget {
@@ -8,26 +8,25 @@ class RestaurantPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsScaffold(
-      
-      backgroundColor: Colors.red,
-      // Define the routes for the restaurant section's tabs
-      routes: const [
-        RestaurantHomeRoute(),
-        RestaurantOrdersRoute(),
-        RestaurantProfileRoute(),
-      ],
-      bottomNavigationBuilder: (context, tabsRouter) {
-        return NavigationBar(
-          selectedIndex: tabsRouter.activeIndex,
-          onDestinationSelected: (index) => tabsRouter.setActiveIndex(index),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.ramen_dining), label: 'Restaurants'),
-            NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Orders'),
-            NavigationDestination(icon: Icon(Icons.person_outline), label: 'Profile'),
-          ],
-        );
-      },
-    );
+    // Define the items specific to the Restaurant section.
+    final restaurantNavigationItems = [
+      NavigationItem(
+        route: const RestaurantHomeRoute(),
+        icon: Icons.ramen_dining,
+        label: 'Restaurants',
+      ),
+      NavigationItem(
+        route: const RestaurantOrdersRoute(),
+        icon: Icons.delivery_dining,
+        label: 'Orders',
+      ),
+      NavigationItem(
+        route: const RestaurantProfileRoute(),
+        icon: Icons.account_circle_outlined,
+        label: 'Profile',
+      ),
+    ];
+
+    return AppSectionScaffold(navigationItems: restaurantNavigationItems);
   }
 }

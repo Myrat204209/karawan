@@ -25,21 +25,24 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(428, 926),
-      minTextAdapt: true,
-      useInheritedMediaQuery: true,
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme().themeData,
-        themeMode: ThemeMode.light,
-        routerConfig: _router.config(
-          navigatorObservers: () => [
-            TalkerRouteObserver(_talker),
-            // SentryNavigatorObserver(),
-          ],
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ScreenUtilInit(
+          designSize: Size(constraints.maxWidth, constraints.maxHeight),
+          minTextAdapt: true,
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme().themeData,
+            themeMode: ThemeMode.light,
+            routerConfig: _router.config(
+              navigatorObservers: () => [
+                TalkerRouteObserver(_talker),
+                // SentryNavigatorObserver(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -13,7 +13,7 @@ class SplashPage extends StatelessWidget {
       childWidget: Image.asset('assets/app_logo.jpg', fit: BoxFit.cover),
       setStateTimer: Duration(milliseconds: 1500),
       animationDuration: Duration(milliseconds: 2000),
-      onAnimationEnd: () => context.router.replace(HostRoute()),
+      onAnimationEnd: () => context.router.replace(HomeRoute()),
     );
   }
 }
