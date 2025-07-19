@@ -44,43 +44,43 @@ class _AppSliderState extends State<AppSlider> {
               ),
             ),
 
-            _buildIndicators(),
+            // _buildIndicators(),
           ],
         ),
       ).paddingAll(10),
     );
   }
 
-  Widget _buildIndicators() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children:
-          widget.promoItems.asMap().entries.map((entry) {
-            int index = entry.key;
-            return GestureDetector(
-              onTap: () => _carouselController.animateToPage(index),
-              child: Container(
-                width: _currentIndex == index ? 18.0 : 8.0,
-                height: 8.0,
-                margin: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 4.0,
-                ),
-                decoration: BoxDecoration(
-                  shape:
-                      _currentIndex == index
-                          ? BoxShape.rectangle
-                          : BoxShape.circle,
-                  borderRadius:
-                      _currentIndex == index ? BorderRadius.circular(5) : null,
-                  color:
-                      _currentIndex == index
-                          ? Colors.orangeAccent
-                          : Colors.grey,
-                ),
-              ),
-            );
-          }).toList(),
-    );
-  }
+  // Widget _buildIndicators() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children:
+  //         widget.promoItems.asMap().entries.map((entry) {
+  //           int index = entry.key;
+  //           return GestureDetector(
+  //             onTap: () => _carouselController.animateToPage(index),
+  //             child: Container(
+  //               width: _currentIndex == index ? 18.0 : 8.0,
+  //               height: 8.0,
+  //               margin: const EdgeInsets.symmetric(
+  //                 vertical: 8.0,
+  //                 horizontal: 4.0,
+  //               ),
+  //               decoration: BoxDecoration(
+  //                 shape:
+  //                     _currentIndex == index
+  //                         ? BoxShape.rectangle
+  //                         : BoxShape.circle,
+  //                 borderRadius:
+  //                     _currentIndex == index ? BorderRadius.circular(5) : null,
+  //                 color:
+  //                     _currentIndex == index
+  //                         ? Colors.orangeAccent
+  //                         : Colors.grey,
+  //               ),
+  //             ),
+  //           );
+  //         }).toList(),
+  //   );
+  // }
 }
