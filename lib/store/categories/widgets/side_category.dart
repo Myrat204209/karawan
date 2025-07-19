@@ -89,85 +89,82 @@ class _SideCategoryFilterState extends State<SideCategoryFilter> {
   }
 
   // Widget for the product grid on the right.
-Widget _buildProductGrid() {
-  return Expanded(
-    child: GridView.builder(
-      // 1. Add these two properties to fix the layout error.
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+  Widget _buildProductGrid() {
+    return Expanded(
+      child: GridView.builder(
+        // 1. Add these two properties to fix the layout error.
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
 
-      itemCount: 8, // Example item count
-      padding: const EdgeInsets.only(right: 18, left: 10), // Adjust padding
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 18,
-        crossAxisSpacing: 10,
-        childAspectRatio: 175 / 255, // Adjusted for more text content
-      ),
-      itemBuilder: (context, index) {
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: kCircular15Border,
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 2),
-                blurRadius: 14.1,
-                // 2. Corrected shadow color for clarity
-                color: Colors.black.withOpacity(0.05),
-              ),
-            ],
-            color: Colors.white,
-          ),
-          child: ClipRRect(
-            borderRadius: kCircular15Border,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Assets.images.mineral.image(
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text(
-                          'Mineral Water',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const Text(
-                          'Product designers who focus on simplicity & usability',
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: Colors.grey,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Text(
-                          'TMT 12.00',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.teal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+        itemCount: 8, // Example item count
+        padding: const EdgeInsets.only(right: 18, left: 10), // Adjust padding
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 18,
+          crossAxisSpacing: 10,
+          childAspectRatio: 175 / 255, // Adjusted for more text content
+        ),
+        itemBuilder: (context, index) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: kCircular15Border,
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 2),
+                  blurRadius: 14.1,
+                  // 2. Corrected shadow color for clarity
+                  color: Colors.black.withValues(alpha: 0.05),
                 ),
               ],
+              color: Colors.white,
             ),
-          ),
-        );
-      },
-    ),
-  );
-}
+            child: ClipRRect(
+              borderRadius: kCircular15Border,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Assets.images.mineral.image(
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Text(
+                            'Mineral Water',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const Text(
+                            'Product designers who focus on simplicity & usability',
+                            style: TextStyle(fontSize: 9, color: Colors.grey),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Text(
+                            'TMT 12.00',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
