@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppCategoryGrid extends StatelessWidget {
   final String title;
@@ -13,49 +14,92 @@ class AppCategoryGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList.list(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 20,
-            bottom: 10,
+    return SliverMainAxisGroup(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+          sliver: SliverToBoxAdapter(
+            child: Text(
+              title,
+              style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+            ),
           ),
-          child: Text(title, style: AppTextStyle.text().lg().bold()),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+        SliverPadding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          sliver: SliverGrid.builder(
             itemCount: itemCount,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisExtent: 115,
-              mainAxisSpacing: 10,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 18,
               crossAxisSpacing: 10,
+              childAspectRatio: 175 / 205,
             ),
             itemBuilder: (context, index) {
               return DecoratedBox(
-                key: ValueKey('$title-$index'),
                 decoration: BoxDecoration(
-                  color: Colors.blue[100 * (index % 9 + 1)]!,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: kCircular15Border,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 2),
+                      blurRadius: 14.1,
+                      blurStyle: BlurStyle.solid,
+                      color: Color(0x00000000).withValues(alpha: 0.05),
+                    ),
+                  ],
+                  color: Colors.white,
                 ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Item $index',
-                    textAlign: TextAlign.center,
-                    style: AppTextStyle.text().lg().bold(),
+                child: ClipRRect(
+                  borderRadius: kCircular15Border,
+
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Assets.images.mineral.image(fit: BoxFit.cover),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            spacing: 4,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 5),
+                              Text(
+                                'Mineral Water',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Product designers who focus on simplicity & usability',
+                                style: const TextStyle(
+                                  fontSize: 9,
+                                  color: Colors.grey,
+                                ),
+                                maxLines: 2,
+                              ),
+                              Text(
+                                'TMT 12.00',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
             },
           ),
         ),
-        const SizedBox(height: 20),
       ],
     );
   }

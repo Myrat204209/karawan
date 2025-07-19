@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:karawan/store/features.dart';
 
 @RoutePage()
 class StoreCategoriesPage extends StatelessWidget {
@@ -7,6 +8,6 @@ class StoreCategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return StoreCategoriesView();
   }
 }

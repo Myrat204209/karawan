@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:karawan/app/app.dart';
@@ -5,27 +6,33 @@ import 'package:karawan/app/app.dart';
 final storeNavigationItems = [
   NavigationItem(
     route: const StoreHomeRoute(),
-    icon: Icons.home_rounded,
+    icon: Assets.navBar.home,
+    iconOn: Assets.navBar.homeOn,
+
     label: 'Home',
   ),
   NavigationItem(
-    route: const StoreHomeRoute(),
-    icon: Icons.home_rounded,
+    route: const StoreCategoriesRoute(),
+    icon: Assets.navBar.category,
+    iconOn: Assets.navBar.categoryOn,
     label: 'Category',
   ),
   NavigationItem(
-    route: const StoreHomeRoute(),
-    icon: Icons.home_rounded,
+    route: const StoreFavoritesRoute(),
+    icon: Assets.navBar.favorites,
+    iconOn: Assets.navBar.favoritesOn,
     label: 'Favorites',
   ),
   NavigationItem(
     route: const StoreCartRoute(),
-    icon: Icons.receipt_long,
+    icon: Assets.navBar.cart,
+    iconOn: Assets.navBar.cartOn,
     label: 'Cart',
   ),
   NavigationItem(
     route: const StoreProfileRoute(),
-    icon: Icons.person_outline,
+    icon: Assets.navBar.profile,
+    iconOn: Assets.navBar.profileOn,
     label: 'Profile',
   ),
 ];

@@ -28,7 +28,7 @@ class _AppViewState extends State<AppView> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return ScreenUtilInit(
-          designSize: Size(constraints.maxWidth, constraints.maxHeight),
+          designSize: const Size(428, 952),
           minTextAdapt: true,
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,

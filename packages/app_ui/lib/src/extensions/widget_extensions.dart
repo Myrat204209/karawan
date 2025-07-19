@@ -41,3 +41,14 @@ extension WidgetColorX on Widget {
 extension WidgetRatio on Widget {
   Widget ratio(double ratio) => AspectRatio(aspectRatio: ratio, child: this);
 }
+
+extension WidgetClip on Widget {
+  Widget clipper(double radius) => ClipRRect(
+    borderRadius: BorderRadiusGeometry.circular(radius),
+    child: this,
+  );
+  // Widget clipperTop(double radius) => ClipRRect(
+  //   borderRadius: BorderRadiusGeometry.vertical(top: Radius.circular(radius)),
+  //   child: this,
+  // );
+}

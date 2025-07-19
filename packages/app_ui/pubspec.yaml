@@ -11,17 +11,26 @@ dependencies:
   carousel_slider_plus: ^7.1.1
   flutter:
     sdk: flutter
+  flutter_gen: ^5.11.0
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.2.0
+  skeletonizer: ^2.1.0+1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_gen_runner: ^5.11.0
+  build_runner: ^2.6.0
 
-# flutter:
-  # assets:
-  #   - assets/
+
+flutter:
+  assets:
+    - assets/
+    - assets/svg/
+    - assets/nav_bar/
+    - assets/images/
   # fonts:
   #   - family: Inter
   #     fonts:
@@ -43,3 +52,16 @@ dev_dependencies:
   #         weight: 200
   #       - asset: assets/fonts/Inter-Thin-BETA.otf
   #         weight: 100
+
+flutter_gen:
+  assets:
+    enabled: true
+    outputs:
+      directory_path_enabled: true
+      package_parameter_enabled: true
+  output: lib/src/generated/
+  line_length: 80 
+
+  integrations:
+    image: true
+    flutter_svg: true

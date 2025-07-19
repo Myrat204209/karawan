@@ -1,63 +1,34 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppStatusBar extends StatelessWidget {
-  const AppStatusBar({
-    super.key,
-    this.locationText,
-    required this.onAddressTap,
-    required this.onNotificationTap,
-    required this.onBookmarkTap,
-    required this.onSearchTap,
-  });
+  const AppStatusBar({super.key, required this.onSearchTap});
 
-  final String? locationText;
-  final VoidCallback onAddressTap;
-  final VoidCallback onNotificationTap;
-  final VoidCallback onBookmarkTap;
   final VoidCallback onSearchTap;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      // stretch: false,
       backgroundColor: Colors.white,
-      primary: true,
-      actionsPadding: EdgeInsets.zero,
-      expandedHeight: 100,
-      titleSpacing: 0,
-      leading: Icon(
-        Icons.directions_bike_outlined,
-        size: 30,
-        color: AppColors.secondAccent,
-      ),
 
-      leadingWidth: 50,
+      actionsPadding: EdgeInsets.only(right: 18.w),
+      titleSpacing: 0,
+      leading: Assets.svg.caravan.svg().paddingOnly(left: 18.w),
+
+      leadingWidth: 120.w,
+      elevation: 2,
+
       automaticallyImplyLeading: false,
-      title: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          AppActionIcon(
-            icon: CupertinoIcons.chevron_right,
-            onTap: onAddressTap,
-            size: 20,
-          ),
-        ],
-      ),
-      floating: true,
+      toolbarHeight: 80.h,
       pinned: true,
-      actions: [
-        AppActionIcon(icon: CupertinoIcons.bell, onTap: onNotificationTap),
-        AppActionIcon(
-          icon: Icons.bookmark_border_outlined,
-          onTap: onBookmarkTap,
-        ),
-      ],
-      snap: true,
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(44),
-        child: AppSearchBar(),
-      ),
+      actions: [AppActionIcon(icon: Icons.search, onTap: onSearchTap)],
+
+      // bottom: PreferredSize(
+      //   preferredSize: const Size.fromHeight(44),
+      //   child: AppSearchBar(),
+      // ),
     );
   }
 }
