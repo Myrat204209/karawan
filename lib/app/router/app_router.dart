@@ -23,5 +23,16 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: StoreProfileRoute.page),
       ],
     ),
+    AutoRoute(
+      initial: true,
+      page: RestaurantBottomNavigation.page,
+      children: [
+        AutoRoute(page: StoreHomeRoute.page, initial: true),
+        AutoRoute(page: StoreCategoriesRoute.page),
+        AutoRoute(page: StoreFavoritesRoute.page),
+        AutoRoute(page: StoreCartRoute.page),
+        AutoRoute(page: StoreProfileRoute.page),
+      ],
+    ),
   ];
 }

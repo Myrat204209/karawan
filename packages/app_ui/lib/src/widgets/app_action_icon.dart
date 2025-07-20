@@ -1,4 +1,3 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppActionIcon extends StatelessWidget {
@@ -6,35 +5,52 @@ class AppActionIcon extends StatelessWidget {
     super.key,
     required this.icon,
     required this.onTap,
-    this.color = AppColors.iconColor,
+    this.color = const Color(0xFF666666),
+    this.isSmall = false, // New boolean parameter
   });
 
   final Color color;
   final IconData icon;
   final VoidCallback onTap;
+  final bool isSmall;
+
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 4),
-            blurRadius: 14.1,
-            color: Color(0x00000000).withValues(alpha: 0.05),
-            blurStyle: BlurStyle.outer,
-          ),
-        ],
-        shape: BoxShape.circle,
-      ),
+    // Determine styles based on the isSmall flag
+    final double size = isSmall ? 25 : 40.0;
+    final double iconSize = isSmall ? 15.0 : 25.0;
+    final double blurRadius = isSmall ? 3.44 : 14.1;
+    final Offset offset =
+        isSmall ? const Offset(0.51, 0.51) : const Offset(0, 4);
+    final double shadowOpacity = isSmall ? 0.10 : 0.05;
 
-      child: IconButton(
-        padding: EdgeInsets.zero,
-        icon: Icon(icon, color: color, size: 30).centralize(),
-        style: IconButton.styleFrom(
-          shape: CircleBorder(),
-          backgroundColor: Colors.white,
+    return SizedBox(
+      width: size,
+      height: size,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              offset: offset,
+              blurRadius: blurRadius,
+              color: Colors.black.withValues(alpha: shadowOpacity),
+            ),
+          ],
+          shape: BoxShape.circle,
         ),
-        onPressed: onTap,
+        child: IconButton(
+          padding: EdgeInsets.zero,
+          icon: Icon(
+            icon,
+            color: isSmall ? Color(0xFF151515) : color,
+            size: iconSize,
+          ),
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white,
+            shape: const CircleBorder(),
+          ),
+          onPressed: onTap,
+        ),
       ),
     );
   }

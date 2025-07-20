@@ -24,6 +24,9 @@ class $AssetsImagesGen {
   AssetGenImage get banner2 =>
       const AssetGenImage('assets/images/banner_2.png');
 
+  /// Directory path: assets/images/brands
+  $AssetsImagesBrandsGen get brands => const $AssetsImagesBrandsGen();
+
   /// File path: assets/images/mineral.png
   AssetGenImage get mineral => const AssetGenImage('assets/images/mineral.png');
 
@@ -100,6 +103,32 @@ class $AssetsSvgGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [caravan];
+}
+
+class $AssetsImagesBrandsGen {
+  const $AssetsImagesBrandsGen();
+
+  /// File path: assets/images/brands/brend_1.png
+  AssetGenImage get brend1 =>
+      const AssetGenImage('assets/images/brands/brend_1.png');
+
+  /// File path: assets/images/brands/brend_2.png
+  AssetGenImage get brend2 =>
+      const AssetGenImage('assets/images/brands/brend_2.png');
+
+  /// File path: assets/images/brands/brend_3.png
+  AssetGenImage get brend3 =>
+      const AssetGenImage('assets/images/brands/brend_3.png');
+
+  /// File path: assets/images/brands/brend_4.png
+  AssetGenImage get brend4 =>
+      const AssetGenImage('assets/images/brands/brend_4.png');
+
+  /// Directory path: packages/app_ui/assets/images/brands
+  String get path => 'packages/app_ui/assets/images/brands';
+
+  /// List of all assets
+  List<AssetGenImage> get values => [brend1, brend2, brend3, brend4];
 }
 
 class Assets {

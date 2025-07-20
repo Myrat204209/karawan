@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart' show AppColors, SvgGenImage;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // The NavigationItem class remains the same.
 class NavigationItem {
@@ -39,7 +40,7 @@ class AppSectionScaffold extends StatelessWidget {
           labelTextStyle: WidgetStatePropertyAll(
             TextStyle(color: AppColors.mainAccent),
           ),
-          height: 90,
+          height: 85.h,
           selectedIndex: tabsRouter.activeIndex,
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           onDestinationSelected: (index) {

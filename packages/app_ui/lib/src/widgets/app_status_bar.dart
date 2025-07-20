@@ -21,7 +21,7 @@ class AppStatusBar extends StatelessWidget {
       elevation: 2,
 
       automaticallyImplyLeading: false,
-      toolbarHeight: 80.h,
+      toolbarHeight: 75.h,
       pinned: true,
       actions: [AppActionIcon(icon: Icons.search, onTap: onSearchTap)],
 

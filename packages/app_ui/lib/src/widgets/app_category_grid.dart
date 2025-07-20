@@ -19,9 +19,22 @@ class AppCategoryGrid extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
           sliver: SliverToBoxAdapter(
-            child: Text(
-              title,
-              style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyle.text().lg().bold().withColor(
+                    Colors.black,
+                  ),
+                ),
+                Text(
+                  'Seretmek',
+                  style: AppTextStyle.text().medium().withColor(
+                    AppColors.mainAccent,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -57,7 +70,20 @@ class AppCategoryGrid extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: Assets.images.mineral.image(fit: BoxFit.cover),
+                        child: Stack(
+                          children: [
+                            Assets.images.mineral.image(fit: BoxFit.cover),
+                            Positioned(
+                              right: 8,
+                              top: 8,
+                              child: AppActionIcon(
+                                icon: Icons.favorite_border_rounded,
+                                onTap: () {},
+                                isSmall: true,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Expanded(
                         flex: 2,

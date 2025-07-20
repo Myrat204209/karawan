@@ -40,7 +40,9 @@ class AppCarousel extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: Text(index.toString()).centralize(),
+                      child: Assets.images.brands.values[index % 4].image(
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ).paddingAll(1).colorize(Color(0xFFEEEEEE)).clipper(10),
                 ).paddingOnly(
