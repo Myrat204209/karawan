@@ -11,7 +11,7 @@ class AppStatusBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       // stretch: false,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.mainAccent,
 
       actionsPadding: EdgeInsets.only(right: 18.w),
       titleSpacing: 0,

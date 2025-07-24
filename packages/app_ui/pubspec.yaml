@@ -11,12 +11,11 @@ dependencies:
   carousel_slider_plus: ^7.1.1
   flutter:
     sdk: flutter
-  flutter_boxicons: ^3.2.0
   flutter_gen: ^5.11.0
   flutter_hooks: ^0.21.2
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.0
-  skeletonizer: ^2.1.0+1
+  # skeletonizer: ^2.1.0+1
 
 
 dev_dependencies:

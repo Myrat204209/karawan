@@ -43,8 +43,65 @@ class StoreBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define the items specific to the Store section.
-
-    return AppSectionScaffold(navigationItems: storeNavigationItems);
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: AutoTabsScaffold(
+            routes: const [
+              StoreHomeRoute(),
+              StoreCategoriesRoute(),
+              StoreFavoritesRoute(),
+              StoreCartRoute(),
+              StoreProfileRoute(),
+            ],
+            bottomNavigationBuilder: (context, tabsRouter) {
+              return NavigationBar(
+                selectedIndex: tabsRouter.activeIndex,
+                onDestinationSelected: tabsRouter.setActiveIndex,
+                destinations: const [
+                  NavigationDestination(icon: Icon(Icons.store), label: 'Home'),
+                  NavigationDestination(
+                    icon: Icon(Icons.category),
+                    label: 'Categories',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.favorite),
+                    label: 'Favorites',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.shopping_cart),
+                    label: 'Cart',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        Positioned(
+          right: 5,
+          top: MediaQuery.sizeOf(context).height / 2,
+          child: ClipRRect(
+            borderRadius: BorderRadius.horizontal(
+              left: Radius.elliptical(30, 30),
+            ),
+            child: SizedBox(
+              height: 100,
+              width: 50,
+              child: IconButton(
+                onPressed: () {
+                  context.router.replace(RestaurantBottomRoute());
+                },
+                icon: Icon(Icons.swipe_left_alt_rounded, size: 50),
+              ).colorize(Colors.red),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -19,17 +19,34 @@ class NavigationItem {
 }
 
 // This is the updated, self-contained scaffold widget.
-class AppSectionScaffold extends StatelessWidget {
+class AppSectionScaffold extends StatefulWidget {
   const AppSectionScaffold({super.key, required this.navigationItems});
 
   final List<NavigationItem> navigationItems;
 
   @override
+  State<AppSectionScaffold> createState() => _AppSectionScaffoldState();
+}
+
+class _AppSectionScaffoldState extends State<AppSectionScaffold>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     // We now use AutoTabsRouter to handle the logic internally.
     return AutoTabsScaffold(
       backgroundColor: const Color(0xFFFBFBFD),
-      routes: navigationItems.map((item) => item.route).toList(),
+      routes: widget.navigationItems.map((item) => item.route).toList(),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color(0xFFF9A88C),
+        child: const Icon(Icons.airplanemode_active),
+      ),
       bottomNavigationBuilder: (context, tabsRouter) {
         // The bottomNavigationBar is built using the tabsRouter's state.
         return NavigationBar(
@@ -52,8 +69,9 @@ class AppSectionScaffold extends StatelessWidget {
                   ?.popUntilRoot();
             }
           },
+
           destinations: [
-            for (final (index, item) in navigationItems.indexed)
+            for (final (index, item) in widget.navigationItems.indexed)
               _NavigationDestinationIcon(
                 iconOff: item.icon,
                 iconOn: item.iconOn,
