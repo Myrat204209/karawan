@@ -10,7 +10,8 @@ abstract class AppColors {
 
   /// Secondary accent color (Green) for Light Mode.
   /// Used as a subtle complementary color for main accents.
-  static const Color secondAccent = Color(0xFF2AC3A5);
+  static const Color secondStoreAccent = Color(0xFF2AC3A5);
+  static const Color secondRestAccent = Color(0xFFEBC522);
 
   /// Background color for primary surfaces in Light Mode.
   /// Typically used as a screen or main content background.

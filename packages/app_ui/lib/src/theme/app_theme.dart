@@ -33,7 +33,7 @@ abstract class AppBaseTheme {
 
   /// Shared Divider Theme
   DividerThemeData get dividerTheme =>
-      const DividerThemeData(color: AppColors.secondAccent, thickness: 1);
+      const DividerThemeData(color: AppColors.secondStoreAccent, thickness: 1);
 
   /// Restores your original `AppTextStyle` for the `TextTheme`
   TextTheme get textTheme => TextTheme(
@@ -80,7 +80,7 @@ class AppTheme extends AppBaseTheme {
   ColorScheme get colorScheme {
     return const ColorScheme.light(
       primary: AppColors.mainAccent,
-      onPrimary: AppColors.secondAccent,
+      onPrimary: AppColors.secondStoreAccent,
       secondary: AppColors.majorAccent,
       onSecondary: AppColors.majorLightAccent,
       error: AppColors.alertLightAccent,

@@ -13,7 +13,7 @@ class StoreCategoriesView extends StatelessWidget {
 
           SliverPadding(
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
-            sliver: AppCategoryChips(),
+            sliver: AppCategoryChips(chipLabels:_chipLabels,),
           ),
           SideCategoryFilter(),
         ],
@@ -21,3 +21,12 @@ class StoreCategoriesView extends StatelessWidget {
     );
   }
 }
+
+final List<String> _chipLabels = [
+    'Ählisi',
+    'Sowgat',
+    'Arzanladyş',
+    'Gök we bakja',
+    'Miwe', 
+    'Et', 
+  ];

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,10 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppCategoryGrid extends StatelessWidget {
   final String title;
   final int itemCount;
+  final VoidCallback? onGridPressed;
 
   const AppCategoryGrid({
     super.key,
     required this.title,
+    this.onGridPressed,
     required this.itemCount,
   });
 
@@ -49,81 +52,100 @@ class AppCategoryGrid extends StatelessWidget {
               childAspectRatio: 175 / 205,
             ),
             itemBuilder: (context, index) {
-              return DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: kCircular15Border,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 2),
-                      blurRadius: 14.1,
-                      blurStyle: BlurStyle.solid,
-                      color: Color(0x00000000).withValues(alpha: 0.05),
-                    ),
-                  ],
-                  color: Colors.white,
-                ),
-                child: ClipRRect(
-                  borderRadius: kCircular15Border,
-
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Stack(
-                          children: [
-                            Assets.images.mineral.image(fit: BoxFit.cover),
-                            Positioned(
-                              right: 8,
-                              top: 8,
-                              child: AppActionIcon(
-                                icon: Icons.favorite_border_rounded,
-                                onTap: () {},
-                                isSmall: true,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            spacing: 4,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 5),
-                              Text(
-                                'Mineral Water',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'Product designers who focus on simplicity & usability',
-                                style: const TextStyle(
-                                  fontSize: 9,
-                                  color: Colors.grey,
-                                ),
-                                maxLines: 2,
-                              ),
-                              Text(
-                                'TMT 12.00',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+              return InkWell(
+                onTap: onGridPressed ?? () {},
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: kCircular15Border,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 2),
+                        blurRadius: 14.1,
+                        blurStyle: BlurStyle.solid,
+                        color: Color(0x00000000).withValues(alpha: 0.05),
                       ),
                     ],
+                    color: Colors.white,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: kCircular15Border,
+
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: AppMainImage(
+                            onLiked: () {},
+                            image: Assets.images.meals.values[index % 4].image(
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              spacing: 4,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 5),
+                                Text(
+                                  'Mineral Water',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Product designers who focus on simplicity & usability',
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    color: Colors.grey,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                                Text(
+                                  'TMT 12.00',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.teal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
             },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class AppMainImage extends StatelessWidget {
+  const AppMainImage({super.key, required this.image, required this.onLiked});
+
+  final Widget image;
+  final VoidCallback onLiked;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        image,
+        Positioned(
+          right: 8,
+          top: 8,
+          child: AppActionIcon(
+            icon: Icons.favorite_border_rounded,
+            onTap: onLiked,
+            isSmall: true,
           ),
         ),
       ],

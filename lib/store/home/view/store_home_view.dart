@@ -81,7 +81,16 @@ class _StoreHomeViewState extends State<StoreHomeView> {
             Assets.images.banner2.image(),
           ],
         ),
-        const AppCategoryChips(),
+        const AppCategoryChips(
+          chipLabels: [
+            'Ählisi',
+            'Sowgat',
+            'Arzanladyş',
+            'Gök we bakja',
+            'Miwe',
+            'Et',
+          ],
+        ),
         const AppCarousel(title: 'Top Brendler'),
         const AppCategoryGrid(title: 'Iň täze harytlar', itemCount: 4),
 

@@ -1,8 +1,8 @@
-import 'package:app_ui/app_ui.dart'
-    show AppColors, SvgGenImage; // Adjust import path
+import 'package:app_ui/app_ui.dart' show AppColors;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Adjust import path
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 // The NavigationItem class remains the same.
 class NavigationItem {
@@ -14,8 +14,7 @@ class NavigationItem {
   });
 
   final PageRouteInfo route;
-  final SvgGenImage icon;
-  final SvgGenImage iconOn;
+  final IconData icon, iconOn;
   final String label;
 }
 
@@ -80,7 +79,7 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
           destinations: [
             for (final (index, item) in widget.navigationItems.indexed)
               _NavigationDestinationIcon(
-                iconOff: item.icon,
+                icon: item.icon,
                 iconOn: item.iconOn,
                 label: item.label,
                 isSelected: tabsRouter.activeIndex == index,
@@ -133,14 +132,13 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
 /// The private icon widget used by the [AppSectionScaffold].
 class _NavigationDestinationIcon extends StatelessWidget {
   const _NavigationDestinationIcon({
-    required this.iconOff,
+    required this.icon,
     required this.iconOn,
     required this.label,
     required this.isSelected,
   });
 
-  final SvgGenImage iconOff;
-  final SvgGenImage iconOn;
+  final IconData icon, iconOn;
   final String label;
   final bool isSelected;
 
@@ -149,8 +147,8 @@ class _NavigationDestinationIcon extends StatelessWidget {
     return NavigationDestination(
       label: label,
       icon: isSelected
-          ? iconOn.svg()
-          : iconOff.svg(), // Ensure .svg() works with your SvgGenImage
+          ? HugeIcon(icon: iconOn, color: AppColors.secondRestAccent)
+          : HugeIcon(icon: icon, color: Color(0xFF969696)),
     );
   }
 }

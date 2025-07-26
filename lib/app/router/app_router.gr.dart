@@ -10,17 +10,18 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i14;
-import 'package:karawan/app/router/app_router.dart' as _i7;
-import 'package:karawan/app/router/restaurant_bottom_navigation.dart' as _i2;
-import 'package:karawan/app/router/store_bottom_navigation.dart' as _i8;
+import 'package:karawan/app/router/app_router.dart' as _i8;
 import 'package:karawan/app/view/home_page.dart' as _i1;
 import 'package:karawan/restaurant/favorites/view/restaurant_favorites_page.dart'
     as _i3;
 import 'package:karawan/restaurant/home/view/restaurant_home_page.dart' as _i4;
 import 'package:karawan/restaurant/order/view/restaurant_order_page.dart'
     as _i5;
-import 'package:karawan/restaurant/profile/view/restaurant_profile_page.dart'
+import 'package:karawan/restaurant/product_details/view/restaurant_products_page.dart'
     as _i6;
+import 'package:karawan/restaurant/profile/view/restaurant_profile_page.dart'
+    as _i7;
+import 'package:karawan/restaurant/restaurant_bottom_navigation.dart' as _i2;
 import 'package:karawan/store/cart/view/store_cart_page.dart' as _i9;
 import 'package:karawan/store/categories/view/store_categories_page.dart'
     as _i10;
@@ -109,7 +110,23 @@ class RestaurantOrderRoute extends _i14.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.RestaurantProfilePage]
+/// [_i6.RestaurantProductsPage]
+class RestaurantProductsRoute extends _i14.PageRouteInfo<void> {
+  const RestaurantProductsRoute({List<_i14.PageRouteInfo>? children})
+    : super(RestaurantProductsRoute.name, initialChildren: children);
+
+  static const String name = 'RestaurantProductsRoute';
+
+  static _i14.PageInfo page = _i14.PageInfo(
+    name,
+    builder: (data) {
+      return const _i6.RestaurantProductsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i7.RestaurantProfilePage]
 class RestaurantProfileRoute extends _i14.PageRouteInfo<void> {
   const RestaurantProfileRoute({List<_i14.PageRouteInfo>? children})
     : super(RestaurantProfileRoute.name, initialChildren: children);
@@ -119,13 +136,13 @@ class RestaurantProfileRoute extends _i14.PageRouteInfo<void> {
   static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i6.RestaurantProfilePage();
+      return const _i7.RestaurantProfilePage();
     },
   );
 }
 
 /// generated route for
-/// [_i7.RestaurantRouterPage]
+/// [_i8.RestaurantRouterPage]
 class RestaurantRouter extends _i14.PageRouteInfo<void> {
   const RestaurantRouter({List<_i14.PageRouteInfo>? children})
     : super(RestaurantRouter.name, initialChildren: children);
@@ -135,23 +152,7 @@ class RestaurantRouter extends _i14.PageRouteInfo<void> {
   static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i7.RestaurantRouterPage();
-    },
-  );
-}
-
-/// generated route for
-/// [_i8.StoreBottomNavigation]
-class StoreBottomRoute extends _i14.PageRouteInfo<void> {
-  const StoreBottomRoute({List<_i14.PageRouteInfo>? children})
-    : super(StoreBottomRoute.name, initialChildren: children);
-
-  static const String name = 'StoreBottomRoute';
-
-  static _i14.PageInfo page = _i14.PageInfo(
-    name,
-    builder: (data) {
-      return const _i8.StoreBottomNavigation();
+      return const _i8.RestaurantRouterPage();
     },
   );
 }
@@ -237,7 +238,7 @@ class StoreProfileRoute extends _i14.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.StoreRouterPage]
+/// [_i8.StoreRouterPage]
 class StoreRouter extends _i14.PageRouteInfo<void> {
   const StoreRouter({List<_i14.PageRouteInfo>? children})
     : super(StoreRouter.name, initialChildren: children);
@@ -247,7 +248,7 @@ class StoreRouter extends _i14.PageRouteInfo<void> {
   static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i7.StoreRouterPage();
+      return const _i8.StoreRouterPage();
     },
   );
 }

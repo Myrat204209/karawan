@@ -33,6 +33,7 @@ flutter:
     - assets/nav_bar/
     - assets/images/
     - assets/images/brands/
+    - assets/images/meals/
   # fonts:
   #   - family: Inter
   #     fonts:

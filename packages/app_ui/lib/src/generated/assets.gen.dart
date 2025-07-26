@@ -17,6 +17,10 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/about_us.png
+  AssetGenImage get aboutUs =>
+      const AssetGenImage('assets/images/about_us.png');
+
   /// File path: assets/images/banner.png
   AssetGenImage get banner => const AssetGenImage('assets/images/banner.png');
 
@@ -24,8 +28,15 @@ class $AssetsImagesGen {
   AssetGenImage get banner2 =>
       const AssetGenImage('assets/images/banner_2.png');
 
+  /// File path: assets/images/banner_3.png
+  AssetGenImage get banner3 =>
+      const AssetGenImage('assets/images/banner_3.png');
+
   /// Directory path: assets/images/brands
   $AssetsImagesBrandsGen get brands => const $AssetsImagesBrandsGen();
+
+  /// Directory path: assets/images/meals
+  $AssetsImagesMealsGen get meals => const $AssetsImagesMealsGen();
 
   /// File path: assets/images/mineral.png
   AssetGenImage get mineral => const AssetGenImage('assets/images/mineral.png');
@@ -34,7 +45,13 @@ class $AssetsImagesGen {
   String get path => 'packages/app_ui/assets/images';
 
   /// List of all assets
-  List<AssetGenImage> get values => [banner, banner2, mineral];
+  List<AssetGenImage> get values => [
+    aboutUs,
+    banner,
+    banner2,
+    banner3,
+    mineral,
+  ];
 }
 
 class $AssetsNavBarGen {
@@ -129,6 +146,32 @@ class $AssetsImagesBrandsGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [brend1, brend2, brend3, brend4];
+}
+
+class $AssetsImagesMealsGen {
+  const $AssetsImagesMealsGen();
+
+  /// File path: assets/images/meals/meal_1.png
+  AssetGenImage get meal1 =>
+      const AssetGenImage('assets/images/meals/meal_1.png');
+
+  /// File path: assets/images/meals/meal_2.png
+  AssetGenImage get meal2 =>
+      const AssetGenImage('assets/images/meals/meal_2.png');
+
+  /// File path: assets/images/meals/meal_3.png
+  AssetGenImage get meal3 =>
+      const AssetGenImage('assets/images/meals/meal_3.png');
+
+  /// File path: assets/images/meals/meal_4.png
+  AssetGenImage get meal4 =>
+      const AssetGenImage('assets/images/meals/meal_4.png');
+
+  /// Directory path: packages/app_ui/assets/images/meals
+  String get path => 'packages/app_ui/assets/images/meals';
+
+  /// List of all assets
+  List<AssetGenImage> get values => [meal1, meal2, meal3, meal4];
 }
 
 class Assets {

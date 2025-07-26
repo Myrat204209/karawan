@@ -1,33 +1,33 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:karawan/app/app.dart';
 
 final restaurantNavigationItems = [
   NavigationItem(
     route: const RestaurantHomeRoute(),
-    icon: Assets.navBar.home,
-    iconOn: Assets.navBar.homeOn,
+    icon: HugeIcons.strokeRoundedHome01,
+    iconOn: HugeIcons.strokeRoundedHome01,
 
     label: 'Home',
-  ),
-  NavigationItem(
-    route: const RestaurantOrderRoute(),
-    icon: Assets.navBar.cart,
-    iconOn: Assets.navBar.cartOn,
-    label: 'Order',
   ),
 
   NavigationItem(
     route: const RestaurantFavoritesRoute(),
-    icon: Assets.navBar.favorites,
-    iconOn: Assets.navBar.favoritesOn,
+    icon: HugeIcons.strokeRoundedFavourite,
+    iconOn: HugeIcons.strokeRoundedFavourite,
     label: 'Favorites',
   ),
   NavigationItem(
+    route: const RestaurantOrderRoute(),
+    icon: HugeIcons.strokeRoundedShoppingCart01,
+    iconOn: HugeIcons.strokeRoundedShoppingCart01,
+    label: 'Order',
+  ),
+  NavigationItem(
     route: const RestaurantProfileRoute(),
-    icon: Assets.navBar.profile,
-    iconOn: Assets.navBar.profileOn,
+    icon: HugeIcons.strokeRoundedUser03,
+    iconOn: HugeIcons.strokeRoundedUser03,
     label: 'Profile',
   ),
 ];
@@ -42,7 +42,7 @@ class RestaurantBottomNavigation extends StatelessWidget {
 
     return AppSectionScaffold(
       navigationItems: restaurantNavigationItems,
-      oppositeRoute: StoreBottomRoute(),
+      oppositeRoute: RestaurantBottomRoute(),
     );
   }
 }

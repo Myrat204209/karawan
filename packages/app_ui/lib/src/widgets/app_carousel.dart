@@ -40,7 +40,7 @@ class AppCarousel extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: Assets.images.brands.values[index % 4].image(
+                      child: Assets.images.meals.values[index % 4].image(
                         fit: BoxFit.cover,
                       ),
                     ),

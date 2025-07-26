@@ -24,11 +24,6 @@ class AppStatusBar extends StatelessWidget {
       toolbarHeight: 75.h,
       pinned: true,
       actions: [AppActionIcon(icon: Icons.search, onTap: onSearchTap)],
-
-      // bottom: PreferredSize(
-      //   preferredSize: const Size.fromHeight(44),
-      //   child: AppSearchBar(),
-      // ),
     );
   }
 }

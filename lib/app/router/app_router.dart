@@ -10,9 +10,8 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     // HomePage is the parent container.
     AutoRoute(
-      path: '/',
       page: HomeRoute.page,
-      initial: true,
+      // initial: true,
       children: [
         // TODO: remove after finishing UI elements
         // The Store section is temporarily commented out.
@@ -29,19 +28,19 @@ class AppRouter extends RootStackRouter {
         // ),
 
         // The Restaurant section is now the initial and only child.
-        AutoRoute(
-          path: 'restaurant',
-          page: RestaurantRouter.page,
-          initial: true,
-          children: [
-            AutoRoute(path: '', page: RestaurantHomeRoute.page),
-            AutoRoute(path: 'order', page: RestaurantOrderRoute.page),
-            AutoRoute(path: 'favorites', page: RestaurantFavoritesRoute.page),
-            AutoRoute(path: 'profile', page: RestaurantProfileRoute.page),
-          ],
-        ),
       ],
     ),
+    AutoRoute(
+      page: RestaurantBottomRoute.page,
+      initial: true,
+      children: [
+        AutoRoute(path: '', page: RestaurantHomeRoute.page),
+        AutoRoute(path: 'order', page: RestaurantOrderRoute.page),
+        AutoRoute(path: 'favorites', page: RestaurantFavoritesRoute.page),
+        AutoRoute(path: 'profile', page: RestaurantProfileRoute.page),
+      ],
+    ),
+    AutoRoute(page: RestaurantProductsRoute.page),
   ];
 }
 

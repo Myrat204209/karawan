@@ -1,6 +1,8 @@
 // lib/restaurant/home/view/restaurant_home_view.dart
 import 'package:app_ui/app_ui.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:karawan/app/app.dart';
 
 class RestaurantHomeView extends StatefulWidget {
   const RestaurantHomeView({super.key});
@@ -53,10 +55,7 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
               Assets.images.banner2.image(),
             ],
           )
-        : AppCategoryGrid(
-            title: 'New Grid ${nextWidgetIndex ~/ 2}',
-            itemCount: 4,
-          );
+        : AppCategoryGrid(title: 'Menu', itemCount: 4);
 
     _loadedWidgets.add(newWidget);
 
@@ -74,12 +73,26 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
         AppSlider(
           promoItems: [
             Assets.images.banner.image(),
-            Assets.images.banner2.image(),
+            Assets.images.banner3.image(),
           ],
         ),
-        const AppCategoryChips(),
-        const AppCarousel(title: 'Top Brendler'),
-        const AppCategoryGrid(title: 'Iň täze harytlar', itemCount: 4),
+        const AppCategoryChips(
+          chipLabels: [
+            'Ählisi',
+            'Günortanlyk',
+            'Çorbalar',
+            'Burgeler',
+            'Steýk',
+          ],
+        ),
+        const AppCarousel(title: 'Top Naharlar'),
+        AppCategoryGrid(
+          title: 'Menu',
+          itemCount: 4,
+          onGridPressed: () {
+            context.router.push(RestaurantProductsRoute());
+          },
+        ),
 
         ..._loadedWidgets,
 
