@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart' show AppColors, SvgGenImage;
+import 'package:app_ui/app_ui.dart' show AppColors, SvgGenImage, WidgetColorX;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,9 +20,16 @@ class NavigationItem {
 
 // This is the updated, self-contained scaffold widget.
 class AppSectionScaffold extends StatefulWidget {
-  const AppSectionScaffold({super.key, required this.navigationItems});
+  const AppSectionScaffold({
+    super.key,
+    required this.navigationItems,
+    required this.oppositeRoute,
+    this.isStore = false,
+  });
 
   final List<NavigationItem> navigationItems;
+  final PageRouteInfo oppositeRoute;
+  final bool isStore;
 
   @override
   State<AppSectionScaffold> createState() => _AppSectionScaffoldState();
@@ -36,51 +43,83 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final isLeft = widget.isStore == false;
     // We now use AutoTabsRouter to handle the logic internally.
-    return AutoTabsScaffold(
-      backgroundColor: const Color(0xFFFBFBFD),
-      routes: widget.navigationItems.map((item) => item.route).toList(),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: const Color(0xFFF9A88C),
-        child: const Icon(Icons.airplanemode_active),
-      ),
-      bottomNavigationBuilder: (context, tabsRouter) {
-        // The bottomNavigationBar is built using the tabsRouter's state.
-        return NavigationBar(
-          elevation: 4,
-          shadowColor: Color(0xFF000000).withValues(alpha: 5),
-          backgroundColor: const Color(0xFFFFFFFF),
-          indicatorColor: Colors.transparent,
-          labelTextStyle: WidgetStatePropertyAll(
-            TextStyle(color: AppColors.mainAccent),
+    return Stack(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            left: isLeft ? 10 : 0,
+            right: !isLeft ? 10 : 0,
           ),
-          height: 85.h,
-          selectedIndex: tabsRouter.activeIndex,
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          onDestinationSelected: (index) {
-            if (tabsRouter.activeIndex != index) {
-              tabsRouter.setActiveIndex(index);
-            } else {
-              tabsRouter
-                  .innerRouterOf<StackRouter>(tabsRouter.current.name)
-                  ?.popUntilRoot();
-            }
-          },
+          child: AutoTabsScaffold(
+            backgroundColor: const Color(0xFFFBFBFD),
+            routes: widget.navigationItems.map((item) => item.route).toList(),
 
-          destinations: [
-            for (final (index, item) in widget.navigationItems.indexed)
-              _NavigationDestinationIcon(
-                iconOff: item.icon,
-                iconOn: item.iconOn,
-                label: item.label,
-                isSelected: tabsRouter.activeIndex == index,
-              ),
-          ],
-        );
-      },
+            bottomNavigationBuilder: (context, tabsRouter) {
+              // The bottomNavigationBar is built using the tabsRouter's state.
+              return NavigationBar(
+                elevation: 4,
+                shadowColor: Color(0xFF000000).withValues(alpha: 5),
+                backgroundColor: const Color(0xFFFFFFFF),
+                indicatorColor: Colors.transparent,
+                labelTextStyle: WidgetStatePropertyAll(
+                  TextStyle(color: AppColors.mainAccent),
+                ),
+                height: 85.h,
+                selectedIndex: tabsRouter.activeIndex,
+                labelBehavior:
+                    NavigationDestinationLabelBehavior.onlyShowSelected,
+                onDestinationSelected: (index) {
+                  if (tabsRouter.activeIndex != index) {
+                    tabsRouter.setActiveIndex(index);
+                  } else {
+                    tabsRouter
+                        .innerRouterOf<StackRouter>(tabsRouter.current.name)
+                        ?.popUntilRoot();
+                  }
+                },
+
+                destinations: [
+                  for (final (index, item) in widget.navigationItems.indexed)
+                    _NavigationDestinationIcon(
+                      iconOff: item.icon,
+                      iconOn: item.iconOn,
+                      label: item.label,
+                      isSelected: tabsRouter.activeIndex == index,
+                    ),
+                ],
+              );
+            },
+          ),
+        ),
+        Positioned(
+          right: isLeft ? null : 10,
+          left: !isLeft ? null : 10,
+          top: MediaQuery.sizeOf(context).height / 2,
+          child: ClipRRect(
+            borderRadius: BorderRadius.horizontal(
+              left: !isLeft ? Radius.elliptical(30, 30) : Radius.zero,
+              right: isLeft ? Radius.elliptical(30, 30) : Radius.zero,
+            ),
+            child: SizedBox(
+              height: 100,
+              width: 50,
+              child: IconButton(
+                onPressed: () {
+                  context.router.replace(widget.oppositeRoute);
+                },
+                icon: Icon(
+                  isLeft
+                      ? Icons.swipe_right_alt_rounded
+                      : Icons.swipe_left_alt_rounded,
+                  size: 50,
+                ),
+              ).colorize(Colors.red),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
