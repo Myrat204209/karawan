@@ -9,20 +9,29 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [StoreRouter(), RestaurantRouter()],
+      // Only include the active router.
+      routes: const [
+        // TODO: remove after finishing UI elements
+        // StoreRouter(),
+        RestaurantRouter(),
+      ],
       builder: (context, child) {
-        final tabsRouter = context.tabsRouter;
+        final tabsRouter = AutoTabsRouter.of(context);
 
         return Scaffold(
-          body: DualSectionView(
-            // Pass the two router outlets as pages.
-            leftPage: KeepAlivePage(child: StoreRouterPage()),
-            rightPage: KeepAlivePage(child: RestaurantRouterPage()),
-            onPageChange: (index) {
-              if (tabsRouter.activeIndex != index) {
-                tabsRouter.setActiveIndex(index);
-              }
-            },
+          body: PageView(
+            // The controller is still needed, but swiping will be disabled
+            // as there's only one page.
+            controller: PageController(initialPage: tabsRouter.activeIndex),
+            onPageChanged: tabsRouter.setActiveIndex,
+            children: const [
+              // This is the outlet where AutoRoute will build the RestaurantBottomNavigation.
+              KeepAlivePage(child: AutoRouter()),
+
+              // TODO: remove after finishing UI elements
+              // The Store page outlet is commented out.
+              // KeepAlivePage(child: AutoRouter()),
+            ],
           ),
         );
       },
