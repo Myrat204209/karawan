@@ -1,4 +1,5 @@
 export 'app.dart';
 export 'app_view.dart';
-
-//TODO: Add common ProfilePage here
+export 'dual_section_view.dart';
+export 'app_splash.dart';
+export 'home_page.dart';
