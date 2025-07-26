@@ -9,7 +9,7 @@ class RestaurantBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10),
@@ -18,8 +18,8 @@ class RestaurantBottomNavigation extends StatelessWidget {
             // These are defined as children of RestaurantBottomRoute in your router.
             routes: const [
               RestaurantHomeRoute(),
-              RestaurantOrderRoute(),
               RestaurantFavoritesRoute(),
+              RestaurantOrderRoute(),
               RestaurantProfileRoute(),
             ],
             // 2. Build the bottom navigation bar.
@@ -35,12 +35,12 @@ class RestaurantBottomNavigation extends StatelessWidget {
                     label: 'Restaurants',
                   ),
                   NavigationDestination(
-                    icon: Icon(Icons.receipt_long),
-                    label: 'Orders',
-                  ),
-                  NavigationDestination(
                     icon: Icon(Icons.favorite_border),
                     label: 'Favorites',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.receipt_long),
+                    label: 'Orders',
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.person_outline),

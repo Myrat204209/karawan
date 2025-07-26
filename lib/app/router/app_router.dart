@@ -6,12 +6,15 @@ class AppRouter extends RootStackRouter {
   @override
   RouteType get defaultRouteType => RouteType.adaptive();
 
+
   @override
   List<AutoRoute> get routes => [
     // HomePage is the initial route and has NO children.
+
     AutoRoute(page: HomeRoute.page, initial: true, path: '/'),
     AutoRoute(
       page: StoreBottomRoute.page,
+      
       // path: 'store',
       children: [
         AutoRoute(page: StoreHomeRoute.page, initial: true, path: 'home'),

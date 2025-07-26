@@ -5,3 +5,6 @@ export 'app_category_grid.dart';
 export 'app_slider.dart';
 export 'app_status_bar.dart';
 export 'app_card.dart';
+export 'app_favorite_item.dart';
+export 'app_cart_item.dart';
+export 'app_profile_tile.dart';

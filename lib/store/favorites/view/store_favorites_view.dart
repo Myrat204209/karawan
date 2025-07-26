@@ -1,6 +1,5 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:karawan/store/features.dart';
 
 class StoreFavoritesView extends StatelessWidget {
   const StoreFavoritesView({super.key});
@@ -19,7 +18,7 @@ class StoreFavoritesView extends StatelessWidget {
         Expanded(
           child: ListView.separated(
             itemCount: 10,
-            itemBuilder: (context, index) => FavoriteItem(),
+            itemBuilder: (context, index) => AppFavoriteItem(),
             separatorBuilder: (context, index) => SizedBox(height: 10),
           ),
         ),
