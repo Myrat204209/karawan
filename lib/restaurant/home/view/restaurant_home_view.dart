@@ -90,7 +90,7 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
           title: 'Menu',
           itemCount: 4,
           onGridPressed: () {
-            context.router.push(RestaurantProductsRoute());
+            context.router.push(RestaurantProductsRoute(productId: '123'));
           },
         ),
 

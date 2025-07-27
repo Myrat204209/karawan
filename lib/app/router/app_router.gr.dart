@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:flutter/material.dart' as _i15;
 import 'package:karawan/app/router/app_router.dart' as _i8;
 import 'package:karawan/app/view/home_page.dart' as _i1;
 import 'package:karawan/restaurant/favorites/view/restaurant_favorites_page.dart'
@@ -111,18 +112,59 @@ class RestaurantOrderRoute extends _i14.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.RestaurantProductsPage]
-class RestaurantProductsRoute extends _i14.PageRouteInfo<void> {
-  const RestaurantProductsRoute({List<_i14.PageRouteInfo>? children})
-    : super(RestaurantProductsRoute.name, initialChildren: children);
+class RestaurantProductsRoute
+    extends _i14.PageRouteInfo<RestaurantProductsRouteArgs> {
+  RestaurantProductsRoute({
+    _i15.Key? key,
+    required String productId,
+    List<_i14.PageRouteInfo>? children,
+  }) : super(
+         RestaurantProductsRoute.name,
+         args: RestaurantProductsRouteArgs(key: key, productId: productId),
+         rawPathParams: {'productId': productId},
+         initialChildren: children,
+       );
 
   static const String name = 'RestaurantProductsRoute';
 
   static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i6.RestaurantProductsPage();
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<RestaurantProductsRouteArgs>(
+        orElse: () => RestaurantProductsRouteArgs(
+          productId: pathParams.getString('productId'),
+        ),
+      );
+      return _i6.RestaurantProductsPage(
+        key: args.key,
+        productId: args.productId,
+      );
     },
   );
+}
+
+class RestaurantProductsRouteArgs {
+  const RestaurantProductsRouteArgs({this.key, required this.productId});
+
+  final _i15.Key? key;
+
+  final String productId;
+
+  @override
+  String toString() {
+    return 'RestaurantProductsRouteArgs{key: $key, productId: $productId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! RestaurantProductsRouteArgs) return false;
+    return key == other.key && productId == other.productId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ productId.hashCode;
 }
 
 /// generated route for

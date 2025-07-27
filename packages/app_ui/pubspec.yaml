@@ -15,6 +15,7 @@ dependencies:
   flutter_hooks: ^0.21.2
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.0
+  input_quantity: ^2.5.1
   # skeletonizer: ^2.1.0+1
 
 
