@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:karawan/app/router/router.dart';
@@ -18,9 +19,15 @@ class _AppViewState extends State<AppView> {
 
   @override
   void initState() {
-    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: AppColors.mainAccent,
+      ),
+    );
     _talker = GetIt.I<Talker>();
     _router = GetIt.I<AppRouter>();
+    super.initState();
   }
 
   @override
