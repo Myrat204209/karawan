@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return AutoTabsScaffold(
       homeIndex: 0,
 
-      routes: const [StoreBottomRoute(), RestaurantBottomRoute()],
+      routes: const [MarketBottomRoute(), RestaurantBottomRoute()],
 
       // builder: (context, child) {
       //   final tabsRouter = AutoTabsRouter.of(context);
@@ -23,8 +23,8 @@ class HomePage extends StatelessWidget {
       //       onPageChanged: tabsRouter.setActiveIndex,
       //       children: const [
       //         SizedBox(height: 100, width: 100, child: Text('120912019')),
-      //         // This is the outlet where AutoRoute will build the Store section.
-      //         // It is the placeholder for your StoreBottomNavigation widget.
+      //         // This is the outlet where AutoRoute will build the Market section.
+      //         // It is the placeholder for your MarketBottomNavigation widget.
       //         KeepAlivePage(child: AutoRouter()),
 
       //         // This is the outlet for the Restaurant section.

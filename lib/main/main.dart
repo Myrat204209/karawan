@@ -23,6 +23,8 @@ Future<void> main() async {
     // const defaultBaseUrl = 'baseurl:8080';
     final sharedPreferences = await SharedPreferences.getInstance();
     _getIt.registerSingleton<SharedPreferences>(sharedPreferences);
+    final pageCacher = PageCacher(prefs: sharedPreferences);
+    _getIt.registerSingleton<PageCacher>(pageCacher);
 
     /// Hive
     await Hive.initFlutter();

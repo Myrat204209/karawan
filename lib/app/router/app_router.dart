@@ -8,26 +8,21 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    // HomePage is the parent container for the entire app.
-    // Its children are the two main sections, each with its own router.
+    AutoRoute(page: SplashRoute.page, initial: true),
+    AutoRoute(page: DirectorRoute.page),
     AutoRoute(
-      page: CombinerRoute.page,
-      initial: true,
+      page: MarketBottomRoute.page,
       children: [
-        AutoRoute(
-          page: StoreBottomRoute.page,
-          children: [
-            // Tabs for the Store section
-            AutoRoute(path: 'home', page: StoreHomeRoute.page),
-            AutoRoute(path: 'categories', page: StoreCategoriesRoute.page),
-            AutoRoute(path: 'favorites', page: StoreFavoritesRoute.page),
-            AutoRoute(path: 'cart', page: StoreCartRoute.page),
-            AutoRoute(path: 'profile', page: StoreProfileRoute.page),
-            // The Product Details page is a sibling to the tabs.
-            // AutoRoute(path: 'product/:productId', page: ProductDetailsRoute.page),
-          ],
-        ),
-        // The Restaurant section is a parallel nested router.
+        AutoRoute(path: 'home', page: MarketHomeRoute.page),
+        AutoRoute(path: 'categories', page: MarketCategoriesRoute.page),
+        AutoRoute(path: 'favorites', page: MarketFavoritesRoute.page),
+        AutoRoute(path: 'cart', page: MarketCartRoute.page),
+        AutoRoute(path: 'profile', page: MarketProfileRoute.page),
+      ],
+    ),
+    AutoRoute(
+      page: RestaurantBottomRoute.page,
+      children: [
         AutoRoute(
           page: RestaurantBottomRoute.page, // Also an EmptyRouterPage shell
           // initial: true,
@@ -46,15 +41,31 @@ class AppRouter extends RootStackRouter {
         ),
       ],
     ),
-    AutoRoute(page: HomeRoute.page),
+    // AutoRoute(
+    //   page: CombinerRoute.page,
+
+    //   children: [
+    //     AutoRoute(
+    //       page: MarketBottomRoute.page,
+    //       children: [
+    //         // Tabs for the Market section
+    //         // The Product Details page is a sibling to the tabs.
+    //         // AutoRoute(path: 'product/:productId', page: ProductDetailsRoute.page),
+    //       ],
+    //     ),
+
+    //     // The Restaurant section is a parallel nested router.
+    //   ],
+    // ),
+    // AutoRoute(page: HomeRoute.page),
   ];
 }
 
 // These shell pages provide the nested AutoRouter outlets.
 // Add these class definitions at the end of your app_router.dart file.
-@RoutePage(name: 'StoreRouter')
-class StoreRouterPage extends AutoRouter {
-  const StoreRouterPage({super.key});
+@RoutePage(name: 'MarketRouter')
+class MarketRouterPage extends AutoRouter {
+  const MarketRouterPage({super.key});
 }
 
 @RoutePage(name: 'RestaurantRouter')

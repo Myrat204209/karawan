@@ -2,8 +2,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class StoreCartView extends StatelessWidget {
-  const StoreCartView({super.key});
+class MarketCartView extends StatelessWidget {
+  const MarketCartView({super.key});
 
   @override
   Widget build(BuildContext context) {

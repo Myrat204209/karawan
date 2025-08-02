@@ -1,64 +1,90 @@
-// import 'dart:async';
+import 'package:app_ui/app_ui.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:karawan/app/app.dart';
 
-// import 'package:app_ui/app_ui.dart';
-// import 'package:auto_route/auto_route.dart';
-// import 'package:client/app/app.dart';
-// import 'package:flutter/material.dart';
+final _getIt = GetIt.I;
 
-// @RoutePage()
-// class SplashPage extends StatefulWidget {
-//   const SplashPage({super.key});
+@RoutePage()
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
 
-//   @override
-//   State<SplashPage> createState() => _SplashPageState();
-// }
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
 
-// class _SplashPageState extends State<SplashPage> {
-//   var _opacity = 0.0;
+class _SplashPageState extends State<SplashPage> {
+  var _opacity = 0.0;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Use a BlocProvider here to create and manage the AppBootstrapBloc
-//     // for the lifecycle of this page.
-//     _initializeAppAndNavigate();
+  @override
+  void initState() {
+    super.initState();
+    _initializeAppAndNavigate();
 
-//     // Trigger the fade-in animation
-//     WidgetsBinding.instance.addPostFrameCallback((_) {
-//       if (mounted) setState(() => _opacity = 1.0);
-//     });
-//   }
+    // Trigger the fade-in animation
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() => _opacity = 1.0);
+    });
+  }
 
-//   Future<void> _initializeAppAndNavigate() async {
-//     // 1. Create two Futures: one for the minimum display time,
-//     //    and one for determining the destination route from the BLoC.
-//     final minimumDisplayTime = Future.delayed(
-//       const Duration(milliseconds: 2000),
-//     );
-//     final destinationRoute = _getDestinationFromBloc();
+  Future<void> _initializeAppAndNavigate() async {
+    final minimumDisplayTime = Future.delayed(
+      const Duration(milliseconds: 2000),
+    );
+    final destinationRoute = _getDestinationFromCache();
 
-//     // 2. Use Future.wait to run them concurrently.
-//     //    This is much more efficient.
-//     final results = await Future.wait([minimumDisplayTime, destinationRoute]);
-//     final destination = results[1] as PageRouteInfo;
+    final results = await Future.wait([minimumDisplayTime, destinationRoute]);
+    final destination = results[1] as PageRouteInfo;
 
-//     // 3. Navigate when both are complete.
-//     if (mounted) {
-//       context.router.replace(destination);
-//     }
-//   }
+    // 3. Navigate when both are complete.
+    if (mounted) {
+      context.router.replace(destination);
+    }
+  }
 
+  /// Listens to the BLoC stream and returns a Future that completes
+  /// with the correct route when the BLoC reaches a final state.
+  Future<PageRouteInfo> _getDestinationFromCache() async {
+    final pageCacher = _getIt.get<PageCacher>();
+    switch (await pageCacher.isMarketRoute()) {
+      case null:
+        return const DirectorRoute();
+      case true:
+        return const MarketBottomRoute();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: AnimatedOpacity(
-//           duration: const Duration(milliseconds: 1500),
-//           opacity: _opacity,
-//           child: Assets.images.logo.image(),
-//         ),
-//       ).colorize(Colors.white),
-//     );
-//   }
-// }
+      case false:
+        return const RestaurantBottomRoute();
+    }
+    // Find the first state that is NOT 'initializing'
+    // return bloc.stream
+    //     .firstWhere((state) => state.status != AppStatus.initializing)
+    //     .then((finalState) {
+    //       switch (finalState.status) {
+    //         case AppStatus.needsUpdate:
+    //           return const ForceUpdateRoute();
+    //         case AppStatus.needsLanguage:
+    //           return const LanguageRoute();
+    //         case AppStatus.unauthenticated:
+    //           return const AuthRoute();
+    //         case AppStatus.authenticated:
+    //           return const SessionHostRoute();
+    //         default:
+    //           return const AuthRoute();
+    //       }
+    //     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 1500),
+          opacity: _opacity,
+          child: Assets.images.logo.image(),
+        ),
+      ).colorize(Colors.white),
+    );
+  }
+}

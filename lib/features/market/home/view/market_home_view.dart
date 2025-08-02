@@ -1,14 +1,14 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class StoreHomeView extends StatefulWidget {
-  const StoreHomeView({super.key});
+class MarketHomeView extends StatefulWidget {
+  const MarketHomeView({super.key});
 
   @override
-  State<StoreHomeView> createState() => _StoreHomeViewState();
+  State<MarketHomeView> createState() => _MarketHomeViewState();
 }
 
-class _StoreHomeViewState extends State<StoreHomeView> {
+class _MarketHomeViewState extends State<MarketHomeView> {
   final ScrollController _scrollController = ScrollController();
 
   // 1. Use a List to store the dynamically loaded widgets.

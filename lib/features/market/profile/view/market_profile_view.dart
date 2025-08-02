@@ -1,8 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class StoreProfileView extends StatelessWidget {
-  const StoreProfileView({super.key});
+class MarketProfileView extends StatelessWidget {
+  const MarketProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {

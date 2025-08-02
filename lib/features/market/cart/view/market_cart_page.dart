@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:karawan/features/features.dart';
 
 @RoutePage()
-class StoreHomePage extends StatelessWidget {
-  const StoreHomePage({super.key});
+class MarketCartPage extends StatelessWidget {
+  const MarketCartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StoreHomeView();
+    return MarketCartView();
   }
 }

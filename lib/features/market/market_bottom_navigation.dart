@@ -3,33 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:karawan/app/app.dart';
 
-final storeNavigationItems = [
+final marketNavigationItems = [
   NavigationItem(
-    route: const StoreHomeRoute(),
+    route: const MarketHomeRoute(),
     icon: HugeIcons.strokeRoundedHome01,
     iconOn: HugeIcons.strokeRoundedHome01,
     label: 'Home',
   ),
   NavigationItem(
-    route: const StoreCategoriesRoute(),
+    route: const MarketCategoriesRoute(),
     icon: HugeIcons.strokeRoundedCatalogue,
     iconOn: HugeIcons.strokeRoundedCatalogue,
     label: 'Category',
   ),
   NavigationItem(
-    route: const StoreFavoritesRoute(),
+    route: const MarketFavoritesRoute(),
     icon: HugeIcons.strokeRoundedFavourite,
     iconOn: HugeIcons.strokeRoundedFavourite,
     label: 'Favorites',
   ),
   NavigationItem(
-    route: const StoreCartRoute(),
+    route: const MarketCartRoute(),
     icon: HugeIcons.strokeRoundedShoppingCart01,
     iconOn: HugeIcons.strokeRoundedShoppingCart01,
     label: 'Cart',
   ),
   NavigationItem(
-    route: const StoreProfileRoute(),
+    route: const MarketProfileRoute(),
     icon: HugeIcons.strokeRoundedUser03,
     iconOn: HugeIcons.strokeRoundedUser03,
     label: 'Profile',
@@ -37,14 +37,14 @@ final storeNavigationItems = [
 ];
 
 @RoutePage()
-class StoreBottomNavigation extends StatelessWidget {
-  const StoreBottomNavigation({super.key});
+class MarketBottomNavigation extends StatelessWidget {
+  const MarketBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppSectionScaffold(
-      navigationItems: storeNavigationItems,
-      isStore: true,
+      navigationItems: marketNavigationItems,
+      isMarket: true,
       oppositeRoute: RestaurantBottomRoute(),
     );
   }

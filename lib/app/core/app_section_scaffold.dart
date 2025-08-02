@@ -24,12 +24,12 @@ class AppSectionScaffold extends StatefulWidget {
     super.key,
     required this.navigationItems,
     required this.oppositeRoute,
-    this.isStore = false,
+    this.isMarket = false,
   });
 
   final List<NavigationItem> navigationItems;
   final PageRouteInfo oppositeRoute;
-  final bool isStore;
+  final bool isMarket;
 
   @override
   State<AppSectionScaffold> createState() => _AppSectionScaffoldState();
@@ -43,7 +43,7 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    // final isLeft = widget.isStore == false; // Not used in current build
+    // final isLeft = widget.isMarket == false; // Not used in current build
     // We now use AutoTabsRouter to handle the logic internally.
     return AutoTabsScaffold(
       backgroundColor: const Color(0xFFFBFBFD),

@@ -1,8 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class StoreFavoritesView extends StatelessWidget {
-  const StoreFavoritesView({super.key});
+class MarketFavoritesView extends StatelessWidget {
+  const MarketFavoritesView({super.key});
 
   @override
   Widget build(BuildContext context) {
