@@ -38,6 +38,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/doner.png
   AssetGenImage get doner => const AssetGenImage('assets/images/doner.png');
 
+  /// File path: assets/images/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+
   /// Directory path: assets/images/meals
   $AssetsImagesMealsGen get meals => const $AssetsImagesMealsGen();
 
@@ -54,6 +57,7 @@ class $AssetsImagesGen {
     banner2,
     banner3,
     doner,
+    logo,
     mineral,
   ];
 }

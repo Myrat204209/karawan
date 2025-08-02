@@ -32,6 +32,8 @@ dependencies:
   slide_reveal_screen: ^1.0.7
   hugeicons: ^0.0.11
   input_quantity: ^2.5.1
+  shared_preferences: ^2.5.3
+  fast_cached_network_image: ^1.3.3+5
 
 dev_dependencies:
   flutter_test:

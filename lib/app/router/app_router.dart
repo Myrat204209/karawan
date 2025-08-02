@@ -10,38 +10,43 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     // HomePage is the parent container for the entire app.
     // Its children are the two main sections, each with its own router.
-    AutoRoute(page: CombinerRoute.page,initial: true),
-    AutoRoute(page: HomeRoute.page, ),
     AutoRoute(
-      page: StoreRouter.page,
+      page: CombinerRoute.page,
+      initial: true,
       children: [
-        // Tabs for the Store section
-        AutoRoute(path: '', page: StoreHomeRoute.page),
-        AutoRoute(path: 'categories', page: StoreCategoriesRoute.page),
-        AutoRoute(path: 'favorites', page: StoreFavoritesRoute.page),
-        AutoRoute(path: 'cart', page: StoreCartRoute.page),
-        AutoRoute(path: 'profile', page: StoreProfileRoute.page),
-        // The Product Details page is a sibling to the tabs.
-        // AutoRoute(path: 'product/:productId', page: ProductDetailsRoute.page),
-      ],
-    ),
-    // The Restaurant section is a parallel nested router.
-    AutoRoute(
-      page: RestaurantRouter.page, // Also an EmptyRouterPage shell
-      // initial: true,
-      children: [
-        // Tabs for the Restaurant section
-        AutoRoute(path: '', page: RestaurantHomeRoute.page),
-        AutoRoute(path: 'order', page: RestaurantOrderRoute.page),
-        AutoRoute(path: 'favorites', page: RestaurantFavoritesRoute.page),
-        AutoRoute(path: 'profile', page: RestaurantProfileRoute.page),
-        // The Product Details page for the restaurant section.
         AutoRoute(
-          path: 'product/:productId',
-          page: RestaurantProductsRoute.page,
+          page: StoreBottomRoute.page,
+          children: [
+            // Tabs for the Store section
+            AutoRoute(path: 'home', page: StoreHomeRoute.page),
+            AutoRoute(path: 'categories', page: StoreCategoriesRoute.page),
+            AutoRoute(path: 'favorites', page: StoreFavoritesRoute.page),
+            AutoRoute(path: 'cart', page: StoreCartRoute.page),
+            AutoRoute(path: 'profile', page: StoreProfileRoute.page),
+            // The Product Details page is a sibling to the tabs.
+            // AutoRoute(path: 'product/:productId', page: ProductDetailsRoute.page),
+          ],
+        ),
+        // The Restaurant section is a parallel nested router.
+        AutoRoute(
+          page: RestaurantBottomRoute.page, // Also an EmptyRouterPage shell
+          // initial: true,
+          children: [
+            // Tabs for the Restaurant section
+            AutoRoute(path: 'home', page: RestaurantHomeRoute.page),
+            AutoRoute(path: 'order', page: RestaurantOrderRoute.page),
+            AutoRoute(path: 'favorites', page: RestaurantFavoritesRoute.page),
+            AutoRoute(path: 'profile', page: RestaurantProfileRoute.page),
+            // The Product Details page for the restaurant section.
+            AutoRoute(
+              path: 'product/:productId',
+              page: RestaurantProductsRoute.page,
+            ),
+          ],
         ),
       ],
     ),
+    AutoRoute(page: HomeRoute.page),
   ];
 }
 

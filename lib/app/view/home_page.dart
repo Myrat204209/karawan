@@ -8,11 +8,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AutoTabsRouter correctly manages the two parallel children from our router config.
     return AutoTabsScaffold(
       homeIndex: 0,
 
-      routes: const [StoreRouter(), RestaurantRouter()],
+      routes: const [StoreBottomRoute(), RestaurantBottomRoute()],
 
       // builder: (context, child) {
       //   final tabsRouter = AutoTabsRouter.of(context);

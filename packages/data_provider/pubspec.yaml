@@ -3,22 +3,21 @@ description: "A package which handle 3rd layer data from out."
 version: 0.2.0
 
 environment:
-  sdk: ^3.7.2
-  flutter: ">=1.17.0"
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
     sdk: flutter
   dio: ^5.8.0+1
-  talker_dio_logger: ^4.9.2
-  talker_flutter: ^4.9.2
-  retrofit: ^4.6.0
+  talker_dio_logger: ^4.9.3
+  talker_flutter: ^4.9.3
+  retrofit: ^4.7.0
   json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  json_serializable: ^6.9.5
+  json_serializable: ^6.10.0
   build_runner: ^2.6.0
-  retrofit_generator: ^10.0.0
+  retrofit_generator: ^10.0.1

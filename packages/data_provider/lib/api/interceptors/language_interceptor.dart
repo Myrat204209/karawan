@@ -1,23 +1,20 @@
-import 'package:dio/dio.dart';
+// // lib/network/language_interceptor.dart
+// import 'package:data_provider/data_provider.dart' show LanguageService;
+// import 'package:dio/dio.dart';
 
-typedef LanguageProvider = Future<String?> Function();
+// class LanguageInterceptor extends Interceptor {
+//   LanguageInterceptor({required this.languageService});
+//   final LanguageService languageService;
 
-/// Language adder for the request header
-/// `Accept-Language`: `<language>`
-///
-class LanguageInterceptor extends Interceptor {
-  final LanguageProvider _languageProvider;
+//   @override
+//   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+//     // Synchronously read the latest language code from the service.
+//     final language = languageService.currentLanguageCode;
 
-  LanguageInterceptor({required LanguageProvider languageProvider})
-    : _languageProvider = languageProvider;
+//     if (language != null) {
+//       options.headers['Accept-Language'] = language;
+//     }
 
-  @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
-    final language = await _languageProvider() ?? 'tk';
-    options.headers.addAll({'Accept-Language': language});
-    return handler.next(options);
-  }
-}
+//     super.onRequest(options, handler);
+//   }
+// }
