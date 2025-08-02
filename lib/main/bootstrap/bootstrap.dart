@@ -24,9 +24,9 @@ Future<void> bootStrap(Talker talker, AppBuilder builder) async {
     (exception, stackTrace) async {
       // await Sentry.captureException(exception, stackTrace: stackTrace);
       FlutterError.onError = (details) =>
-          talker.error('Error has happened', exception, stackTrace);
+          talker.handle(details.exception, details.stack);
       PlatformDispatcher.instance.onError = (error, stack) {
-        talker.error("PlatformDispatcherError has happened", error, stack);
+        talker.handle(error, stack);
         return true;
       };
     },

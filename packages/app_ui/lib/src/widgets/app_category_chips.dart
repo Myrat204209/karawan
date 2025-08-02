@@ -50,9 +50,7 @@ class _AppCategoryChipsState extends State<AppCategoryChips> {
                 backgroundColor: Colors.transparent,
                 selectedColor: AppColors.mainAccent,
                 labelStyle: AppTextStyle.text().sm().withColor(
-                  isSelected
-                      ? AppColors.secondStoreAccent
-                      : AppColors.textLightTitle,
+                  isSelected ? Colors.white : AppColors.textLightTitle,
                 ),
               ),
             );

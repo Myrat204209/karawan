@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:karawan/app/app.dart';
+import 'package:karawan/app/router/router.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -8,34 +8,32 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // This widget now correctly manages the direct child route from AppRouter.
-    return AutoTabsRouter(
-      routes: const [
-        // This now correctly matches the child defined in your AppRouter.
-        RestaurantBottomRoute(),
+    // AutoTabsRouter correctly manages the two parallel children from our router config.
+    return AutoTabsScaffold(
+      homeIndex: 0,
 
-        // TODO: remove after finishing UI elements
-        // When you add the Store back, you will uncomment this line.
-        // StoreBottomRoute(),
-      ],
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
+      routes: const [StoreRouter(), RestaurantRouter()],
 
-        return Scaffold(
-          body: PageView(
-            controller: PageController(initialPage: tabsRouter.activeIndex),
-            onPageChanged: tabsRouter.setActiveIndex,
-            children: [
-              // The `child` provided by the builder is the currently active page,
-              // which is the RestaurantBottomNavigation widget.
-              KeepAlivePage(child: child),
+      // builder: (context, child) {
+      //   final tabsRouter = AutoTabsRouter.of(context);
 
-              // TODO: remove after finishing UI elements
-              // When you add the Store back, you will add its KeepAlivePage here.
-            ],
-          ),
-        );
-      },
+      //   return Scaffold(
+      //     body: PageView(
+      //       // Connect the PageController to the router's state.
+      //       controller: PageController(initialPage: tabsRouter.activeIndex),
+      //       onPageChanged: tabsRouter.setActiveIndex,
+      //       children: const [
+      //         SizedBox(height: 100, width: 100, child: Text('120912019')),
+      //         // This is the outlet where AutoRoute will build the Store section.
+      //         // It is the placeholder for your StoreBottomNavigation widget.
+      //         KeepAlivePage(child: AutoRouter()),
+
+      //         // This is the outlet for the Restaurant section.
+      //         KeepAlivePage(child: AutoRouter()),
+      //       ],
+      //     ),
+      //   );
+      // },
     );
   }
 }

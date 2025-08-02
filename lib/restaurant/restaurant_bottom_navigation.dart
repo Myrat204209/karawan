@@ -8,7 +8,6 @@ final restaurantNavigationItems = [
     route: const RestaurantHomeRoute(),
     icon: HugeIcons.strokeRoundedHome01,
     iconOn: HugeIcons.strokeRoundedHome01,
-
     label: 'Home',
   ),
 
