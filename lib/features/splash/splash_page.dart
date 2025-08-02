@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
   /// with the correct route when the BLoC reaches a final state.
   Future<PageRouteInfo> _getDestinationFromCache() async {
     final pageCacher = _getIt.get<PageCacher>();
-    switch (await pageCacher.isMarketRoute()) {
+    switch (pageCacher.isMarketRoute()) {
       case null:
         return const DirectorRoute();
       case true:

@@ -20,16 +20,13 @@ dependencies:
   talker_flutter: ^4.9.3
   talker_bloc_logger: ^4.9.3
   talker: ^4.9.3
-  get_it: ^8.0.3
+  get_it: ^8.1.0
 
   auto_route: ^10.1.0
   hive_ce: ^2.11.3
   hive_ce_flutter: ^2.3.1
   hydrated_bloc: ^10.1.1
-  another_flutter_splash_screen: ^1.2.1
   flutter_screenutil: ^5.9.3
-  flutter_launcher_icons: ^0.14.4
-  slide_reveal_screen: ^1.0.7
   hugeicons: ^0.0.11
   input_quantity: ^2.5.1
   shared_preferences: ^2.5.3

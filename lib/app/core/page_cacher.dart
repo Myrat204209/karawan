@@ -13,7 +13,7 @@ class PageCacher {
     await _prefs.setBool(_isMarketRoute, routeType == RouteType.market);
   }
 
-  Future<bool?> isMarketRoute() async {
+  bool? isMarketRoute() {
     return _prefs.getBool(_isMarketRoute);
   }
 }

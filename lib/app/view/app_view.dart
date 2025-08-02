@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
-import 'package:karawan/app/router/router.dart';
+import 'package:karawan/app/app.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class AppView extends StatefulWidget {
@@ -19,10 +19,11 @@ class _AppViewState extends State<AppView> {
 
   @override
   void initState() {
+    final isMarket = GetIt.I<PageCacher>().isMarketRoute();
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
+      SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: AppColors.mainAccent,
+        statusBarColor: colorFromPage(isMarket ?? false),
       ),
     );
     _talker = GetIt.I<Talker>();

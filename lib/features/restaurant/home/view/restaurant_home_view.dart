@@ -69,7 +69,7 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
     return CustomScrollView(
       controller: _scrollController,
       slivers: [
-        AppStatusBar(onSearchTap: () {}),
+        AppStatusBar(onSearchTap: () {},color: colorFromPage(false),),
         AppSlider(
           promoItems: [
             Assets.images.banner.image(),

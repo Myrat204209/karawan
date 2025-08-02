@@ -23,21 +23,14 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: RestaurantBottomRoute.page,
       children: [
+        AutoRoute(path: 'home', page: RestaurantHomeRoute.page),
+        AutoRoute(path: 'order', page: RestaurantOrderRoute.page),
+        AutoRoute(path: 'favorites', page: RestaurantFavoritesRoute.page),
+        AutoRoute(path: 'profile', page: RestaurantProfileRoute.page),
+        // The Product Details page for the restaurant section.
         AutoRoute(
-          page: RestaurantBottomRoute.page, // Also an EmptyRouterPage shell
-          // initial: true,
-          children: [
-            // Tabs for the Restaurant section
-            AutoRoute(path: 'home', page: RestaurantHomeRoute.page),
-            AutoRoute(path: 'order', page: RestaurantOrderRoute.page),
-            AutoRoute(path: 'favorites', page: RestaurantFavoritesRoute.page),
-            AutoRoute(path: 'profile', page: RestaurantProfileRoute.page),
-            // The Product Details page for the restaurant section.
-            AutoRoute(
-              path: 'product/:productId',
-              page: RestaurantProductsRoute.page,
-            ),
-          ],
+          path: 'product/:productId',
+          page: RestaurantProductsRoute.page,
         ),
       ],
     ),

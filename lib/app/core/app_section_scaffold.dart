@@ -18,6 +18,10 @@ class NavigationItem {
   final String label;
 }
 
+Color colorFromPage(bool isMarket) {
+  return isMarket ? AppColors.mainAccent : AppColors.secondRestAccent;
+}
+
 // This is the updated, self-contained scaffold widget.
 class AppSectionScaffold extends StatefulWidget {
   const AppSectionScaffold({
@@ -43,25 +47,43 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    // final isLeft = widget.isMarket == false; // Not used in current build
-    // We now use AutoTabsRouter to handle the logic internally.
+
     return AutoTabsScaffold(
       backgroundColor: const Color(0xFFFBFBFD),
       routes: widget.navigationItems.map((item) => item.route).toList(),
 
+      floatingActionButtonBuilder: (context, tabsRouter) =>
+          tabsRouter.activeIndex == 0
+          ? FloatingActionButton(
+              backgroundColor: Colors.white,
+              shape: CircleBorder(
+                side: BorderSide(
+                  color: colorFromPage(widget.isMarket),
+                  width: 4,
+                ),
+              ),
+
+              onPressed: () {
+                context.replaceRoute(widget.oppositeRoute);
+              },
+              child: Icon(
+                widget.isMarket
+                    ? HugeIcons.strokeRoundedStore01
+                    : HugeIcons.strokeRoundedRestaurant03,
+                color: colorFromPage(widget.isMarket),
+                size: 35,
+              ),
+            )
+          : null,
       bottomNavigationBuilder: (context, tabsRouter) {
         // The bottomNavigationBar is built using the tabsRouter's state.
         return NavigationBar(
           elevation: 4,
-          shadowColor: const Color(
-            0xFF000000,
-          ).withValues(alpha: 0.02), // Adjusted alpha value access
+          shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
           backgroundColor: const Color(0xFFFFFFFF),
           indicatorColor: Colors.transparent,
-          labelTextStyle: const WidgetStatePropertyAll(
-            TextStyle(
-              color: AppColors.mainAccent,
-            ), // Ensure AppColors.mainAccent is defined
+          labelTextStyle: WidgetStatePropertyAll(
+            TextStyle(color: colorFromPage(widget.isMarket)),
           ),
           height: 85.h,
           selectedIndex: tabsRouter.activeIndex,
@@ -79,6 +101,7 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
           destinations: [
             for (final (index, item) in widget.navigationItems.indexed)
               _NavigationDestinationIcon(
+                color: colorFromPage(widget.isMarket),
                 icon: item.icon,
                 iconOn: item.iconOn,
                 label: item.label,
@@ -98,10 +121,12 @@ class _NavigationDestinationIcon extends StatelessWidget {
     required this.iconOn,
     required this.label,
     required this.isSelected,
+    required this.color,
   });
 
   final IconData icon, iconOn;
   final String label;
+  final Color color;
   final bool isSelected;
 
   @override
@@ -109,7 +134,7 @@ class _NavigationDestinationIcon extends StatelessWidget {
     return NavigationDestination(
       label: label,
       icon: isSelected
-          ? HugeIcon(icon: iconOn, color: AppColors.secondRestAccent)
+          ? HugeIcon(icon: iconOn, color: color)
           : HugeIcon(icon: icon, color: Color(0xFF969696)),
     );
   }

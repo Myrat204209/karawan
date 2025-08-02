@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:karawan/app/app.dart';
 
 class MarketHomeView extends StatefulWidget {
   const MarketHomeView({super.key});
@@ -74,7 +75,7 @@ class _MarketHomeViewState extends State<MarketHomeView> {
       controller: _scrollController,
       slivers: [
         // --- Your initial, static widgets ---
-        AppStatusBar(onSearchTap: () {}),
+        AppStatusBar(onSearchTap: () {}, color: colorFromPage(true)),
         AppSlider(
           promoItems: [
             Assets.images.banner.image(),
