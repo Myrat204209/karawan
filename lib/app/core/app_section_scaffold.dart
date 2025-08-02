@@ -88,44 +88,6 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
         );
       },
     );
-    // The commented-out Stack/Positioned code for the swipe button is preserved below
-    // return Stack(
-    //   children: [
-    //     Padding(
-    //       padding: EdgeInsets.only(
-    //         left: isLeft ? 10 : 0,
-    //         right: !isLeft ? 10 : 0,
-    //       ),
-    //       child: // ... (the AutoTabsScaffold part above would go here if not using the swipe button visually)
-    //     ),
-    //     Positioned(
-    //       right: isLeft ? null : 10,
-    //       left: !isLeft ? null : 10,
-    //       top: MediaQuery.sizeOf(context).height / 2,
-    //       child: ClipRRect(
-    //         borderRadius: BorderRadius.horizontal(
-    //           left: !isLeft ? Radius.elliptical(30, 30) : Radius.zero,
-    //           right: isLeft ? Radius.elliptical(30, 30) : Radius.zero,
-    //         ),
-    //         child: SizedBox(
-    //           height: 100,
-    //           width: 50,
-    //           child: IconButton(
-    //             onPressed: () {
-    //               context.router.replace(widget.oppositeRoute);
-    //             },
-    //             icon: Icon(
-    //               isLeft
-    //                   ? Icons.swipe_right_alt_rounded
-    //                   : Icons.swipe_left_alt_rounded,
-    //               size: 50,
-    //             ),
-    //           ).colorize(Colors.red), // .colorize might need adjustment based on your UI package
-    //         ),
-    //       ),
-    //     ),
-    //   ],
-    // );
   }
 }
 

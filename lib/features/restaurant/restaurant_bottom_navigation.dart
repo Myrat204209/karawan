@@ -41,7 +41,7 @@ class RestaurantBottomNavigation extends StatelessWidget {
 
     return AppSectionScaffold(
       navigationItems: restaurantNavigationItems,
-      oppositeRoute: RestaurantBottomRoute(),
+      oppositeRoute: MarketBottomRoute(),
     );
   }
 }
