@@ -14,23 +14,27 @@ import 'package:flutter/material.dart' as _i17;
 import 'package:karawan/app/router/app_router.dart' as _i9;
 import 'package:karawan/app/view/combiner_page.dart' as _i1;
 import 'package:karawan/app/view/home_page.dart' as _i2;
-import 'package:karawan/restaurant/favorites/view/restaurant_favorites_page.dart'
+import 'package:karawan/features/restaurant/favorites/view/restaurant_favorites_page.dart'
     as _i4;
-import 'package:karawan/restaurant/home/view/restaurant_home_page.dart' as _i5;
-import 'package:karawan/restaurant/order/view/restaurant_order_page.dart'
+import 'package:karawan/features/restaurant/home/view/restaurant_home_page.dart'
+    as _i5;
+import 'package:karawan/features/restaurant/order/view/restaurant_order_page.dart'
     as _i6;
-import 'package:karawan/restaurant/product_details/view/restaurant_products_page.dart'
+import 'package:karawan/features/restaurant/product_details/view/restaurant_products_page.dart'
     as _i7;
-import 'package:karawan/restaurant/profile/view/restaurant_profile_page.dart'
+import 'package:karawan/features/restaurant/profile/view/restaurant_profile_page.dart'
     as _i8;
-import 'package:karawan/restaurant/restaurant_bottom_navigation.dart' as _i3;
-import 'package:karawan/store/cart/view/store_cart_page.dart' as _i11;
-import 'package:karawan/store/categories/view/store_categories_page.dart'
+import 'package:karawan/features/restaurant/restaurant_bottom_navigation.dart'
+    as _i3;
+import 'package:karawan/features/store/cart/view/store_cart_page.dart' as _i11;
+import 'package:karawan/features/store/categories/view/store_categories_page.dart'
     as _i12;
-import 'package:karawan/store/favorites/view/store_favorites_page.dart' as _i13;
-import 'package:karawan/store/home/view/store_home_page.dart' as _i14;
-import 'package:karawan/store/profile/view/store_profile_page.dart' as _i15;
-import 'package:karawan/store/store_bottom_navigation.dart' as _i10;
+import 'package:karawan/features/store/favorites/view/store_favorites_page.dart'
+    as _i13;
+import 'package:karawan/features/store/home/view/store_home_page.dart' as _i14;
+import 'package:karawan/features/store/profile/view/store_profile_page.dart'
+    as _i15;
+import 'package:karawan/features/store/store_bottom_navigation.dart' as _i10;
 
 /// generated route for
 /// [_i1.CombinerPage]
