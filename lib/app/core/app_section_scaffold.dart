@@ -2,7 +2,10 @@ import 'package:app_ui/app_ui.dart' show AppColors;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hugeicons/hugeicons.dart';
+
+import 'page_cacher.dart';
 
 // The NavigationItem class remains the same.
 class NavigationItem {
@@ -64,6 +67,9 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
               ),
 
               onPressed: () {
+                GetIt.I<PageCacher>().setRoute(
+                  widget.isMarket ? PageType.restaurant : PageType.market,
+                );
                 context.replaceRoute(widget.oppositeRoute);
               },
               child: Icon(
