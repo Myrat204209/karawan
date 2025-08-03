@@ -41,6 +41,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/logo_dark.png
+  AssetGenImage get logoDark =>
+      const AssetGenImage('assets/images/logo_dark.png');
+
   /// Directory path: assets/images/meals
   $AssetsImagesMealsGen get meals => const $AssetsImagesMealsGen();
 
@@ -58,6 +62,7 @@ class $AssetsImagesGen {
     banner3,
     doner,
     logo,
+    logoDark,
     mineral,
   ];
 }

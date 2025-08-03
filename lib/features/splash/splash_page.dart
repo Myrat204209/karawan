@@ -64,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 1500),
           opacity: _opacity,
-          child: Assets.images.logo.image(),
+          child: Assets.images.logoDark.image(),
         ),
       ).colorize(Colors.white),
     );

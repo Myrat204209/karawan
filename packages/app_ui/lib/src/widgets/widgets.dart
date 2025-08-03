@@ -11,4 +11,3 @@ export 'app_product_item.dart';
 export 'app_profile_tile.dart';
 export 'app_slider.dart';
 export 'app_status_bar.dart';
-export 'app_search_icon.dart';

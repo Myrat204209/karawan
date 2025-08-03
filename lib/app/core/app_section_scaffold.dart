@@ -73,7 +73,7 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
                 context.replaceRoute(widget.oppositeRoute);
               },
               child: Icon(
-                widget.isMarket
+                !widget.isMarket
                     ? HugeIcons.strokeRoundedStore01
                     : HugeIcons.strokeRoundedRestaurant03,
                 color: colorFromPage(widget.isMarket),
@@ -81,6 +81,14 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
               ),
             )
           : null,
+      // transitionBuilder: (context, child, animation) {
+      //   return DualTransitionBuilder(
+      //     animation: animation,
+      //     child: child,
+      //     forwardBuilder: (context, animation, child) => child!,
+      //     reverseBuilder: (context, animation, child) => child!,
+      //   );
+      // },
       bottomNavigationBuilder: (context, tabsRouter) {
         // The bottomNavigationBar is built using the tabsRouter's state.
         return NavigationBar(

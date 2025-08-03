@@ -32,13 +32,28 @@ class AppStatusBar extends StatelessWidget {
           statusBarColor: Colors.blue,
         ),
         titleSpacing: 0,
-        leading: Assets.svg.caravan.svg().paddingOnly(left: 18.w),
+        leading: Assets.images.logo.image().paddingOnly(left: 18.w),
         leadingWidth: 120.w,
         elevation: 2,
         automaticallyImplyLeading: false,
         toolbarHeight: 75.h,
         pinned: true,
-        actions: [AppActionIcon(icon: Icons.search, onTap: onSearchTap)],
+        title: AnimSearchBar(
+          width: 300,
+          rtl: true,
+          suffixIcon: Icon(Icons.search),
+          textFieldIconColor: Colors.transparent,
+          style: AppTextStyle.text().lg().medium().withColor(Colors.black),
+          onSubmitted: (p0) {},
+
+          textController: TextEditingController(),
+          onSuffixTap: () {
+            // setState(() {
+            //   textController.clear();
+            // });
+          },
+        ).paddingSymmetric(horizontal: 10),
+        centerTitle: true,
       );
     } else {
       return AppBar(
@@ -46,7 +61,8 @@ class AppStatusBar extends StatelessWidget {
         backgroundColor: color,
         centerTitle: true,
         title: AnimSearchBar(
-          width: 400,
+          width: 300,
+          rtl: true,
           onSubmitted: (p0) {},
           textController: TextEditingController(),
           onSuffixTap: () {
@@ -54,15 +70,14 @@ class AppStatusBar extends StatelessWidget {
             //   textController.clear();
             // });
           },
-        ),
+        ).paddingSymmetric(horizontal: 10),
 
-        actionsPadding: EdgeInsets.only(right: 18.w),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
           statusBarColor: Colors.blue,
         ),
         titleSpacing: 0,
-        leading: Assets.svg.caravan.svg().paddingOnly(left: 18.w),
+        leading: Assets.images.logo.image().paddingOnly(left: 18.w),
         leadingWidth: 120.w,
         toolbarHeight: 75.h,
         automaticallyImplyLeading: false,
