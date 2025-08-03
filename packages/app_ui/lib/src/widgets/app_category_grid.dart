@@ -4,24 +4,31 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 class AppCategoryGrid extends StatelessWidget {
   final String title;
   final int itemCount;
   final VoidCallback? onGridPressed;
+  final Function(int)? onProductPressed;
+  final String section;
   final bool _isSliver;
 
   const AppCategoryGrid({
     super.key,
     required this.title,
     this.onGridPressed,
+    this.onProductPressed,
     required this.itemCount,
+    this.section = 'market',
   }) : _isSliver = false;
 
   const AppCategoryGrid.sliver({
     super.key,
     required this.title,
     this.onGridPressed,
+    this.onProductPressed,
     required this.itemCount,
+    this.section = 'market',
   }) : _isSliver = true;
 
   @override
@@ -62,17 +69,27 @@ class AppCategoryGrid extends StatelessWidget {
                 childAspectRatio: 175 / 210,
               ),
               itemBuilder: (context, index) {
-                return AppProductItem(
-                  onGridPressed: onGridPressed,
+                return AppProductItemEnhanced(
+                  onGridPressed:
+                      onProductPressed != null
+                          ? () => onProductPressed!(index)
+                          : onGridPressed,
                   image: Assets.images.meals.values[index % 4].image(
                     fit: BoxFit.contain,
                   ),
-                  name: 'Doner Kebap',
-                  price: 20.0,
+                  isFavorite: StorageHooks.useIsFavorite(
+                    '${section}_product_${index + 1}',
+                    section,
+                  ),
+                  name:
+                      '${section == 'market' ? 'Market' : 'Restaurant'} Product ${index + 1}',
+                  price: (index + 1) * (section == 'market' ? 5.0 : 8.0),
                   rating: 4.5,
-                  onCartAdded: () {},
                   description:
-                      'Product designers who focuses on simplicity & usability',
+                      '${section == 'market' ? 'Market' : 'Restaurant'} product description ${index + 1}',
+                  productId: '${section}_product_${index + 1}',
+                  section: section,
+                  imagePath: 'assets/images/meals/meal${(index % 4) + 1}.png',
                 );
               },
             ),
@@ -113,17 +130,27 @@ class AppCategoryGrid extends StatelessWidget {
               childAspectRatio: 175 / 210,
             ),
             itemBuilder: (context, index) {
-              return AppProductItem(
-                onGridPressed: onGridPressed,
+              return AppProductItemEnhanced(
+                onGridPressed:
+                    onProductPressed != null
+                        ? () => onProductPressed!(index)
+                        : onGridPressed,
                 image: Assets.images.meals.values[index % 4].image(
                   fit: BoxFit.contain,
                 ),
-                name: 'Doner Kebap',
-                price: 20.0,
+                isFavorite: StorageHooks.useIsFavorite(
+                  '${section}_product_${index + 1}',
+                  section,
+                ),
+                name:
+                    '${section == 'market' ? 'Market' : 'Restaurant'} Product ${index + 1}',
+                price: (index + 1) * (section == 'market' ? 5.0 : 8.0),
                 rating: 4.5,
-                onCartAdded: () {},
                 description:
-                    'Product designers who focuses on simplicity & usability',
+                    '${section == 'market' ? 'Market' : 'Restaurant'} product description ${index + 1}',
+                productId: '${section}_product_${index + 1}',
+                section: section,
+                imagePath: 'assets/images/meals/meal${(index % 4) + 1}.png',
               );
             },
           ),

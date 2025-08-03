@@ -1,47 +1,44 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:karawan/app/app.dart';
+import 'package:karawan/app/core/go_router_scaffold.dart';
 
 final restaurantNavigationItems = [
-  NavigationItem(
-    route: const RestaurantHomeRoute(),
+  GoRouterNavigationItem(
+    path: '/restaurant/home',
     icon: HugeIcons.strokeRoundedHome01,
     iconOn: HugeIcons.strokeRoundedHome01,
     label: 'Home',
   ),
-
-  NavigationItem(
-    route: const RestaurantFavoritesRoute(),
+  GoRouterNavigationItem(
+    path: '/restaurant/favorites',
     icon: HugeIcons.strokeRoundedFavourite,
     iconOn: HugeIcons.strokeRoundedFavourite,
     label: 'Favorites',
   ),
-  NavigationItem(
-    route: const RestaurantOrderRoute(),
+  GoRouterNavigationItem(
+    path: '/restaurant/order',
     icon: HugeIcons.strokeRoundedShoppingCart01,
     iconOn: HugeIcons.strokeRoundedShoppingCart01,
     label: 'Order',
   ),
-  NavigationItem(
-    route: const RestaurantProfileRoute(),
+  GoRouterNavigationItem(
+    path: '/restaurant/profile',
     icon: HugeIcons.strokeRoundedUser03,
     iconOn: HugeIcons.strokeRoundedUser03,
     label: 'Profile',
   ),
 ];
 
-@RoutePage()
 class RestaurantBottomNavigation extends StatelessWidget {
   const RestaurantBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Define the items specific to the Store section.
-
-    return AppSectionScaffold(
+    return GoRouterSectionScaffold(
       navigationItems: restaurantNavigationItems,
-      oppositeRoute: MarketBottomRoute(),
+      oppositePath: '/market/home',
+      child:
+          const SizedBox.shrink(), // This will be replaced by the navigation shell
     );
   }
 }

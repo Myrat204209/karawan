@@ -1,10 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
 import 'package:karawan/app/app.dart';
 import 'package:karawan/app/router/go_router_config.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
@@ -14,7 +12,7 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  late final Talker _talker;
+  // late final Talker _talker;
 
   @override
   void initState() {
@@ -25,7 +23,7 @@ class _AppViewState extends State<AppView> {
     //     statusBarColor: colorFromPage(isMarket ?? false),
     //   ),
     // );
-    _talker = GetIt.I<Talker>();
+    // _talker = GetIt.I<Talker>();
     super.initState();
   }
 

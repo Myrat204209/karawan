@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:karawan/app/app.dart';
 
 class MarketHomeView extends StatefulWidget {
@@ -60,6 +61,13 @@ class _MarketHomeViewState extends State<MarketHomeView> {
         : AppCategoryGrid.sliver(
             title: 'New Grid ${nextWidgetIndex ~/ 2}',
             itemCount: 4,
+            section: 'market',
+            onProductPressed: (index) {
+              // Navigate to product details with the specific product ID
+              context.go(
+                '/market/home/products/${nextWidgetIndex * 4 + index + 1}',
+              );
+            },
           );
 
     _loadedWidgets.add(newWidget);
@@ -93,7 +101,15 @@ class _MarketHomeViewState extends State<MarketHomeView> {
           ],
         ),
         const AppCarousel(title: 'Top Brendler'),
-        const AppCategoryGrid.sliver(title: 'Iň täze harytlar', itemCount: 4),
+        AppCategoryGrid.sliver(
+          title: 'Iň täze harytlar',
+          itemCount: 4,
+          section: 'market',
+          onProductPressed: (index) {
+            // Navigate to product details with the specific product ID
+            context.go('/market/home/products/${index + 1}');
+          },
+        ),
 
         // 3. Build the list of dynamically loaded widgets.
         ..._loadedWidgets,

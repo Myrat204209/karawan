@@ -8,6 +8,7 @@ export 'app_favorite_item.dart';
 export 'app_input_quantity.dart';
 export 'app_main_image.dart';
 export 'app_product_item.dart';
+export 'app_product_item_enhanced.dart';
 export 'app_profile_tile.dart';
 export 'app_slider.dart';
 export 'app_status_bar.dart';

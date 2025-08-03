@@ -50,10 +50,7 @@ class AppCard extends StatelessWidget {
                   trailing: IconButton(
                     onPressed: () {},
                     padding: EdgeInsets.zero,
-                    icon: Icon(
-                      isCart ? Icons.delete_outline_rounded : Icons.close,
-                      color: Color(0xFF979797),
-                    ),
+                    icon: Icon(Icons.close, color: Color(0xFF979797)),
                   ).paddingOnly(bottom: 25),
                 ),
                 Spacer(),
@@ -61,15 +58,16 @@ class AppCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
 
                   children: [
-                    Text(
-                      ' ${price ?? 12.00} TMT',
-                      style: AppTextStyle.text().lg().semiBold().withColor(
-                        Color(0xFFDD9776),
+                    Expanded(
+                      child: Text(
+                        'TMT ${price ?? 12.00}',
+                        style: AppTextStyle.text().lg().semiBold().withColor(
+                          AppColors.mainAccent,
+                        ),
                       ),
                     ),
-                    Spacer(),
                     isCart
-                        ? QuantityButton()
+                        ? AppInputQuantity(onRemove: () {}, onAdd: () {})
                         : AddToCartButton(onCartAdded: () {}),
                   ],
                 ).paddingOnly(right: 6),
@@ -78,7 +76,7 @@ class AppCard extends StatelessWidget {
           ),
         ],
       ).colorize(Colors.white).clipper(15),
-    );
+    ).colorize(Color(0xFFFbFbFd));
   }
 }
 

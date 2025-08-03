@@ -1,8 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:karawan/app/core/go_router_scaffold.dart';
 import 'package:karawan/features/features.dart';
+import 'package:karawan/features/market/market_bottom_navigation.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 final goRouter = GoRouter(
+  observers: [TalkerRouteObserver(GetIt.I<Talker>())],
   initialLocation: '/splash',
   routes: [
     GoRoute(path: '/splash', builder: (context, state) => const SplashPage()),
@@ -13,31 +17,11 @@ final goRouter = GoRouter(
     // Market section with bottom navigation
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return Scaffold(
-          body: navigationShell,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: navigationShell.currentIndex,
-            onTap: (index) => navigationShell.goBranch(index),
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.category),
-                label: 'Categories',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorites',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: 'Cart',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
+        return GoRouterSectionScaffold(
+          navigationItems: marketNavigationItems,
+          oppositePath: '/restaurant/home',
+          isMarket: true,
+          child: navigationShell,
         );
       },
       branches: [
@@ -45,80 +29,11 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/market/home',
-              builder: (context, state) => const MarketHomeView(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/market/categories',
-              builder: (context, state) => const MarketCategoriesView(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/market/favorites',
-              builder: (context, state) => const MarketFavoritesView(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/market/cart',
-              builder: (context, state) => const MarketCartView(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/market/profile',
-              builder: (context, state) => const MarketProfileView(),
-            ),
-          ],
-        ),
-      ],
-    ),
-    // Restaurant section with bottom navigation
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return Scaffold(
-          body: navigationShell,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: navigationShell.currentIndex,
-            onTap: (index) => navigationShell.goBranch(index),
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: 'Order',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorites',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        );
-      },
-      branches: [
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/restaurant/home',
-              builder: (context, state) => const RestaurantHomeView(),
+              builder: (context, state) => const MarketHomePage(),
               routes: [
                 GoRoute(
-                  path: 'product/:productId',
-                  builder: (context, state) => RestaurantProductsPage(
+                  path: 'products/:productId',
+                  builder: (context, state) => MarketProductsPage(
                     productId: state.pathParameters['productId']!,
                   ),
                 ),
@@ -129,8 +44,82 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
+              path: '/market/categories',
+              builder: (context, state) => const MarketCategoriesPage(),
+            ),
+            GoRoute(
+              path: '/market/sub-categories',
+              builder: (context, state) => const MarketSubCategoriesPage(),
+            ),
+            GoRoute(
+              path: '/market/filter',
+              builder: (context, state) => const MarketFilterPage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/market/favorites',
+              builder: (context, state) => const MarketFavoritesPage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/market/cart',
+              builder: (context, state) => const MarketCartPage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/market/profile',
+              builder: (context, state) => const MarketProfilePage(),
+            ),
+            GoRoute(
+              path: '/market/auth',
+              builder: (context, state) => const MarketAuthPage(),
+            ),
+            GoRoute(
+              path: '/market/notification',
+              builder: (context, state) => const MarketNotificationPage(),
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Restaurant section with bottom navigation
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return GoRouterSectionScaffold(
+          navigationItems: restaurantNavigationItems,
+          oppositePath: '/market/home',
+          child: navigationShell,
+        );
+      },
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/restaurant/home',
+              builder: (context, state) => const RestaurantHomePage(),
+            ),
+            GoRoute(
+              path: '/restaurant/product/:productId',
+              builder: (context, state) => RestaurantProductsPage(
+                productId: state.pathParameters['productId']!,
+              ),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
               path: '/restaurant/order',
-              builder: (context, state) => const RestaurantOrderView(),
+              builder: (context, state) => const RestaurantOrderPage(),
             ),
           ],
         ),
@@ -138,7 +127,7 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/restaurant/favorites',
-              builder: (context, state) => const RestaurantFavoritesView(),
+              builder: (context, state) => const RestaurantFavoritesPage(),
             ),
           ],
         ),
@@ -146,7 +135,7 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/restaurant/profile',
-              builder: (context, state) => const RestaurantProfileView(),
+              builder: (context, state) => const RestaurantProfilePage(),
             ),
           ],
         ),

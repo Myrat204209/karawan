@@ -18,37 +18,41 @@ class AppInputQuantity extends StatelessWidget {
         color: const Color(0xFFF3F3F3),
       ),
       child: Row(
-        spacing: 10,
+        spacing: 15,
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton.outlined(
-            onPressed: onRemove,
-            style: IconButton.styleFrom(
-              backgroundColor: AppColors.lightGrey,
-              side: BorderSide.none,
-            ),
-            padding: EdgeInsets.all(0),
-            visualDensity: VisualDensity.compact,
-            icon: Icon(Icons.remove, color: Colors.white),
-          ),
+          InputIcon(onTap: onRemove),
 
           Text(
             '1',
             style: AppTextStyle.text().md().bold().withColor(Color(0xFF6D6D6D)),
           ),
-          IconButton.outlined(
-            onPressed: onAdd,
-            style: IconButton.styleFrom(
-              backgroundColor: AppColors.mainAccent,
-              side: BorderSide.none,
-            ),
-
-            padding: EdgeInsets.all(0),
-            visualDensity: VisualDensity.compact,
-            icon: Icon(Icons.add, color: Colors.white),
-          ),
+          InputIcon(onTap: onRemove, isAdd: true),
         ],
+      ).paddingAll(4),
+    );
+  }
+}
+
+class InputIcon extends StatelessWidget {
+  const InputIcon({super.key, required this.onTap, this.isAdd = false});
+  final bool isAdd;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton.outlined(
+      onPressed: onTap,
+      style: IconButton.styleFrom(
+        backgroundColor: !isAdd ? AppColors.lightGrey : AppColors.mainAccent,
+        side: BorderSide.none,
+        minimumSize: Size.fromRadius(4),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
+        padding: EdgeInsets.all(0),
       ),
+      padding: EdgeInsets.all(0),
+      icon: Icon(isAdd ? Icons.add : Icons.remove, color: Colors.white),
     );
   }
 }

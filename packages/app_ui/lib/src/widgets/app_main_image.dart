@@ -4,10 +4,16 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppMainImage extends StatelessWidget {
-  const AppMainImage({super.key, required this.image, required this.onLiked});
+  const AppMainImage({
+    super.key,
+    required this.image,
+    required this.onLiked,
+    this.isLiked = false,
+  });
 
   final Widget image;
   final VoidCallback onLiked;
+  final bool isLiked;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -17,9 +23,13 @@ class AppMainImage extends StatelessWidget {
           right: 8,
           top: 8,
           child: AppActionIcon(
-            icon: Icons.favorite_border_rounded,
+            icon:
+                isLiked
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
             onTap: onLiked,
             isSmall: true,
+            color: isLiked ? AppColors.mainAccent : AppColors.grey,
           ),
         ),
       ],

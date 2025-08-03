@@ -1,5 +1,4 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
@@ -22,7 +21,7 @@ class DirectorView extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               _getIt<PageCacher>().setRoute(PageType.market);
-              context.router.replace(const MarketBottomRoute());
+              // context.router.replace(const MarketBottomRoute());
             },
 
             style: ElevatedButton.styleFrom(
@@ -41,7 +40,7 @@ class DirectorView extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               _getIt<PageCacher>().setRoute(PageType.restaurant);
-              context.router.replace(const RestaurantRouter());
+              // context.router.replace(const RestaurantRouter());
             },
             style: ElevatedButton.styleFrom(
               elevation: 2,

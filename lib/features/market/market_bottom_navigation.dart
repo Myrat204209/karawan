@@ -1,51 +1,51 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:karawan/app/app.dart';
+import 'package:karawan/app/core/go_router_scaffold.dart';
 
 final marketNavigationItems = [
-  NavigationItem(
-    route: const MarketHomeRoute(),
+  GoRouterNavigationItem(
+    path: '/market/home',
     icon: HugeIcons.strokeRoundedHome01,
     iconOn: HugeIcons.strokeRoundedHome01,
     label: 'Home',
   ),
-  NavigationItem(
-    route: const MarketCategoriesRoute(),
+  GoRouterNavigationItem(
+    path: '/market/categories',
     icon: HugeIcons.strokeRoundedCatalogue,
     iconOn: HugeIcons.strokeRoundedCatalogue,
     label: 'Category',
   ),
-  NavigationItem(
-    route: const MarketFavoritesRoute(),
+  GoRouterNavigationItem(
+    path: '/market/favorites',
     icon: HugeIcons.strokeRoundedFavourite,
     iconOn: HugeIcons.strokeRoundedFavourite,
     label: 'Favorites',
   ),
-  NavigationItem(
-    route: const MarketCartRoute(),
+  GoRouterNavigationItem(
+    path: '/market/cart',
     icon: HugeIcons.strokeRoundedShoppingCart01,
     iconOn: HugeIcons.strokeRoundedShoppingCart01,
     label: 'Cart',
   ),
-  NavigationItem(
-    route: const MarketProfileRoute(),
+  GoRouterNavigationItem(
+    path: '/market/profile',
     icon: HugeIcons.strokeRoundedUser03,
     iconOn: HugeIcons.strokeRoundedUser03,
     label: 'Profile',
   ),
 ];
 
-@RoutePage()
 class MarketBottomNavigation extends StatelessWidget {
   const MarketBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppSectionScaffold(
+    return GoRouterSectionScaffold(
       navigationItems: marketNavigationItems,
+      oppositePath: '/restaurant/home',
       isMarket: true,
-      oppositeRoute: RestaurantRouter(),
+      child:
+          const SizedBox.shrink(), // This will be replaced by the navigation shell
     );
   }
 }

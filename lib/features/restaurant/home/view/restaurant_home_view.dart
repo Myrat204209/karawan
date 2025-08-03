@@ -1,6 +1,5 @@
 // lib/restaurant/home/view/restaurant_home_view.dart
 import 'package:app_ui/app_ui.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:karawan/app/app.dart';
 
@@ -55,7 +54,15 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
               Assets.images.banner2.image(),
             ],
           )
-        : AppCategoryGrid.sliver(title: 'Menu', itemCount: 4);
+        : AppCategoryGrid.sliver(
+            title: 'Menu ${nextWidgetIndex ~/ 2}',
+            itemCount: 4,
+            section: 'restaurant',
+            onProductPressed: (index) {
+              // Navigate to product details with the specific product ID
+              // context.go('/restaurant/home/products/${nextWidgetIndex * 4 + index + 1}');
+            },
+          );
 
     _loadedWidgets.add(newWidget);
 
@@ -89,8 +96,10 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
         AppCategoryGrid.sliver(
           title: 'Menu',
           itemCount: 4,
-          onGridPressed: () {
-            context.router.push(RestaurantProductsRoute(productId: '123'));
+          section: 'restaurant',
+          onProductPressed: (index) {
+            // Navigate to product details with the specific product ID
+            // context.go('/restaurant/home/products/${index + 1}');
           },
         ),
 

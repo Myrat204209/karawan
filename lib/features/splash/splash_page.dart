@@ -1,12 +1,11 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:karawan/app/app.dart';
 
 final _getIt = GetIt.I;
 
-@RoutePage()
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -35,25 +34,25 @@ class _SplashPageState extends State<SplashPage> {
     final destinationRoute = _getDestinationFromCache();
 
     final results = await Future.wait([minimumDisplayTime, destinationRoute]);
-    final destination = results[1] as PageRouteInfo;
+    final destination = results[1] as String;
 
     // 3. Navigate when both are complete.
     if (mounted) {
-      context.router.replace(destination);
+      context.go(destination);
     }
   }
 
   /// Listens to the BLoC stream and returns a Future that completes
   /// with the correct route when the BLoC reaches a final state.
-  Future<PageRouteInfo> _getDestinationFromCache() async {
+  Future<String> _getDestinationFromCache() async {
     final pageCacher = _getIt.get<PageCacher>();
     switch (pageCacher.isMarketRoute()) {
       case null:
-        return const DirectorRoute();
+        return '/director';
       case true:
-        return const MarketBottomRoute();
+        return '/market/home';
       case false:
-        return const RestaurantRouter();
+        return '/restaurant/home';
     }
   }
 
