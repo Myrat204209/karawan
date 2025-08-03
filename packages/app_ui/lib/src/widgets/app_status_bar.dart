@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,10 +45,15 @@ class AppStatusBar extends StatelessWidget {
         key: key,
         backgroundColor: color,
         centerTitle: true,
-        title: AppSearchBar(
-          onTap: onSearchTap,
-          hintText: 'asasdasd',
-          editTextController: TextEditingController(),
+        title: AnimSearchBar(
+          width: 400,
+          onSubmitted: (p0) {},
+          textController: TextEditingController(),
+          onSuffixTap: () {
+            // setState(() {
+            //   textController.clear();
+            // });
+          },
         ),
 
         actionsPadding: EdgeInsets.only(right: 18.w),
