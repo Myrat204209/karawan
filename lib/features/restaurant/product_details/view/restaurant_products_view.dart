@@ -10,6 +10,7 @@ class RestaurantProductsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFBFBFD),
       body: Column(
         children: [
           Expanded(
@@ -37,6 +38,7 @@ class RestaurantProductsView extends StatelessWidget {
                   ),
                   Row(
                     spacing: 5,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Icon(Icons.star, color: AppColors.mainAccent, size: 25),
@@ -71,13 +73,75 @@ class RestaurantProductsView extends StatelessWidget {
             ),
           ),
           Row(
+            spacing: 20,
             children: [
-              Column(children: [Text('Jemi'), Text('20.00 TMT')]),
+              Column(
+                spacing: 5,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Jemi',
+                    style: AppTextStyle.text().sm().medium().withColor(
+                      Colors.black,
+                    ),
+                  ),
+                  Text(
+                    'TMT 20.00',
+                    style: AppTextStyle.text().md().semiBold().withColor(
+                      Colors.black,
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // showModalBottomSheet(
+                    //   context: context,
+
+                    //   builder: (context) =>
+                    //       SizedBox(height: 200, child: Text('BottomSheed')),
+                    // );
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          backgroundColor: Colors.white,
+                          child: Column(
+                            spacing: 25,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Material(
+                                shape: CircleBorder(),
+                                color: AppColors.secondRestAccent,
+                                child: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 100,
+                                ),
+                              ),
+
+                              Text(
+                                'Hormatly müşderi saýlan harydyňyz sebede goş!',
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                                style: AppTextStyle.text()
+                                    .md()
+                                    .medium()
+                                    .withColor(Colors.black),
+                              ),
+                            ],
+                          ).paddingSymmetric(vertical: 50, horizontal: 20),
+                        );
+                      },
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     backgroundColor: AppColors.secondRestAccent,
+                    foregroundColor: Colors.white,
                   ),
                   child: Text('Sebede Gos'),
                 ),
@@ -85,7 +149,7 @@ class RestaurantProductsView extends StatelessWidget {
             ],
           ).paddingAll(10).colorize(Colors.white),
         ],
-      ).paddingSymmetric(horizontal: 15.w),
+      ).paddingSymmetric(horizontal: 15.w, vertical: 10),
     );
   }
 }

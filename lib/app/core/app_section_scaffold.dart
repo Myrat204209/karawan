@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'page_cacher.dart';
 
@@ -51,79 +52,81 @@ class _AppSectionScaffoldState extends State<AppSectionScaffold>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return AutoTabsScaffold(
-      backgroundColor: const Color(0xFFFBFBFD),
-      routes: widget.navigationItems.map((item) => item.route).toList(),
+    return AutoTabsRouter(
+      homeIndex: 0,
+      builder: (context, child) {
+        final tabsRouter = context.tabsRouter;
+        return Scaffold(
+          body: child,
+          floatingActionButton: tabsRouter.activeIndex == 0
+              ? FloatingActionButton(
+                  backgroundColor: Colors.white,
+                  shape: CircleBorder(
+                    side: BorderSide(
+                      color: colorFromPage(widget.isMarket),
+                      width: 4,
+                    ),
+                  ),
 
-      floatingActionButtonBuilder: (context, tabsRouter) =>
-          tabsRouter.activeIndex == 0
-          ? FloatingActionButton(
-              backgroundColor: Colors.white,
-              shape: CircleBorder(
-                side: BorderSide(
+                  onPressed: () {
+                    GetIt.I<PageCacher>().setRoute(
+                      widget.isMarket ? PageType.restaurant : PageType.market,
+                    );
+                    context.replaceRoute(widget.oppositeRoute);
+                  },
+                  child: Icon(
+                    !widget.isMarket
+                        ? HugeIcons.strokeRoundedStore01
+                        : HugeIcons.strokeRoundedRestaurant03,
+                    color: colorFromPage(widget.isMarket),
+                    size: 35,
+                  ),
+                )
+              : null,
+          bottomNavigationBar: NavigationBar(
+            elevation: 4,
+            shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
+            backgroundColor: const Color(0xFFFFFFFF),
+            indicatorColor: Colors.transparent,
+            labelTextStyle: WidgetStatePropertyAll(
+              TextStyle(color: colorFromPage(widget.isMarket)),
+            ),
+            height: 85.h,
+            selectedIndex: tabsRouter.activeIndex,
+            labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+            onDestinationSelected: (index) {
+              if (tabsRouter.activeIndex != index) {
+                tabsRouter.setActiveIndex(index);
+              } else {
+                tabsRouter
+                    .innerRouterOf<StackRouter>(tabsRouter.current.name)
+                    ?.popUntilRoot();
+              }
+            },
+
+            destinations: [
+              for (final (index, item) in widget.navigationItems.indexed)
+                _NavigationDestinationIcon(
                   color: colorFromPage(widget.isMarket),
-                  width: 4,
+                  icon: item.icon,
+                  iconOn: item.iconOn,
+                  label: item.label,
+                  isSelected: tabsRouter.activeIndex == index,
                 ),
-              ),
-
-              onPressed: () {
-                GetIt.I<PageCacher>().setRoute(
-                  widget.isMarket ? PageType.restaurant : PageType.market,
-                );
-                context.replaceRoute(widget.oppositeRoute);
-              },
-              child: Icon(
-                !widget.isMarket
-                    ? HugeIcons.strokeRoundedStore01
-                    : HugeIcons.strokeRoundedRestaurant03,
-                color: colorFromPage(widget.isMarket),
-                size: 35,
-              ),
-            )
-          : null,
-      // transitionBuilder: (context, child, animation) {
-      //   return DualTransitionBuilder(
-      //     animation: animation,
-      //     child: child,
-      //     forwardBuilder: (context, animation, child) => child!,
-      //     reverseBuilder: (context, animation, child) => child!,
-      //   );
-      // },
-      bottomNavigationBuilder: (context, tabsRouter) {
-        // The bottomNavigationBar is built using the tabsRouter's state.
-        return NavigationBar(
-          elevation: 4,
-          shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
-          backgroundColor: const Color(0xFFFFFFFF),
-          indicatorColor: Colors.transparent,
-          labelTextStyle: WidgetStatePropertyAll(
-            TextStyle(color: colorFromPage(widget.isMarket)),
+            ],
           ),
-          height: 85.h,
-          selectedIndex: tabsRouter.activeIndex,
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          onDestinationSelected: (index) {
-            if (tabsRouter.activeIndex != index) {
-              tabsRouter.setActiveIndex(index);
-            } else {
-              tabsRouter
-                  .innerRouterOf<StackRouter>(tabsRouter.current.name)
-                  ?.popUntilRoot();
-            }
-          },
-
-          destinations: [
-            for (final (index, item) in widget.navigationItems.indexed)
-              _NavigationDestinationIcon(
-                color: colorFromPage(widget.isMarket),
-                icon: item.icon,
-                iconOn: item.iconOn,
-                label: item.label,
-                isSelected: tabsRouter.activeIndex == index,
-              ),
-          ],
         );
       },
+      inheritNavigatorObservers: true,
+
+      // backgroundColor: const Color(0xFFFBFBFD),
+      routes: widget.navigationItems.map((item) => item.route).toList(),
+      navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())],
+
+      // bottomNavigationBuilder: (context, tabsRouter) {
+      //   // The bottomNavigationBar is built using the tabsRouter's state.
+      //   return
+      // },
     );
   }
 }

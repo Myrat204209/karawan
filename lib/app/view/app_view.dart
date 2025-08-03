@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:karawan/app/app.dart';
+import 'package:karawan/app/router/go_router_config.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class AppView extends StatefulWidget {
@@ -13,7 +14,6 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  late final AppRouter _router;
   late final Talker _talker;
 
   @override
@@ -26,7 +26,6 @@ class _AppViewState extends State<AppView> {
     //   ),
     // );
     _talker = GetIt.I<Talker>();
-    _router = GetIt.I<AppRouter>();
     super.initState();
   }
 
@@ -41,12 +40,7 @@ class _AppViewState extends State<AppView> {
             debugShowCheckedModeBanner: false,
             theme: AppTheme().themeData,
             themeMode: ThemeMode.light,
-            routerConfig: _router.config(
-              navigatorObservers: () => [
-                TalkerRouteObserver(_talker),
-                // SentryNavigatorObserver(),
-              ],
-            ),
+            routerConfig: goRouter,
           ),
         );
       },
