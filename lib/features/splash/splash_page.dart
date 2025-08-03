@@ -52,27 +52,9 @@ class _SplashPageState extends State<SplashPage> {
         return const DirectorRoute();
       case true:
         return const MarketBottomRoute();
-
       case false:
-        return const RestaurantBottomRoute();
+        return const RestaurantRouter();
     }
-    // Find the first state that is NOT 'initializing'
-    // return bloc.stream
-    //     .firstWhere((state) => state.status != AppStatus.initializing)
-    //     .then((finalState) {
-    //       switch (finalState.status) {
-    //         case AppStatus.needsUpdate:
-    //           return const ForceUpdateRoute();
-    //         case AppStatus.needsLanguage:
-    //           return const LanguageRoute();
-    //         case AppStatus.unauthenticated:
-    //           return const AuthRoute();
-    //         case AppStatus.authenticated:
-    //           return const SessionHostRoute();
-    //         default:
-    //           return const AuthRoute();
-    //       }
-    //     });
   }
 
   @override

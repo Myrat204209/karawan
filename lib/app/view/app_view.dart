@@ -1,6 +1,5 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:karawan/app/app.dart';
@@ -19,13 +18,13 @@ class _AppViewState extends State<AppView> {
 
   @override
   void initState() {
-    final isMarket = GetIt.I<PageCacher>().isMarketRoute();
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: colorFromPage(isMarket ?? false),
-      ),
-    );
+    // final isMarket = GetIt.I<PageCacher>().isMarketRoute();
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   SystemUiOverlayStyle(
+    //     statusBarIconBrightness: Brightness.light,
+    //     statusBarColor: colorFromPage(isMarket ?? false),
+    //   ),
+    // );
     _talker = GetIt.I<Talker>();
     _router = GetIt.I<AppRouter>();
     super.initState();

@@ -13,6 +13,8 @@ abstract class AppColors {
   static const Color secondStoreAccent = Color(0xFF2AC3A5);
   static const Color secondRestAccent = Color(0xFFEBC522);
 
+  static const Color grey = Color(0xFF666666);
+  static const Color lightGrey = Color(0xFFD7D7D7);
   /// Background color for primary surfaces in Light Mode.
   /// Typically used as a screen or main content background.
   static const Color bgMain = Color(0xFF161919);

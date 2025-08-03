@@ -1,8 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/src/widgets/app_main_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:input_quantity/input_quantity.dart';
 
 class RestaurantProductsView extends StatelessWidget {
   const RestaurantProductsView({super.key, this.rating = 5.0});
@@ -16,8 +16,10 @@ class RestaurantProductsView extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  SizedBox(height: 10),
                   AppMainImage(
                     image: Assets.images.doner.image(fit: BoxFit.cover),
                     onLiked: () {},
@@ -26,47 +28,19 @@ class RestaurantProductsView extends StatelessWidget {
                     leading: Text(
                       'Doner Kebap',
                       style: AppTextStyle.text()
-                          .withFontSize(20.sp)
+                          .withFontSize(22.sp)
                           .semiBold()
-                          .withColor(Colors.black),
+                          .withColor(AppColors.grey),
                     ),
-
+                    dense: true,
                     contentPadding: EdgeInsets.all(0),
-                    trailing: InputQty.int(
-                      decoration: QtyDecorationProps(
-                        border: OutlineInputBorder(
-                          gapPadding: 19,
-                          borderRadius: kCircular20Border,
-                          borderSide: BorderSide(color: Colors.transparent),
-                        ),
-
-                        // btnColor: ,
-                        btnColor: const Color(0xFFF3F3F3),
-                        iconColor: Color(0xFFD7D7D7),
-                        fillColor: const Color(0xFFF3F3F3),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 4,
-                          vertical: 8,
-                        ),
-                        borderShape: BorderShapeBtn.circle,
-                        minusBtn: Icon(
-                          HugeIcons.strokeRoundedArrowLeft01,
-                          size: 30,
-                        ),
-                        plusBtn: Icon(
-                          HugeIcons.strokeRoundedArrowRight01,
-                          size: 30,
-                        ),
-                      ),
-
-                      initVal: 1,
-                      minVal: 1,
-                    ),
+                    trailing: AppInputQuantity(onAdd: () {}, onRemove: () {}),
                   ),
                   Row(
+                    spacing: 5,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.star, color: Colors.yellow, size: 25),
+                      Icon(Icons.star, color: AppColors.mainAccent, size: 25),
                       Text(
                         rating.toStringAsFixed(1),
                         style: AppTextStyle.text()
@@ -76,6 +50,23 @@ class RestaurantProductsView extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  Text(
+                    'Mazmuny',
+                    style: AppTextStyle.text().xl().semiBold().withColor(
+                      Colors.black,
+                    ),
+                  ),
+                  Text(
+                    'Stay refreshed with our ultra-pure, mineral-balanced water sourced from natural springs. Perfectly sized for on-the-go hydration, each bottle is BPA-free, recyclable, and sealed for freshness.',
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyle.text().sm().regular().withColor(
+                      AppColors.grey,
+                    ),
+                  ),
+                  AppCategoryGrid(title: 'In taze harytlar', itemCount: 4),
                 ],
               ),
             ),
@@ -95,7 +86,7 @@ class RestaurantProductsView extends StatelessWidget {
             ],
           ).paddingAll(10).colorize(Colors.white),
         ],
-      ).paddingSymmetric(horizontal: 10.w),
+      ).paddingSymmetric(horizontal: 15.w),
     );
   }
 }

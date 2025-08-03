@@ -2,7 +2,10 @@ import 'package:app_ui/app_ui.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:karawan/app/router/app_router.gr.dart';
+import 'package:get_it/get_it.dart';
+import 'package:karawan/app/app.dart';
+
+final _getIt = GetIt.I;
 
 class DirectorView extends StatelessWidget {
   const DirectorView({super.key});
@@ -18,6 +21,7 @@ class DirectorView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
+              _getIt<PageCacher>().setRoute(PageType.market);
               context.router.replace(const MarketBottomRoute());
             },
 
@@ -36,7 +40,8 @@ class DirectorView extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.router.replace(const RestaurantBottomRoute());
+              _getIt<PageCacher>().setRoute(PageType.restaurant);
+              context.router.replace(const RestaurantRouter());
             },
             style: ElevatedButton.styleFrom(
               elevation: 2,

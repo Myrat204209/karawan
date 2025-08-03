@@ -55,7 +55,7 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
               Assets.images.banner2.image(),
             ],
           )
-        : AppCategoryGrid(title: 'Menu', itemCount: 4);
+        : AppCategoryGrid.sliver(title: 'Menu', itemCount: 4);
 
     _loadedWidgets.add(newWidget);
 
@@ -69,7 +69,7 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
     return CustomScrollView(
       controller: _scrollController,
       slivers: [
-        AppStatusBar(onSearchTap: () {},color: colorFromPage(false),),
+        AppStatusBar(onSearchTap: () {}, color: colorFromPage(false)),
         AppSlider(
           promoItems: [
             Assets.images.banner.image(),
@@ -86,7 +86,7 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
           ],
         ),
         const AppCarousel(title: 'Top Naharlar'),
-        AppCategoryGrid(
+        AppCategoryGrid.sliver(
           title: 'Menu',
           itemCount: 4,
           onGridPressed: () {

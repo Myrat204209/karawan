@@ -57,7 +57,7 @@ class _MarketHomeViewState extends State<MarketHomeView> {
               Assets.images.banner2.image(),
             ],
           )
-        : AppCategoryGrid(
+        : AppCategoryGrid.sliver(
             title: 'New Grid ${nextWidgetIndex ~/ 2}',
             itemCount: 4,
           );
@@ -93,7 +93,7 @@ class _MarketHomeViewState extends State<MarketHomeView> {
           ],
         ),
         const AppCarousel(title: 'Top Brendler'),
-        const AppCategoryGrid(title: 'Iň täze harytlar', itemCount: 4),
+        const AppCategoryGrid.sliver(title: 'Iň täze harytlar', itemCount: 4),
 
         // 3. Build the list of dynamically loaded widgets.
         ..._loadedWidgets,

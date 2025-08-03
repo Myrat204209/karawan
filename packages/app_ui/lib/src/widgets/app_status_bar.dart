@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppStatusBar extends StatelessWidget {
@@ -20,6 +21,11 @@ class AppStatusBar extends StatelessWidget {
       backgroundColor: color,
 
       actionsPadding: EdgeInsets.only(right: 18.w),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.blue,
+      ),
+
       titleSpacing: 0,
       leading: Assets.svg.caravan.svg().paddingOnly(left: 18.w),
 

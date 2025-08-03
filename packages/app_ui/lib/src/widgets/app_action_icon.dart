@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppActionIcon extends StatelessWidget {
@@ -5,7 +6,7 @@ class AppActionIcon extends StatelessWidget {
     super.key,
     required this.icon,
     required this.onTap,
-    this.color = const Color(0xFF666666),
+    this.color = AppColors.grey,
     this.isSmall = false, // New boolean parameter
   });
 
