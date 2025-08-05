@@ -7,7 +7,7 @@ class MarketFavoritesView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = StorageHooks.useFavorites('market');
+    final favorites = useFavorites('market');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -61,7 +61,7 @@ class MarketFavoritesView extends HookWidget {
                   image: Image.asset(
                     favorite.imagePath.isNotEmpty
                         ? favorite.imagePath
-                        : 'assets/images/meals/meal1.png',
+                        : 'packages/app_ui/assets/images/meals/meal_1.png',
                     fit: BoxFit.cover,
                   ),
                 );

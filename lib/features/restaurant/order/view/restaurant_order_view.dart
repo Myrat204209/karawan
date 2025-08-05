@@ -7,8 +7,8 @@ class RestaurantOrderView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = StorageHooks.useCartItems('restaurant');
-    final cartTotal = StorageHooks.useCartTotal('restaurant');
+    final cartItems = useCartItems('restaurant');
+    final cartTotal = useCartTotal('restaurant');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -73,7 +73,7 @@ class RestaurantOrderView extends HookWidget {
                   image: Image.asset(
                     cartItem.imagePath.isNotEmpty
                         ? cartItem.imagePath
-                        : 'assets/images/meals/meal1.png',
+                        : 'packages/app_ui/assets/images/meals/meal_1.png',
                     fit: BoxFit.cover,
                   ),
                 );

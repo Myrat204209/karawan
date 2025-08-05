@@ -8,8 +8,8 @@ class MarketCartView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = StorageHooks.useCartItems('market');
-    final cartTotal = StorageHooks.useCartTotal('market');
+    final cartItems = useCartItems('market');
+    final cartTotal = useCartTotal('market');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -74,7 +74,7 @@ class MarketCartView extends HookWidget {
                   image: Image.asset(
                     cartItem.imagePath.isNotEmpty
                         ? cartItem.imagePath
-                        : 'assets/images/meals/meal1.png',
+                        : 'packages/app_ui/assets/images/meals/meal_1.png',
                     fit: BoxFit.cover,
                   ),
                 );

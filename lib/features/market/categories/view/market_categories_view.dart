@@ -26,7 +26,6 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
         AppStatusBar.box(
           onSearchTap: () {
             log('asdsad');
-            
           },
           color: AppColors.mainAccent,
         ),
@@ -51,9 +50,21 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 15),
-                  CategoryButton(),
-                  CategoryButton(),
-                  CategoryButton(),
+                  CategoryButton(icon: Icons.card_giftcard, label: 'Sowgatlar'),
+                  CategoryButton(icon: Icons.percent, label: 'Arzanladyş'),
+                  CategoryButton(
+                    icon: Icons.shopping_basket_outlined,
+                    label: 'Gök-bakja',
+                  ),
+                  CategoryButton(icon: Icons.food_bank, label: 'Et we towuk'),
+                  CategoryButton(
+                    icon: Icons.emoji_food_beverage,
+                    label: 'Süýt önümleri',
+                  ),
+                  CategoryButton(
+                    icon: Icons.local_drink_outlined,
+                    label: 'Alkogolsyz içkiler',
+                  ),
                   // ListTile(
                   //   leading: BackButton(),
                   //   titleAlignment: ListTileTitleAlignment.center,
@@ -68,7 +79,16 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
                   // ),
                 ],
               ).paddingSymmetric(horizontal: 20),
-              Column(children: [AppCarousel.box(title: 'Top Brendlar')]),
+              ListView(
+                children: [
+                  AppCarousel.box(title: 'Top Brendlar'),
+                  AppCarousel.box(title: 'Egin-eşik'),
+                  AppCarousel.box(title: ''),
+                  AppCarousel.box(title: 'Himiki serişdeler'),
+                  AppCarousel.box(title: ''),
+                  AppCarousel.box(title: 'Top Brendlar'),
+                ],
+              ),
             ],
           ),
         ),
@@ -78,8 +98,10 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
 }
 
 class CategoryButton extends StatelessWidget {
-  const CategoryButton({super.key});
+  const CategoryButton({super.key, required this.label, required this.icon});
 
+  final String label;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -90,10 +112,20 @@ class CategoryButton extends StatelessWidget {
         side: BorderSide.none,
         shadowColor: AppColors.lightGrey,
         foregroundColor: Colors.black,
-        textStyle: AppTextStyle.text().lg().medium(),
+        textStyle: AppTextStyle.text().lg().regular(),
         alignment: Alignment.centerLeft,
       ),
-      child: Text('Tab1').paddingSymmetric(vertical: 20),
+      child: Row(
+        children: [
+          Material(
+            shape: CircleBorder(),
+
+            color: AppColors.mainAccent.withValues(alpha: 0.15),
+            child: Icon(icon, color: AppColors.mainAccent).paddingAll(10),
+          ),
+          Text(label).paddingSymmetric(vertical: 20, horizontal: 10),
+        ],
+      ),
     );
   }
 }

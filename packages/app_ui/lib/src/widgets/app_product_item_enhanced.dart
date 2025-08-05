@@ -15,8 +15,6 @@ class AppProductItemEnhanced extends HookWidget {
     required this.productId,
     required this.section,
     this.imagePath = '',
-    required this.isFavorite,
-    this.cartItem,
   });
 
   final Widget image;
@@ -28,13 +26,15 @@ class AppProductItemEnhanced extends HookWidget {
   final String productId;
   final String section;
   final String imagePath;
-  final bool isFavorite;
-  final CartItem? cartItem;
 
   @override
   Widget build(BuildContext context) {
+    // 1. Get service instance
     final storageService = useMemoized(() => StorageProvider.service, []);
-    final cartItem = StorageHooks.useCartItem(productId, section);
+
+    // 2. Use hooks to get LIVE, REACTIVE state for this specific product
+    final isFavorite = useIsFavorite(productId, section);
+    final cartItem = useCartItem(productId, section);
     return InkWell(
       onTap: onGridPressed ?? () {},
       child: DecoratedBox(
