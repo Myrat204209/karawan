@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart' show AppColors;
+import 'package:app_ui/app_ui.dart' show AppColors, AppSection;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
@@ -22,7 +22,7 @@ class GoRouterNavigationItem {
 }
 
 Color colorFromPage(bool isMarket) {
-  return isMarket ? AppColors.mainAccent : AppColors.secondRestAccent;
+  return isMarket ? AppColors.mainAccent : AppColors.restaurantAccent;
 }
 
 // GoRouter-compatible scaffold widget
@@ -60,6 +60,11 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
     return 0;
   }
 
+  bool _isProductDetailsPage(BuildContext context) {
+    final location = GoRouterState.of(context).uri.path;
+    return location.contains('/products/');
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -68,27 +73,26 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
 
     return Scaffold(
       body: widget.child,
-      floatingActionButton: currentIndex == 0
+      floatingActionButton: (currentIndex == 0 && !_isProductDetailsPage(context))
           ? FloatingActionButton(
-              backgroundColor: Colors.white,
-              shape: CircleBorder(
-                side: BorderSide(
-                  color: colorFromPage(widget.isMarket),
-                  width: 4,
-                ),
-              ),
+              backgroundColor: colorFromPage(widget.isMarket),
+              shape: CircleBorder(),
               onPressed: () {
-                GetIt.I<PageCacher>().setRoute(
-                  widget.isMarket ? PageType.restaurant : PageType.market,
-                );
+                final pageCacher = GetIt.I<PageCacher>();
+                final newSection = widget.isMarket
+                    ? AppSection.restaurant
+                    : AppSection.store;
+                pageCacher.setRoute(newSection);
                 context.go(widget.oppositePath);
               },
+              elevation: 3,
               child: Icon(
                 !widget.isMarket
                     ? HugeIcons.strokeRoundedStore01
                     : HugeIcons.strokeRoundedRestaurant03,
-                color: colorFromPage(widget.isMarket),
-                size: 35,
+                // color: colorFromPage(widget.isMarket),
+                color: Colors.white,
+                size: 25,
               ),
             )
           : null,

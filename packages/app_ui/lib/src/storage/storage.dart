@@ -1,3 +1,3 @@
-export 'hooks/storage_hooks.dart';
 export 'storage_provider.dart';
-export 'storage_service.dart';
+export 'storage_hooks.dart';
+export 'product_templates.dart'; 

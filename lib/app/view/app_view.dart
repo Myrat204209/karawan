@@ -4,44 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:karawan/app/app.dart';
 import 'package:karawan/app/router/go_router_config.dart';
 
-class AppView extends StatefulWidget {
+class AppView extends StatelessWidget {
   const AppView({super.key});
 
-  @override
-  State<AppView> createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
-  // late final Talker _talker;
-
-  @override
-  void initState() {
-    // final isMarket = GetIt.I<PageCacher>().isMarketRoute();
-    // SystemChrome.setSystemUIOverlayStyle(
-    //   SystemUiOverlayStyle(
-    //     statusBarIconBrightness: Brightness.light,
-    //     statusBarColor: colorFromPage(isMarket ?? false),
-    //   ),
-    // );
-    // _talker = GetIt.I<Talker>();
-    super.initState();
-  }
+  static final ThemeData _theme = AppTheme().themeData;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return ScreenUtilInit(
-          designSize: const Size(428, 952),
-          minTextAdapt: true,
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme().themeData,
-            themeMode: ThemeMode.light,
-            routerConfig: goRouter,
-          ),
-        );
-      },
+    return ScreenUtilInit(
+      designSize: const Size(428, 952),
+      minTextAdapt: true,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: _theme,
+        themeMode: ThemeMode.light,
+        routerConfig: goRouter,
+      ),
     );
   }
 }

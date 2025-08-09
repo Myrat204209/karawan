@@ -16,7 +16,12 @@ class AppCarousel extends StatelessWidget {
       return SliverMainAxisGroup(
         slivers: [
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
+            padding: EdgeInsets.fromLTRB(
+              AppSpacing.screenPadding,
+              AppSpacing.xxl,
+              AppSpacing.screenPadding,
+              AppSpacing.lg,
+            ),
             sliver: SliverToBoxAdapter(
               child: Text(
                 title,
@@ -37,20 +42,23 @@ class AppCarousel extends StatelessWidget {
                       log('Pressed');
                     },
                     child: SizedBox.square(
-                      dimension: 80,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Assets.images.meals.values[index % 4].image(
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ).paddingAll(1).colorize(Color(0xFFEEEEEE)).clipper(10),
-                  ).paddingOnly(
-                    left: index == 0 ? 20 : 10,
-                    right: index == 7 ? 20 : 0,
+                          dimension: 80,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Assets.images.meals.values[index % 4].image(
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                        .paddingAll(1)
+                        .colorize(const Color(0xFFEEEEEE))
+                        .clipper(10),
+                  ).withPadding(
+                    left: index == 0 ? AppSpacing.screenPadding : AppSpacing.sm,
+                    right: index == 7 ? AppSpacing.screenPadding : 0,
                   );
                 },
               ),
@@ -64,7 +72,12 @@ class AppCarousel extends StatelessWidget {
         children: [
           // The title is now in a standard Padding widget.
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
+            padding: EdgeInsets.fromLTRB(
+              AppSpacing.screenPadding,
+              AppSpacing.xxl,
+              AppSpacing.screenPadding,
+              AppSpacing.lg,
+            ),
             child: Text(
               title,
               style: AppTextStyle.text().lg().bold().withColor(Colors.black),
@@ -94,9 +107,9 @@ class AppCarousel extends StatelessWidget {
                       ),
                     ),
                   ).paddingAll(1).colorize(const Color(0xFFEEEEEE)).clipper(10),
-                ).paddingOnly(
-                  left: index == 0 ? 20 : 10,
-                  right: index == 7 ? 20 : 0,
+                ).withPadding(
+                  left: index == 0 ? AppSpacing.screenPadding : AppSpacing.sm,
+                  right: index == 7 ? AppSpacing.screenPadding : 0,
                 );
               },
             ),

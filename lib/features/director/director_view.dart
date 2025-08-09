@@ -21,11 +21,9 @@ class DirectorView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              _getIt<PageCacher>().setRoute(PageType.market);
-              context.go('/market/home');
-              // context.router.replace(const MarketBottomRoute());
+              _getIt<PageCacher>().setRoute(AppSection.store);
+              context.go('/store/home');
             },
-
             style: ElevatedButton.styleFrom(
               elevation: 2,
               fixedSize: Size(width * 0.6, 50.h),
@@ -35,15 +33,14 @@ class DirectorView extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Market',
+              'Store',
               style: AppTextStyle.text().withColor(AppColors.mainAccent),
             ),
           ),
           ElevatedButton(
             onPressed: () {
-              _getIt<PageCacher>().setRoute(PageType.restaurant);
+              _getIt<PageCacher>().setRoute(AppSection.restaurant);
               context.go('/restaurant/home');
-              // context.router.replace(const RestaurantRouter());
             },
             style: ElevatedButton.styleFrom(
               elevation: 2,
@@ -54,8 +51,8 @@ class DirectorView extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Restoran',
-              style: AppTextStyle.text().withColor(AppColors.mainAccent),
+              'Restaurant',
+              style: AppTextStyle.text().withColor(AppColors.restaurantAccent),
             ),
           ),
         ],

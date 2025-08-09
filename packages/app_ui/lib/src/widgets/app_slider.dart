@@ -10,28 +10,32 @@ class AppSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CarouselSlider(
-            items: promoItems,
-            options: CarouselOptions(
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 5),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CarouselSlider(
+          items: promoItems,
+          options: CarouselOptions(
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 5),
 
-              viewportFraction: 388 / 428,
-              aspectRatio: 388.w / 155.h,
+            viewportFraction: 388 / 428,
+            aspectRatio: 388.w / 155.h,
 
-              enlargeCenterPage: true,
-              enlargeFactor: 0.25,
+            enlargeCenterPage: true,
+            enlargeFactor: 0.25,
 
-              onPageChanged: (index, reason) {},
-            ),
+            onPageChanged: (index, reason) {},
           ),
-          // You can add your indicators back here
-        ],
-      ).paddingSymmetric(vertical: 15),
-    );
+        ),
+        // You can add your indicators back here
+      ],
+    ).paddingSymmetric(vertical: 15);
+  }
+}
+
+extension AppSliderSliver on AppSlider {
+  static Widget sliver({required List<Widget> promoItems}) {
+    return SliverToBoxAdapter(child: AppSlider(promoItems: promoItems));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app_ui/src/storage/storage_provider.dart';
 
 /// `AppColors` is a utility class that holds color constants
 /// for both Light and Dark modes to maintain color consistency
@@ -7,6 +8,10 @@ abstract class AppColors {
   /// Main accent color (Orange) used throughout the app in Light Mode.
   /// Typically applied to buttons, icons, and primary UI elements.
   static const Color mainAccent = Color(0xFFFF7B24);
+
+  /// Restaurant accent color (Yellow) for restaurant section.
+  /// Used as the primary color for restaurant-related UI elements.
+  static const Color restaurantAccent = Color(0xFFEBC522);
 
   /// Secondary accent color (Green) for Light Mode.
   /// Used as a subtle complementary color for main accents.
@@ -72,4 +77,14 @@ abstract class AppColors {
   static const Color buttonBackground = Color(0xFFE8ECEF);
 
   static const Color iconColor = Color(0xff6b7278);
+
+  /// Helper method to get section-specific accent color
+  static Color getSectionAccent(AppSection section) {
+    switch (section) {
+      case AppSection.store:
+        return mainAccent;
+      case AppSection.restaurant:
+        return restaurantAccent;
+    }
+  }
 }

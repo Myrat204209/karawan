@@ -13,6 +13,7 @@ class AppCartItem extends StatelessWidget {
     this.image,
     this.onRemove,
     this.onQuantityChanged,
+    this.section = AppSection.restaurant,
   });
 
   final String? title;
@@ -22,108 +23,223 @@ class AppCartItem extends StatelessWidget {
   final int? quantity;
   final Widget? image;
   final VoidCallback? onRemove;
-  final Function(int)? onQuantityChanged;
+  final ValueChanged<int>? onQuantityChanged;
+  final AppSection section;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(AppSpacing.cardPadding),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 2),
-            blurRadius: 8,
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Product Image
           if (image != null)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: SizedBox(width: 80, height: 80, child: image!),
+            Container(
+              width: 95,
+              height: 95,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: image!,
+              ),
             ),
-          SizedBox(width: 12),
+          SizedBox(width: AppSpacing.md),
+
+          // Product Info and Controls
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name ?? title ?? 'Product',
-                  style: AppTextStyle.text().md().semiBold().withColor(
-                    Colors.black,
-                  ),
+                // Top Row: Product Name and Delete Button
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        name ?? title ?? 'Product',
+                        style: AppTextStyle.text().md().bold().withColor(
+                          Colors.black,
+                        ),
+                      ),
+                    ),
+                    if (onRemove != null)
+                      _buildCircularIconButton(
+                        onPressed: onRemove!,
+                        icon: Icons.delete_outline,
+                        color: Colors.grey,
+                        size: 32,
+                      ),
+                  ],
                 ),
-                if (description != null) ...[
-                  SizedBox(height: 4),
-                  Text(
-                    description!,
-                    style: AppTextStyle.text().sm().withColor(Colors.grey),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-                SizedBox(height: 8),
+                SizedBox(height: AppSpacing.xs),
+
+                // Rating
                 Row(
                   children: [
-                    if (price != null)
-                      Text(
-                        'TMT ${price!.toStringAsFixed(2)}',
-                        style: AppTextStyle.text().md().semiBold().withColor(
-                          AppColors.mainAccent,
-                        ),
+                    Icon(Icons.star, size: 16, color: AppColors.highlightColor),
+                    SizedBox(width: AppSpacing.xs),
+                    Text(
+                      '5.0',
+                      style: AppTextStyle.text().sm().withColor(Colors.grey),
+                    ),
+                  ],
+                ),
+                SizedBox(height: AppSpacing.xs),
+
+                // Description
+                Text(
+                  description ??
+                      'Product designers who focuses on simplicity & usability',
+                  style: AppTextStyle.text().sm().withColor(Colors.grey),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: AppSpacing.sm),
+
+                // Bottom Row: Price and Quantity Widget
+                Row(
+                  children: [
+                    // Price
+                    Text(
+                      'TMT ${price?.toStringAsFixed(2) ?? '0.00'}',
+                      style: AppTextStyle.text().md().bold().withColor(
+                        AppColors.getSectionAccent(section),
                       ),
-                    Spacer(),
-                    if (quantity != null && onQuantityChanged != null) ...[
-                      IconButton(
-                        onPressed: () {
-                          if (quantity! > 1) {
-                            onQuantityChanged!(quantity! - 1);
-                          }
-                        },
-                        icon: Icon(Icons.remove, size: 16),
-                        style: IconButton.styleFrom(
-                          backgroundColor: AppColors.mainAccent,
-                          foregroundColor: Colors.white,
-                          minimumSize: Size(24, 24),
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          '$quantity',
-                          style: AppTextStyle.text().sm().semiBold().withColor(
-                            Colors.black,
+                    ),
+                    const Spacer(),
+                    // Quantity Widget
+                    if (quantity != null && onQuantityChanged != null)
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Colors.grey.withValues(alpha: 0.3),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          onQuantityChanged!(quantity! + 1);
-                        },
-                        icon: Icon(Icons.add, size: 16),
-                        style: IconButton.styleFrom(
-                          backgroundColor: AppColors.mainAccent,
-                          foregroundColor: Colors.white,
-                          minimumSize: Size(24, 24),
-                          padding: EdgeInsets.zero,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Minus Button
+                            _buildQuantityButton(
+                              onPressed: () {
+                                if (quantity! > 1) {
+                                  onQuantityChanged!(quantity! - 1);
+                                } else {
+                                  onQuantityChanged!(0);
+                                }
+                              },
+                              icon: Icons.remove,
+                              color: Colors.black,
+                            ),
+                            // Quantity Display
+                            Container(
+                              width: 24,
+                              height: 24,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  quantity.toString(),
+                                  style: AppTextStyle.text()
+                                      .xs()
+                                      .bold()
+                                      .withColor(Colors.black),
+                                ),
+                              ),
+                            ),
+                            // Plus Button
+                            _buildQuantityButton(
+                              onPressed: () {
+                                onQuantityChanged!(quantity! + 1);
+                              },
+                              icon: Icons.add,
+                              color: AppColors.getSectionAccent(section),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
                   ],
                 ),
               ],
             ),
           ),
-          if (onRemove != null)
-            IconButton(
-              onPressed: onRemove,
-              icon: Icon(Icons.delete_outline, color: Colors.red),
-            ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCircularIconButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color color,
+    double size = 40,
+  }) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: IconButton(
+        onPressed: onPressed,
+        icon: Icon(icon, color: color, size: size * 0.4),
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: color,
+          padding: EdgeInsets.all(AppSpacing.xs),
+          minimumSize: Size(size, size),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuantityButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color color,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 24,
+        height: 24,
+        decoration: BoxDecoration(
+          color:
+              color == AppColors.getSectionAccent(section)
+                  ? color
+                  : Colors.grey.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Icon(
+          icon,
+          size: 12,
+          color:
+              color == AppColors.getSectionAccent(section)
+                  ? Colors.white
+                  : color,
+        ),
       ),
     );
   }

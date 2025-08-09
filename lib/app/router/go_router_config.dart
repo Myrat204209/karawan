@@ -2,7 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
 import 'package:karawan/features/features.dart';
-import 'package:karawan/features/market/market_bottom_navigation.dart';
+import 'package:karawan/features/profile/view/profile_page.dart';
+import 'package:karawan/features/store/store_bottom_navigation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final goRouter = GoRouter(
@@ -14,11 +15,11 @@ final goRouter = GoRouter(
       path: '/director',
       builder: (context, state) => const DirectorPage(),
     ),
-    // Market section with bottom navigation
+    // Store section with bottom navigation
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return GoRouterSectionScaffold(
-          navigationItems: marketNavigationItems,
+          navigationItems: storeNavigationItems,
           oppositePath: '/restaurant/home',
           isMarket: true,
           child: navigationShell,
@@ -28,7 +29,7 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/market/home',
+              path: '/store/home',
               builder: (context, state) => const MarketHomePage(),
               routes: [
                 GoRoute(
@@ -44,15 +45,15 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/market/categories',
+              path: '/store/categories',
               builder: (context, state) => const MarketCategoriesPage(),
             ),
             GoRoute(
-              path: '/market/sub-categories',
+              path: '/store/sub-categories',
               builder: (context, state) => const MarketSubCategoriesPage(),
             ),
             GoRoute(
-              path: '/market/filter',
+              path: '/store/filter',
               builder: (context, state) => const MarketFilterPage(),
             ),
           ],
@@ -60,7 +61,7 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/market/favorites',
+              path: '/store/favorites',
               builder: (context, state) => const MarketFavoritesPage(),
             ),
           ],
@@ -68,7 +69,7 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/market/cart',
+              path: '/store/cart',
               builder: (context, state) => const MarketCartPage(),
             ),
           ],
@@ -76,15 +77,15 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/market/profile',
-              builder: (context, state) => const MarketProfilePage(),
+              path: '/store/profile',
+              builder: (context, state) => const ProfilePage(),
             ),
             GoRoute(
-              path: '/market/auth',
+              path: '/store/auth',
               builder: (context, state) => const MarketAuthPage(),
             ),
             GoRoute(
-              path: '/market/notification',
+              path: '/store/notification',
               builder: (context, state) => const MarketNotificationPage(),
             ),
           ],
@@ -96,7 +97,7 @@ final goRouter = GoRouter(
       builder: (context, state, navigationShell) {
         return GoRouterSectionScaffold(
           navigationItems: restaurantNavigationItems,
-          oppositePath: '/market/home',
+          oppositePath: '/store/home',
           child: navigationShell,
         );
       },
@@ -106,12 +107,14 @@ final goRouter = GoRouter(
             GoRoute(
               path: '/restaurant/home',
               builder: (context, state) => const RestaurantHomePage(),
-            ),
-            GoRoute(
-              path: '/restaurant/product/:productId',
-              builder: (context, state) => RestaurantProductsPage(
-                productId: state.pathParameters['productId']!,
-              ),
+              routes: [
+                GoRoute(
+                  path: 'products/:productId',
+                  builder: (context, state) => RestaurantProductsPage(
+                    productId: state.pathParameters['productId']!,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -135,7 +138,7 @@ final goRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/restaurant/profile',
-              builder: (context, state) => const RestaurantProfilePage(),
+              builder: (context, state) => const ProfilePage(),
             ),
           ],
         ),

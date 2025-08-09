@@ -26,33 +26,32 @@ class AppStatusBar extends StatelessWidget {
     if (_isSliver) {
       return SliverAppBar(
         backgroundColor: color,
-        actionsPadding: EdgeInsets.only(right: 18.w),
+        actionsPadding: EdgeInsets.only(right: AppSpacing.screenPadding),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
           statusBarColor: Colors.blue,
         ),
         titleSpacing: 0,
-        leading: Assets.images.logo.image().paddingOnly(left: 18.w),
+        leading: Assets.images.logo.image().withPadding(
+          left: AppSpacing.screenPadding,
+        ),
         leadingWidth: 120.w,
         elevation: 2,
         automaticallyImplyLeading: false,
-        toolbarHeight: 75.h,
+        toolbarHeight: AppSpacing.appBarHeight,
         pinned: true,
         title: AnimSearchBar(
           width: 300,
           rtl: true,
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: const Icon(Icons.search),
           textFieldIconColor: Colors.transparent,
           style: AppTextStyle.text().lg().medium().withColor(Colors.black),
           onSubmitted: (p0) {},
-
           textController: TextEditingController(),
           onSuffixTap: () {
-            // setState(() {
-            //   textController.clear();
-            // });
+            // Clear search functionality
           },
-        ).paddingSymmetric(horizontal: 10),
+        ).withPadding(horizontal: AppSpacing.sm),
         centerTitle: true,
       );
     } else {
@@ -66,20 +65,19 @@ class AppStatusBar extends StatelessWidget {
           onSubmitted: (p0) {},
           textController: TextEditingController(),
           onSuffixTap: () {
-            // setState(() {
-            //   textController.clear();
-            // });
+            // Clear search functionality
           },
-        ).paddingSymmetric(horizontal: 10),
-
+        ).withPadding(horizontal: AppSpacing.sm),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
           statusBarColor: Colors.blue,
         ),
         titleSpacing: 0,
-        leading: Assets.images.logo.image().paddingOnly(left: 18.w),
+        leading: Assets.images.logo.image().withPadding(
+          left: AppSpacing.screenPadding,
+        ),
         leadingWidth: 120.w,
-        toolbarHeight: 75.h,
+        toolbarHeight: AppSpacing.appBarHeight,
         automaticallyImplyLeading: false,
       );
     }

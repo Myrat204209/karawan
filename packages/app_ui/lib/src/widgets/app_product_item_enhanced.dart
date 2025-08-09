@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppProductItemEnhanced extends HookWidget {
   const AppProductItemEnhanced({
@@ -9,252 +8,229 @@ class AppProductItemEnhanced extends HookWidget {
     required this.onGridPressed,
     required this.image,
     required this.name,
-    this.price = 30.00,
+    required this.price,
     required this.description,
     required this.rating,
     required this.productId,
     required this.section,
-    this.imagePath = '',
+    required this.imagePath,
   });
 
+  final VoidCallback onGridPressed;
   final Widget image;
-  final VoidCallback? onGridPressed;
   final String name;
   final double price;
   final String description;
   final double rating;
   final String productId;
-  final String section;
+  final AppSection section;
   final String imagePath;
 
   @override
   Widget build(BuildContext context) {
-    // 1. Get service instance
-    final storageService = useMemoized(() => StorageProvider.service, []);
-
-    // 2. Use hooks to get LIVE, REACTIVE state for this specific product
     final isFavorite = useIsFavorite(productId, section);
-    final cartItem = useCartItem(productId, section);
-    return InkWell(
-      onTap: onGridPressed ?? () {},
-      child: DecoratedBox(
+    final cartQuantity = useCartQuantity(productId, section);
+    final storage = useMemoized(() => StorageProvider());
+
+    return GestureDetector(
+      onTap: onGridPressed,
+      child: Container(
         decoration: BoxDecoration(
-          borderRadius: kCircular15Border,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 2),
-              blurRadius: 14.1,
-              blurStyle: BlurStyle.solid,
-              color: Color(0x00000000).withValues(alpha: 0.05),
+              color: Colors.grey.withValues(alpha: 0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
           ],
-          color: Colors.white,
         ),
-        child: ClipRRect(
-          borderRadius: kCircular15Border,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 6,
-                child: Stack(
-                  children: [
-                    AppMainImage(
-                      onLiked: () {
-                        if (isFavorite) {
-                          storageService.removeFromFavorites(
-                            productId,
-                            section,
-                          );
-                        } else {
-                          storageService.addToFavorites(
-                            FavoriteItem(
-                              id: productId,
-                              name: name,
-                              price: price,
-                              description: description,
-                              rating: rating,
-                              imagePath: imagePath,
-                              section: section,
-                              addedAt: DateTime.now(),
-                            ),
-                          );
-                        }
-                      },
-                      image: image,
-                      isLiked: isFavorite,
-                    ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 2),
-                              blurRadius: 4,
-                              color: Colors.black.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color:
-                              isFavorite ? AppColors.mainAccent : Colors.grey,
-                          size: 16,
-                        ),
-                      ),
-                    ),
-                  ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Image and Favorite Icon
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 120,
+                    child: image,
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 5,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    spacing: 4,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Positioned(
+                  top: AppSpacing.sm,
+                  right: AppSpacing.sm,
+                  child: GestureDetector(
+                    onTap: () {
+                      storage.toggleFavorite(productId, section);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(AppSpacing.xs),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        size: 18,
+                        color: isFavorite ? Colors.red : Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(AppSpacing.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Product Name
+                  Text(
+                    name,
+                    style: AppTextStyle.text().md().semiBold().withColor(
+                      Colors.black,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: AppSpacing.xs),
+
+                  // Description
+                  Text(
+                    description,
+                    style: AppTextStyle.text().xs().withColor(Colors.grey),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: AppSpacing.sm),
+
+                  // Rating
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              name,
-                              style: AppTextStyle.text()
-                                  .withFontSize(14.sp)
-                                  .semiBold()
-                                  .withColor(Colors.black),
-                            ),
-                          ),
-                          Text(
-                            'TMT ${price.toStringAsFixed(2)}',
-                            style: AppTextStyle.text()
-                                .semiBold()
-                                .withFontSize(14.sp)
-                                .withColor(AppColors.secondRestAccent),
-                          ),
-                        ],
+                      Icon(
+                        Icons.star,
+                        size: 14,
+                        color: AppColors.highlightColor,
                       ),
-                      Expanded(
-                        child: Text(
-                          description,
-                          softWrap: true,
-                          style: AppTextStyle.text().copyWith(
-                            color: Color(0xFF464646),
-                            fontSize: 9.sp,
-                          ),
-                          maxLines: 2,
-                        ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Icon(Icons.star, color: Colors.yellow, size: 15),
-                            Text(
-                              rating.toStringAsFixed(1),
-                              style: AppTextStyle.text()
-                                  .withFontSize(13.sp)
-                                  .medium()
-                                  .withColor(Colors.black),
-                            ),
-                            Spacer(),
-                            if (cartItem != null)
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      if (cartItem.quantity > 1) {
-                                        storageService.updateCartItemQuantity(
-                                          productId,
-                                          section,
-                                          cartItem.quantity - 1,
-                                        );
-                                      } else {
-                                        storageService.removeFromCart(
-                                          productId,
-                                          section,
-                                        );
-                                      }
-                                    },
-                                    icon: Icon(Icons.remove, size: 16),
-                                    style: IconButton.styleFrom(
-                                      backgroundColor: AppColors.mainAccent,
-                                      foregroundColor: Colors.white,
-                                      minimumSize: Size(24, 24),
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                    ),
-                                    child: Text(
-                                      '${cartItem.quantity}',
-                                      style: AppTextStyle.text()
-                                          .withFontSize(12.sp)
-                                          .semiBold()
-                                          .withColor(Colors.black),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      storageService.updateCartItemQuantity(
-                                        productId,
-                                        section,
-                                        cartItem.quantity + 1,
-                                      );
-                                    },
-                                    icon: Icon(Icons.add, size: 16),
-                                    style: IconButton.styleFrom(
-                                      backgroundColor: AppColors.mainAccent,
-                                      foregroundColor: Colors.white,
-                                      minimumSize: Size(24, 24),
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            else
-                              OutlinedButton(
-                                onPressed: () {
-                                  storageService.addToCart(
-                                    CartItem(
-                                      id: productId,
-                                      name: name,
-                                      price: price,
-                                      description: description,
-                                      rating: rating,
-                                      imagePath: imagePath,
-                                      section: section,
-                                      quantity: 1,
-                                      addedAt: DateTime.now(),
-                                    ),
-                                  );
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: AppColors.secondRestAccent,
-                                  side: BorderSide(color: Colors.transparent),
-                                  minimumSize: Size(76.w, 21),
-                                ),
-                                child: Icon(
-                                  Icons.shopping_cart,
-                                  size: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
-                          ],
-                        ),
+                      SizedBox(width: AppSpacing.xs),
+                      Text(
+                        rating.toString(),
+                        style: AppTextStyle.text().xs().withColor(Colors.grey),
                       ),
                     ],
                   ),
-                ),
+                  SizedBox(height: AppSpacing.sm),
+
+                  // Price and Cart Button Row
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'TMT ${price.toStringAsFixed(2)}',
+                          style: AppTextStyle.text().sm().bold().withColor(
+                            AppColors.getSectionAccent(section),
+                          ),
+                        ),
+                      ),
+                      if (cartQuantity == 0)
+                        GestureDetector(
+                          onTap: () {
+                            storage.updateCartQuantity(productId, 1, section);
+                          },
+                          child: Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              color: AppColors.getSectionAccent(section),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.shopping_cart,
+                              size: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      else
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                if (cartQuantity > 1) {
+                                  storage.updateCartQuantity(
+                                    productId,
+                                    cartQuantity - 1,
+                                    section,
+                                  );
+                                } else {
+                                  storage.updateCartQuantity(
+                                    productId,
+                                    0,
+                                    section,
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: const Icon(
+                                  Icons.remove,
+                                  size: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: AppSpacing.sm),
+                            Text(
+                              cartQuantity.toString(),
+                              style: AppTextStyle.text().sm().bold().withColor(
+                                Colors.black,
+                              ),
+                            ),
+                            SizedBox(width: AppSpacing.sm),
+                            GestureDetector(
+                              onTap: () {
+                                storage.updateCartQuantity(
+                                  productId,
+                                  cartQuantity + 1,
+                                  section,
+                                );
+                              },
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: AppColors.getSectionAccent(section),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

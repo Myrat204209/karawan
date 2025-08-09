@@ -8,18 +8,29 @@ class MarketCartView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = useCartItems('market');
-    final cartTotal = useCartTotal('market');
+    // Reactive cart data
+    final cart = useCart(AppSection.store);
+    final storage = useMemoized(() => StorageProvider());
+
+    // Calculate total
+    double total = 0.0;
+    for (final entry in cart.entries) {
+      final product = getProductById(entry.key, AppSection.store);
+      if (product != null) {
+        total += product.price * entry.value;
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Sebedim',
+          'Sebet',
           style: AppTextStyle.text().lg().bold().withColor(Colors.black),
         ),
         SizedBox(height: 20),
-        if (cartItems.isEmpty)
+        if (cart.isEmpty)
           Expanded(
             child: Center(
               child: Column(
@@ -47,92 +58,430 @@ class MarketCartView extends HookWidget {
               ),
             ),
           )
-        else ...[
+        else
           Expanded(
-            child: ListView.separated(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                final cartItem = cartItems[index];
-                return AppCartItem(
-                  onRemove: () {
-                    StorageProvider.service.removeFromCart(
-                      cartItem.id,
-                      cartItem.section,
-                    );
-                  },
-                  onQuantityChanged: (quantity) {
-                    StorageProvider.service.updateCartItemQuantity(
-                      cartItem.id,
-                      cartItem.section,
-                      quantity,
-                    );
-                  },
-                  name: cartItem.name,
-                  price: cartItem.price,
-                  description: cartItem.description,
-                  quantity: cartItem.quantity,
-                  image: Image.asset(
-                    cartItem.imagePath.isNotEmpty
-                        ? cartItem.imagePath
-                        : 'packages/app_ui/assets/images/meals/meal_1.png',
-                    fit: BoxFit.cover,
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => SizedBox(height: 10),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, -2),
-                  blurRadius: 8,
-                  color: Colors.black.withOpacity(0.1),
-                ),
-              ],
-            ),
-            child: Row(
+            child: Column(
               children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Jemi',
-                        style: AppTextStyle.text().md().withColor(Colors.grey),
+                  child: ListView.separated(
+                    itemCount: cart.length,
+                    itemBuilder: (context, index) {
+                      final productId = cart.keys.elementAt(index);
+                      final quantity = cart[productId]!;
+                      final product = getProductById(
+                        productId,
+                        AppSection.store,
+                      );
+
+                      if (product == null) return SizedBox.shrink();
+
+                      return AppCartItem(
+                        onRemove: () {
+                          storage.updateCartQuantity(
+                            productId,
+                            0,
+                            AppSection.store,
+                          );
+                        },
+                        onQuantityChanged: (newQuantity) {
+                          storage.updateCartQuantity(
+                            productId,
+                            newQuantity,
+                            AppSection.store,
+                          );
+                        },
+                        name: product.name,
+                        price: product.price,
+                        description: product.description,
+                        quantity: quantity,
+                        image: Image.asset(
+                          product.imagePath,
+                          fit: BoxFit.cover,
+                        ),
+                        section: AppSection.store,
+                      );
+                    },
+                    separatorBuilder: (context, index) => SizedBox(height: 10),
+                  ),
+                ),
+
+                // Checkout Section
+                Container(
+                  padding: EdgeInsets.all(AppSpacing.lg),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withValues(alpha: 0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, -2),
                       ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Total Row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Jemi:',
+                            style: AppTextStyle.text().md().bold().withColor(
+                              Colors.black,
+                            ),
+                          ),
+                          Text(
+                            'TMT ${total.toStringAsFixed(2)}',
+                            style: AppTextStyle.text().md().bold().withColor(
+                              Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: AppSpacing.md),
+
+                      // Promotional Text
                       Text(
-                        'TMT ${cartTotal.toStringAsFixed(2)}',
-                        style: AppTextStyle.text().lg().semiBold().withColor(
-                          AppColors.mainAccent,
+                        'Hormatly müşderi eger sizin sargyt sanyñyz 15 kan bolsa indiki sargyt mugt!',
+                        style: AppTextStyle.text().sm().withColor(Colors.grey),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: AppSpacing.lg),
+
+                      // Checkout Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Show checkout modal bottom sheet
+                            _showCheckoutModalBottomSheet(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.getSectionAccent(
+                              AppSection.store,
+                            ),
+                            foregroundColor: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                              vertical: AppSpacing.lg,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Sargyt taýýarla',
+                            style: AppTextStyle.text().md().bold().withColor(
+                              Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                ElevatedButton(
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _showCheckoutModalBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) =>
+          _CheckoutModalBottomSheet(section: AppSection.store),
+    );
+  }
+}
+
+class _CheckoutModalBottomSheet extends HookWidget {
+  const _CheckoutModalBottomSheet({required this.section});
+
+  final AppSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    final paymentMethod = useState('Nagt');
+    final deliveryType = useState('Standart eltip bermek (10.00)');
+    final fullName = useState('Amanow Aman');
+    final address = useState('Aşgabat ş.');
+    final phone = useState('+993 62 122112');
+    final note = useState('Sag boluň!');
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.85,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Column(
+        children: [
+          // Handle bar
+          Container(
+            margin: EdgeInsets.only(top: AppSpacing.sm),
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+
+          // Title
+          Padding(
+            padding: EdgeInsets.all(AppSpacing.screenPadding),
+            child: Text(
+              'Sebet',
+              style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+            ),
+          ),
+
+          // Form Content
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.screenPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Payment Method Section
+                  _buildSection(
+                    'Töleg görnüşi',
+                    Column(
+                      children: [
+                        _buildRadioTile(
+                          'Nagt',
+                          paymentMethod.value == 'Nagt',
+                          (value) => paymentMethod.value = value,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: AppSpacing.xxl),
+
+                  // Delivery Type Section
+                  _buildSection(
+                    'Eltip bermegiň görnüşi',
+                    Column(
+                      children: [
+                        _buildRadioTile(
+                          'Standart eltip bermek (10.00)',
+                          deliveryType.value == 'Standart eltip bermek (10.00)',
+                          (value) => deliveryType.value = value,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: AppSpacing.xxl),
+
+                  // Customer Details Sections
+                  _buildSection('Doly adyňyz', _buildTextField(fullName)),
+
+                  SizedBox(height: AppSpacing.xl),
+
+                  _buildSection('Siziň salgyňyz', _buildTextField(address)),
+
+                  SizedBox(height: AppSpacing.xl),
+
+                  _buildSection('Telefon belgiňiz', _buildTextField(phone)),
+
+                  SizedBox(height: AppSpacing.xl),
+
+                  _buildSection('Bellik', _buildTextField(note)),
+
+                  SizedBox(height: AppSpacing.xxxl),
+                ],
+              ),
+            ),
+          ),
+
+          // Order Button
+          Container(
+            padding: EdgeInsets.all(AppSpacing.screenPadding),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _showOrderSuccessDialog(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.getSectionAccent(section),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Sargyt et',
+                  style: AppTextStyle.text().md().bold().withColor(
+                    Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSection(String title, Widget content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppTextStyle.text().md().bold().withColor(Colors.black),
+        ),
+        SizedBox(height: AppSpacing.md),
+        content,
+      ],
+    );
+  }
+
+  Widget _buildRadioTile(String title, bool value, Function(String) onChanged) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.grey.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: value
+              ? AppColors.getSectionAccent(section)
+              : Colors.grey.withValues(alpha: 0.2),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          Radio<String>(
+            value: title,
+            groupValue: value ? title : null,
+            onChanged: (newValue) => onChanged(newValue!),
+            activeColor: AppColors.getSectionAccent(section),
+          ),
+          SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: Text(
+              title,
+              style: AppTextStyle.text().md().withColor(Colors.black),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(ValueNotifier<String> controller) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.grey.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.2), width: 1),
+      ),
+      child: TextField(
+        controller: TextEditingController(text: controller.value),
+        onChanged: (value) => controller.value = value,
+        style: AppTextStyle.text().md().withColor(Colors.black),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.zero,
+          hintText: 'Giriziň...',
+          hintStyle: AppTextStyle.text().md().withColor(Colors.grey),
+        ),
+      ),
+    );
+  }
+
+  void _showOrderSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: EdgeInsets.all(AppSpacing.xxl),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: EdgeInsets.all(AppSpacing.lg),
+                decoration: BoxDecoration(
+                  color: AppColors.getSectionAccent(
+                    section,
+                  ).withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: AppColors.getSectionAccent(section),
+                  size: 48,
+                ),
+              ),
+              SizedBox(height: AppSpacing.lg),
+              Text(
+                'Order Placed Successfully!',
+                style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+              ),
+              SizedBox(height: AppSpacing.sm),
+              Text(
+                'Your order has been placed and will be delivered soon.',
+                style: AppTextStyle.text().md().withColor(Colors.grey),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: AppSpacing.xxl),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
                   onPressed: () {
-                    // Handle checkout
+                    Navigator.of(context).pop();
+                    // Clear cart after successful order
+                    final storage = StorageProvider();
+                    storage.clearCart(section);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.mainAccent,
+                    backgroundColor: AppColors.getSectionAccent(section),
                     foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: Text('Sargyt et'),
+                  child: Text(
+                    'Continue Shopping',
+                    style: AppTextStyle.text().md().bold().withColor(
+                      Colors.white,
+                    ),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ],
-    ).paddingSymmetric(horizontal: 15).paddingOnly(top: 15);
+        ),
+      ),
+    );
   }
 }

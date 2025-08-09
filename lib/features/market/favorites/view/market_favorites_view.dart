@@ -7,13 +7,15 @@ class MarketFavoritesView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = useFavorites('market');
+    // Reactive favorites data
+    final favorites = useFavorites(AppSection.store);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Halanlarym',
+          'Holanlarym',
           style: AppTextStyle.text().lg().bold().withColor(Colors.black),
         ),
         SizedBox(height: 20),
@@ -26,14 +28,14 @@ class MarketFavoritesView extends HookWidget {
                   Icon(Icons.favorite_border, size: 64, color: Colors.grey),
                   SizedBox(height: 16),
                   Text(
-                    'Halanlaryňyz yok',
+                    'Holanlaryňyz boş',
                     style: AppTextStyle.text().lg().semiBold().withColor(
                       Colors.grey,
                     ),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Halanlaryňyzy görmek üçin harytlara halan belgisi goşuň',
+                    'Holanlaryňyzy doldurmak üçin harytlar goşuň',
                     style: AppTextStyle.text().md().withColor(Colors.grey),
                     textAlign: TextAlign.center,
                   ),
@@ -46,30 +48,42 @@ class MarketFavoritesView extends HookWidget {
             child: ListView.separated(
               itemCount: favorites.length,
               itemBuilder: (context, index) {
-                final favorite = favorites[index];
+                final productId = favorites.elementAt(index);
+                final product = getProductById(productId, AppSection.store);
+
+                if (product == null) return SizedBox.shrink();
+
                 return AppFavoriteItem(
-                  onRemove: () {
-                    StorageProvider.service.removeFromFavorites(
-                      favorite.id,
-                      favorite.section,
-                    );
-                  },
-                  name: favorite.name,
-                  price: favorite.price,
-                  description: favorite.description,
-                  rating: favorite.rating,
+                  name: product.name,
+                  description: product.description,
+                  price: product.price,
+                  rating: product.rating,
                   image: Image.asset(
-                    favorite.imagePath.isNotEmpty
-                        ? favorite.imagePath
-                        : 'packages/app_ui/assets/images/meals/meal_1.png',
+                    product.imagePath,
                     fit: BoxFit.cover,
                   ),
+                  onRemove: () {
+                    final storage = StorageProvider();
+                    storage.toggleFavorite(
+                      productId,
+                      AppSection.store,
+                    );
+                  },
+                  onAddToCart: () {
+                    final storage = StorageProvider();
+                    storage.updateCartQuantity(
+                      productId,
+                      1,
+                      AppSection.store,
+                    );
+                  },
+                  section: AppSection.store,
                 );
               },
               separatorBuilder: (context, index) => SizedBox(height: 10),
             ),
           ),
       ],
-    ).paddingSymmetric(horizontal: 15).paddingOnly(top: 15);
+    );
   }
 }

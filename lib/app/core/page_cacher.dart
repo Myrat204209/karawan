@@ -1,19 +1,31 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum PageType { market, restaurant }
-
 class PageCacher {
-  final SharedPreferences _prefs;
+  PageCacher({required this.prefs});
+  final SharedPreferences prefs;
+  static const String _routeKey = 'last_route';
 
-  PageCacher({required SharedPreferences prefs}) : _prefs = prefs;
+  bool _isStoreRoute = false;
 
-  static const _isMarketRoute = '__is_market_route__';
-
-  Future<void> setRoute(PageType routeType) async {
-    await _prefs.setBool(_isMarketRoute, routeType == PageType.market);
+  void setRoute(AppSection section) {
+    _isStoreRoute = section == AppSection.store;
+    prefs.setBool(_routeKey, _isStoreRoute);
   }
 
-  bool? isMarketRoute() {
-    return _prefs.getBool(_isMarketRoute);
+  void clearRoute() {
+    _isStoreRoute = false;
+    prefs.remove(_routeKey);
+  }
+
+  bool isStoreRoute() {
+    _isStoreRoute = prefs.getBool(_routeKey) ?? false;
+    return _isStoreRoute;
+  }
+
+  AppSection? getCurrentSection() {
+    final isStore = prefs.getBool(_routeKey);
+    if (isStore == null) return null;
+    return isStore ? AppSection.store : AppSection.restaurant;
   }
 }

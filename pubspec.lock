@@ -169,7 +169,7 @@ packages:
     source: hosted
     version: "8.10.1"
   carousel_slider_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: carousel_slider_plus
       sha256: "24a352d5340c0fbcd99281aaa0fc18e7f0efe0fc1d07778a441e00e6f3d497fa"
@@ -380,6 +380,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.21.2"
+  flutter_intro:
+    dependency: "direct main"
+    description:
+      name: flutter_intro
+      sha256: "6b54464f82c8f4616ae8f5e5bf24259322bf7adde8e58d10f3af03c907f5548f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -1131,6 +1139,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  tutorial_overlay:
+    dependency: "direct main"
+    description:
+      name: tutorial_overlay
+      sha256: "5a5e46c92a2e9254e25a7f83d93aaec9e54498289d8c6d11c08c028bde0f8a93"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   typed_data:
     dependency: transitive
     description:

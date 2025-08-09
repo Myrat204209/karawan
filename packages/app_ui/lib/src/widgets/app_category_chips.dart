@@ -15,47 +15,42 @@ class _AppCategoryChipsState extends State<AppCategoryChips> {
   @override
   Widget build(BuildContext context) {
     final chipLabels = widget.chipLabels;
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 40,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-
-          itemCount: chipLabels.length,
-
-          itemBuilder: (context, index) {
-            final isSelected = _selectedIndices.contains(index);
-            return Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: ChoiceChip(
-                showCheckmark: false,
-                label: Text(chipLabels[index]),
-                selected: isSelected,
-                onSelected: (selected) {
-                  setState(() {
-                    if (selected) {
-                      _selectedIndices.add(index);
-                    } else {
-                      _selectedIndices.remove(index);
-                    }
-                  });
-                },
-                shape: const StadiumBorder(),
-                side:
-                    isSelected
-                        ? BorderSide.none
-                        : const BorderSide(color: AppColors.border),
-                backgroundColor: Colors.transparent,
-                selectedColor: AppColors.mainAccent,
-                labelStyle: AppTextStyle.text().sm().withColor(
-                  isSelected ? Colors.white : AppColors.textLightTitle,
-                ),
+    return SizedBox(
+      height: 40,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding),
+        itemCount: chipLabels.length,
+        itemBuilder: (context, index) {
+          final isSelected = _selectedIndices.contains(index);
+          return Padding(
+            padding: EdgeInsets.only(right: AppSpacing.sm),
+            child: ChoiceChip(
+              showCheckmark: false,
+              label: Text(chipLabels[index]),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    _selectedIndices.add(index);
+                  } else {
+                    _selectedIndices.remove(index);
+                  }
+                });
+              },
+              shape: const StadiumBorder(),
+              side:
+                  isSelected
+                      ? BorderSide.none
+                      : const BorderSide(color: AppColors.border),
+              backgroundColor: Colors.transparent,
+              selectedColor: AppColors.mainAccent,
+              labelStyle: AppTextStyle.text().sm().withColor(
+                isSelected ? Colors.white : AppColors.textLightTitle,
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -16,6 +16,14 @@ Future<void> bootStrap(Talker talker, AppBuilder builder) async {
       // await SentryFlutter.init((options) {
       //   options.dsn = 'https://b3aa888e7f33c4ed1bf258b42a1389d1@o4509077517172736.ingest.de.sentry.io/4509077619343440';
       // });
+
+      // Ensure framework/platform errors are captured from the very start
+      FlutterError.onError = (details) =>
+          talker.handle(details.exception, details.stack);
+      PlatformDispatcher.instance.onError = (error, stack) {
+        talker.handle(error, stack);
+        return true;
+      };
       Bloc.observer = TalkerBlocObserver(talker: talker);
 
       runApp(await builder());
@@ -23,12 +31,7 @@ Future<void> bootStrap(Talker talker, AppBuilder builder) async {
 
     (exception, stackTrace) async {
       // await Sentry.captureException(exception, stackTrace: stackTrace);
-      FlutterError.onError = (details) =>
-          talker.handle(details.exception, details.stack);
-      PlatformDispatcher.instance.onError = (error, stack) {
-        talker.handle(error, stack);
-        return true;
-      };
+      talker.handle(exception, stackTrace);
     },
   );
 }

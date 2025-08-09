@@ -1,128 +1,119 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:karawan/app/app.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:karawan/app/core/tutorial_service.dart';
 
-class MarketHomeView extends StatefulWidget {
+class MarketHomeView extends HookWidget {
   const MarketHomeView({super.key});
 
-  @override
-  State<MarketHomeView> createState() => _MarketHomeViewState();
-}
-
-class _MarketHomeViewState extends State<MarketHomeView> {
-  final ScrollController _scrollController = ScrollController();
-
-  // 1. Use a List to store the dynamically loaded widgets.
-  final List<Widget> _loadedWidgets = [];
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // No need to load data initially, it will load on first scroll.
-    _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent - 200 &&
-        !_isLoading) {
-      _loadMoreData();
-    }
-  }
-
-  Future<void> _loadMoreData() async {
-    if (_isLoading) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    // Simulate a network request
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    // 2. Add a new widget to the list based on the current list length.
-    final nextWidgetIndex = _loadedWidgets.length;
-    final newWidget = nextWidgetIndex.isEven
-        ? AppSlider(
-            promoItems: [
-              Assets.images.banner.image(),
-              Assets.images.banner2.image(),
-            ],
-          )
-        : AppCategoryGrid.sliver(
-            title: 'New Grid ${nextWidgetIndex ~/ 2}',
-            itemCount: 4,
-            section: 'market',
-            onProductPressed: (index) {
-              // Navigate to product details with the specific product ID
-              context.go(
-                '/market/home/products/${nextWidgetIndex * 4 + index + 1}',
-              );
-            },
-          );
-
-    _loadedWidgets.add(newWidget);
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
+  // Global keys for tutorial targets - static to ensure they persist across rebuilds
+  static final GlobalKey searchKey = GlobalKey();
+  static final GlobalKey categoriesKey = GlobalKey();
+  static final GlobalKey bannerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: _scrollController,
-      slivers: [
-        // --- Your initial, static widgets ---
-        AppStatusBar(onSearchTap: () {}, color: colorFromPage(true)),
-        AppSlider(
-          promoItems: [
-            Assets.images.banner.image(),
-            Assets.images.banner2.image(),
-          ],
+    // Tutorial steps configuration
+    final tutorialSteps = useMemoized(
+      () => [
+        TutorialStepConfig(
+          key: 'welcome',
+          title: TutorialService.getText('welcome_title'),
+          subtitle: TutorialService.getText('welcome_subtitle'),
+          icon: Icons.home,
+          iconColor: Colors.blue,
+          targetKey: searchKey,
         ),
-        const AppCategoryChips(
-          chipLabels: [
-            'Ählisi',
-            'Sowgat',
-            'Arzanladyş',
-            'Gök we bakja',
-            'Miwe',
-            'Et',
-          ],
+        TutorialStepConfig(
+          key: 'search',
+          title: TutorialService.getText('search_title'),
+          subtitle: TutorialService.getText('search_subtitle'),
+          icon: Icons.search,
+          iconColor: Colors.orange,
+          targetKey: searchKey,
         ),
-        const AppCarousel(title: 'Top Brendler'),
-        AppCategoryGrid.sliver(
-          title: 'Iň täze harytlar',
-          itemCount: 4,
-          section: 'market',
-          onProductPressed: (index) {
-            // Navigate to product details with the specific product ID
-            context.go('/market/home/products/${index + 1}');
-          },
+        TutorialStepConfig(
+          key: 'categories',
+          title: TutorialService.getText('categories_title'),
+          subtitle: TutorialService.getText('categories_subtitle'),
+          icon: Icons.category,
+          iconColor: Colors.green,
+          targetKey: categoriesKey,
         ),
-
-        // 3. Build the list of dynamically loaded widgets.
-        ..._loadedWidgets,
-
-        // 4. Show the loading indicator at the bottom.
-        if (_isLoading)
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(24),
-              child: Center(child: CircularProgressIndicator.adaptive()),
-            ),
-          ),
+        TutorialStepConfig(
+          key: 'banner',
+          title: 'Banner',
+          subtitle: 'Promosyonlar we teklifler bu ýerde görüp bilersiňiz.',
+          icon: Icons.local_offer,
+          iconColor: Colors.purple,
+          targetKey: bannerKey,
+        ),
       ],
     );
+
+    return TutorialOverlay(
+      steps: tutorialSteps,
+      onComplete: () {
+        debugPrint('Market tutorial completed!');
+      },
+      onSkip: () {
+        debugPrint('Market tutorial skipped!');
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFBFBFD),
+        body: CustomScrollView(
+          slivers: [
+            // Status Bar with Search
+            SliverToBoxAdapter(
+              child: AppStatusBar.box(
+                key: searchKey,
+                onSearchTap: _onSearchTap,
+                color: AppColors.mainAccent,
+              ),
+            ),
+
+            // Categories
+            SliverToBoxAdapter(
+              child: AppCategoryChips(
+                key: categoriesKey,
+                chipLabels: [
+                  'Harytlar',
+                  'Içgi',
+                  'Çaga harytlary',
+                  'Elektronika',
+                  'Geyim',
+                  'Aýakgap',
+                ],
+              ),
+            ),
+
+            // Banner Carousel
+            SliverToBoxAdapter(
+              child: AppCarousel(key: bannerKey, title: 'Banner'),
+            ),
+
+            // Products Grid (commented out for now)
+            // SliverToBoxAdapter(
+            //   child: AppCategoryGridSliver(
+            //     title: 'Harytlar',
+            //     products: getProductsBySection(AppSection.store),
+            //     onProductPressed: (index) {
+            //       final products = getProductsBySection(AppSection.store);
+            //       if (index < products.length) {
+            //         GoRouter.of(context).go('/store/home/products/${products[index].id}');
+            //       }
+            //     },
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _onSearchTap() {
+    // TODO: Implement search functionality
+    debugPrint('Search tapped - implement search functionality');
   }
 }

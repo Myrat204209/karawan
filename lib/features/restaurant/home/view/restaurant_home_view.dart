@@ -1,6 +1,7 @@
 // lib/restaurant/home/view/restaurant_home_view.dart
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:karawan/app/app.dart';
 
 class RestaurantHomeView extends StatefulWidget {
@@ -48,19 +49,22 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
 
     final nextWidgetIndex = _loadedWidgets.length;
     final newWidget = nextWidgetIndex.isEven
-        ? AppSlider(
+        ? AppSliderSliver.sliver(
             promoItems: [
               Assets.images.banner.image(),
               Assets.images.banner2.image(),
             ],
           )
-        : AppCategoryGrid.sliver(
+        : AppCategoryGridSliver.sliver(
             title: 'Menu ${nextWidgetIndex ~/ 2}',
             itemCount: 4,
-            section: 'restaurant',
+            section: AppSection.restaurant,
             onProductPressed: (index) {
               // Navigate to product details with the specific product ID
-              // context.go('/restaurant/home/products/${nextWidgetIndex * 4 + index + 1}');
+              final products = getProductsBySection(AppSection.restaurant);
+              if (index < products.length) {
+                context.go('/restaurant/home/products/${products[index].id}');
+              }
             },
           );
 
@@ -77,29 +81,34 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
       controller: _scrollController,
       slivers: [
         AppStatusBar(onSearchTap: () {}, color: colorFromPage(false)),
-        AppSlider(
+        AppSliderSliver.sliver(
           promoItems: [
             Assets.images.banner.image(),
             Assets.images.banner3.image(),
           ],
         ),
-        const AppCategoryChips(
-          chipLabels: [
-            'Ählisi',
-            'Günortanlyk',
-            'Çorbalar',
-            'Burgeler',
-            'Steýk',
-          ],
+        SliverToBoxAdapter(
+          child: AppCategoryChips(
+            chipLabels: [
+              'Ählisi',
+              'Günortanlyk',
+              'Çorbalar',
+              'Burgeler',
+              'Steýk',
+            ],
+          ),
         ),
         const AppCarousel(title: 'Top Naharlar'),
-        AppCategoryGrid.sliver(
+        AppCategoryGridSliver.sliver(
           title: 'Menu',
           itemCount: 4,
-          section: 'restaurant',
+          section: AppSection.restaurant,
           onProductPressed: (index) {
             // Navigate to product details with the specific product ID
-            // context.go('/restaurant/home/products/${index + 1}');
+            final products = getProductsBySection(AppSection.restaurant);
+            if (index < products.length) {
+              context.go('/restaurant/home/products/${products[index].id}');
+            }
           },
         ),
 

@@ -33,8 +33,7 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
           indicatorSize: TabBarIndicatorSize.tab,
           controller: _tabController,
           indicatorWeight: 0.001,
-
-          indicatorPadding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+          indicatorPadding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
           dividerColor: Colors.white,
           tabs: [
             Tab(text: 'Kategoriyalar'),
@@ -46,10 +45,10 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
             controller: _tabController,
             children: [
               Column(
-                spacing: 10,
+                spacing: AppSpacing.sm,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 15),
+                  SizedBox(height: AppSpacing.md),
                   CategoryButton(icon: Icons.card_giftcard, label: 'Sowgatlar'),
                   CategoryButton(icon: Icons.percent, label: 'Arzanladyş'),
                   CategoryButton(
@@ -65,20 +64,8 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
                     icon: Icons.local_drink_outlined,
                     label: 'Alkogolsyz içkiler',
                   ),
-                  // ListTile(
-                  //   leading: BackButton(),
-                  //   titleAlignment: ListTileTitleAlignment.center,
-                  //   title: Text('In taze harytlar'),
-                  //   trailing: IconButton(
-                  //     onPressed: () {},
-                  //     icon: Icon(
-                  //       Icons.filter_alt_outlined,
-                  //       color: AppColors.mainAccent,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
-              ).paddingSymmetric(horizontal: 20),
+              ).withPadding(horizontal: AppSpacing.screenPadding),
               ListView(
                 children: [
                   AppCarousel.box(title: 'Top Brendlar'),
@@ -118,22 +105,18 @@ class CategoryButton extends StatelessWidget {
       child: Row(
         children: [
           Material(
-            shape: CircleBorder(),
-
+            shape: const CircleBorder(),
             color: AppColors.mainAccent.withValues(alpha: 0.15),
-            child: Icon(icon, color: AppColors.mainAccent).paddingAll(10),
+            child: Icon(
+              icon,
+              color: AppColors.mainAccent,
+            ).withPadding(all: AppSpacing.sm),
           ),
-          Text(label).paddingSymmetric(vertical: 20, horizontal: 10),
+          Text(
+            label,
+          ).withPadding(vertical: AppSpacing.xl, horizontal: AppSpacing.sm),
         ],
       ),
     );
   }
 }
-// final List<String> _chipLabels = [
-//     'Ählisi',
-//     'Sowgat',
-//     'Arzanladyş',
-//     'Gök we bakja',
-//     'Miwe', 
-//     'Et', 
-//   ];

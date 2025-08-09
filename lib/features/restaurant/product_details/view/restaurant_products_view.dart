@@ -67,7 +67,14 @@ class RestaurantProductsView extends StatelessWidget {
                       AppColors.grey,
                     ),
                   ),
-                  AppCategoryGrid(title: 'In taze harytlar', itemCount: 4),
+                  AppCategoryGrid(
+                    title: 'In taze harytlar',
+                    itemCount: 4,
+                    section: AppSection.restaurant,
+                    onProductPressed: (index) {
+                      // Handle product selection
+                    },
+                  ),
                 ],
               ),
             ),

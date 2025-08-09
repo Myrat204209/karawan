@@ -7,6 +7,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: AppView());
+    return const AppView();
   }
 }

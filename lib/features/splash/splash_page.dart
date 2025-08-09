@@ -46,12 +46,14 @@ class _SplashPageState extends State<SplashPage> {
   /// with the correct route when the BLoC reaches a final state.
   Future<String> _getDestinationFromCache() async {
     final pageCacher = _getIt.get<PageCacher>();
-    switch (pageCacher.isMarketRoute()) {
+    final currentSection = pageCacher.getCurrentSection();
+    
+    switch (currentSection) {
       case null:
         return '/director';
-      case true:
-        return '/market/home';
-      case false:
+      case AppSection.store:
+        return '/store/home';
+      case AppSection.restaurant:
         return '/restaurant/home';
     }
   }
