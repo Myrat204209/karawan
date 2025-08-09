@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:karawan/app/router/route_names.dart';
 
 import 'page_cacher.dart';
 
@@ -61,8 +62,9 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
   }
 
   bool _isProductDetailsPage(BuildContext context) {
-    final location = GoRouterState.of(context).uri.path;
-    return location.contains('/products/');
+    final name = GoRouterState.of(context).name;
+    return name == RouteNames.storeProductDetails ||
+        name == RouteNames.restaurantProductDetails;
   }
 
   @override
@@ -70,13 +72,14 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
     super.build(context);
 
     final currentIndex = _getCurrentIndex(context);
+    final isDetails = _isProductDetailsPage(context);
 
     return Scaffold(
       body: widget.child,
-      floatingActionButton: (currentIndex == 0 && !_isProductDetailsPage(context))
+      floatingActionButton: (currentIndex == 0 && !isDetails)
           ? FloatingActionButton(
               backgroundColor: colorFromPage(widget.isMarket),
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               onPressed: () {
                 final pageCacher = GetIt.I<PageCacher>();
                 final newSection = widget.isMarket
@@ -96,33 +99,36 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
               ),
             )
           : null,
-      bottomNavigationBar: NavigationBar(
-        elevation: 4,
-        shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
-        backgroundColor: const Color(0xFFFFFFFF),
-        indicatorColor: Colors.transparent,
-        labelTextStyle: WidgetStatePropertyAll(
-          TextStyle(color: colorFromPage(widget.isMarket)),
-        ),
-        height: 85.h,
-        selectedIndex: currentIndex,
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        onDestinationSelected: (index) {
-          if (currentIndex != index) {
-            context.go(widget.navigationItems[index].path);
-          }
-        },
-        destinations: [
-          for (final (index, item) in widget.navigationItems.indexed)
-            _NavigationDestinationIcon(
-              color: colorFromPage(widget.isMarket),
-              icon: item.icon,
-              iconOn: item.iconOn,
-              label: item.label,
-              isSelected: currentIndex == index,
+      bottomNavigationBar: isDetails
+          ? null
+          : NavigationBar(
+              elevation: 4,
+              shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
+              backgroundColor: const Color(0xFFFFFFFF),
+              indicatorColor: Colors.transparent,
+              labelTextStyle: WidgetStatePropertyAll(
+                TextStyle(color: colorFromPage(widget.isMarket)),
+              ),
+              height: 85.h,
+              selectedIndex: currentIndex,
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              onDestinationSelected: (index) {
+                if (currentIndex != index) {
+                  context.go(widget.navigationItems[index].path);
+                }
+              },
+              destinations: [
+                for (final (index, item) in widget.navigationItems.indexed)
+                  _NavigationDestinationIcon(
+                    color: colorFromPage(widget.isMarket),
+                    icon: item.icon,
+                    iconOn: item.iconOn,
+                    label: item.label,
+                    isSelected: currentIndex == index,
+                  ),
+              ],
             ),
-        ],
-      ),
     );
   }
 }

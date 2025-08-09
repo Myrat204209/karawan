@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
+import 'package:karawan/app/router/route_names.dart';
 import 'package:karawan/features/features.dart';
 import 'package:karawan/features/profile/view/profile_page.dart';
 import 'package:karawan/features/store/store_bottom_navigation.dart';
@@ -33,6 +34,7 @@ final goRouter = GoRouter(
               builder: (context, state) => const MarketHomePage(),
               routes: [
                 GoRoute(
+                  name: RouteNames.storeProductDetails,
                   path: 'products/:productId',
                   builder: (context, state) => MarketProductsPage(
                     productId: state.pathParameters['productId']!,
@@ -109,6 +111,7 @@ final goRouter = GoRouter(
               builder: (context, state) => const RestaurantHomePage(),
               routes: [
                 GoRoute(
+                  name: RouteNames.restaurantProductDetails,
                   path: 'products/:productId',
                   builder: (context, state) => RestaurantProductsPage(
                     productId: state.pathParameters['productId']!,

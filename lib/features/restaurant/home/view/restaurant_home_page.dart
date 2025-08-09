@@ -6,6 +6,6 @@ class RestaurantHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RestaurantHomeView();
+    return const RestaurantHomeView();
   }
 }

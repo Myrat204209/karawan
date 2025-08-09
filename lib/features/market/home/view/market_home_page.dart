@@ -6,6 +6,6 @@ class MarketHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MarketHomeView();
+    return const MarketHomeView();
   }
 }

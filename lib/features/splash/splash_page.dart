@@ -36,9 +36,10 @@ class _SplashPageState extends State<SplashPage> {
     final results = await Future.wait([minimumDisplayTime, destinationRoute]);
     final destination = results[1] as String;
 
-    // 3. Navigate when both are complete.
+    // 3. Navigate when both are complete. Fallback to '/director' if invalid.
     if (mounted) {
-      context.go(destination);
+      const valid = {'/director', '/store/home', '/restaurant/home'};
+      context.go(valid.contains(destination) ? destination : '/director');
     }
   }
 
@@ -47,7 +48,7 @@ class _SplashPageState extends State<SplashPage> {
   Future<String> _getDestinationFromCache() async {
     final pageCacher = _getIt.get<PageCacher>();
     final currentSection = pageCacher.getCurrentSection();
-    
+
     switch (currentSection) {
       case null:
         return '/director';

@@ -6,6 +6,6 @@ class DirectorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DirectorView();
+    return const DirectorView();
   }
 }
