@@ -189,6 +189,8 @@ class MarketProductsPage extends HookWidget {
                         SizedBox(height: AppSpacing.sm),
                         Text(
                           product.description,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
                           style: AppTextStyle.text().md().withColor(
                             Colors.grey,
                           ),
@@ -238,74 +240,79 @@ class MarketProductsPage extends HookWidget {
           ),
 
           // Bottom Action Bar
-          Container(
-            padding: EdgeInsets.all(AppSpacing.screenPadding),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, -2),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Jemi:',
-                        style: AppTextStyle.text().sm().withColor(Colors.black),
-                      ),
-                      Text(
-                        'TMT ${(product.price * quantity.value).toStringAsFixed(2)}',
-                        style: AppTextStyle.text().xl().bold().withColor(
-                          Colors.black,
-                        ),
-                      ),
-                    ],
+          SafeArea(
+            top: false,
+            child: Container(
+              padding: EdgeInsets.all(AppSpacing.screenPadding),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, -2),
                   ),
-                ),
-                SizedBox(width: AppSpacing.lg),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      storage.updateCartQuantity(
-                        productId,
-                        quantity.value,
-                        AppSection.store,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('${product.name} sebede goşuldy!'),
-                          backgroundColor: AppColors.getSectionAccent(
-                            AppSection.store,
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Jemi:',
+                          style: AppTextStyle.text().sm().withColor(
+                            Colors.black,
                           ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.getSectionAccent(
-                        AppSection.store,
-                      ),
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                        Text(
+                          'TMT ${(product.price * quantity.value).toStringAsFixed(2)}',
+                          style: AppTextStyle.text().xl().bold().withColor(
+                            Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      'Sebede goş',
-                      style: AppTextStyle.text().md().bold().withColor(
-                        Colors.white,
+                  ),
+                  SizedBox(width: AppSpacing.lg),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        storage.updateCartQuantity(
+                          productId,
+                          quantity.value,
+                          AppSection.store,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('${product.name} sebede goşuldy!'),
+                            backgroundColor: AppColors.getSectionAccent(
+                              AppSection.store,
+                            ),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.getSectionAccent(
+                          AppSection.store,
+                        ),
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Text(
+                        'Sebede goş',
+                        style: AppTextStyle.text().md().bold().withColor(
+                          Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

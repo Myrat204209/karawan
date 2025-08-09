@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
-class RestaurantFavoritesView extends HookWidget {
+class RestaurantFavoritesView extends StatelessWidget {
   const RestaurantFavoritesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Reactive favorites data
-    final favorites = useFavorites(AppSection.restaurant);
+    final favorites = context.select((FavoritesBloc b) => b.state.favorites);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,8 +64,9 @@ class RestaurantFavoritesView extends HookWidget {
                   rating: product.rating,
                   image: Image.asset(product.imagePath, fit: BoxFit.cover),
                   onRemove: () {
-                    final storage = StorageProvider();
-                    storage.toggleFavorite(productId, AppSection.restaurant);
+                    context.read<FavoritesBloc>().add(
+                      FavoriteToggled(productId),
+                    );
                   },
                   onAddToCart: () {
                     final storage = StorageProvider();

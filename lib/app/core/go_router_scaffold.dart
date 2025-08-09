@@ -1,10 +1,15 @@
-import 'package:app_ui/app_ui.dart' show AppColors, AppSection;
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:karawan/app/router/route_names.dart';
+import 'package:karawan/blocs/cart/cart_bloc.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
+import 'package:karawan/repositories/cart_repository.dart';
+import 'package:karawan/repositories/favorites_repository.dart';
 
 import 'page_cacher.dart';
 
@@ -74,61 +79,90 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
     final currentIndex = _getCurrentIndex(context);
     final isDetails = _isProductDetailsPage(context);
 
-    return Scaffold(
-      body: widget.child,
-      floatingActionButton: (currentIndex == 0 && !isDetails)
-          ? FloatingActionButton(
-              backgroundColor: colorFromPage(widget.isMarket),
-              shape: const CircleBorder(),
-              onPressed: () {
-                final pageCacher = GetIt.I<PageCacher>();
-                final newSection = widget.isMarket
-                    ? AppSection.restaurant
-                    : AppSection.store;
-                pageCacher.setRoute(newSection);
-                context.go(widget.oppositePath);
-              },
-              elevation: 3,
-              child: Icon(
-                !widget.isMarket
-                    ? HugeIcons.strokeRoundedStore01
-                    : HugeIcons.strokeRoundedRestaurant03,
-                // color: colorFromPage(widget.isMarket),
-                color: Colors.white,
-                size: 25,
+    final storage = GetIt.I<StorageProvider>();
+    final section = widget.isMarket ? AppSection.store : AppSection.restaurant;
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CartBloc>(
+          create: (_) {
+            final repo = CartRepository(
+              storageProvider: storage,
+              section: section,
+            );
+            final bloc = CartBloc(repository: repo, section: section);
+            bloc.add(CartInitialized());
+            return bloc;
+          },
+        ),
+        BlocProvider<FavoritesBloc>(
+          create: (_) {
+            final repo = FavoritesRepository(
+              storageProvider: storage,
+              section: section,
+            );
+            final bloc = FavoritesBloc(repository: repo, section: section);
+            bloc.add(FavoritesInitialized());
+            return bloc;
+          },
+        ),
+      ],
+      child: Scaffold(
+        body: widget.child,
+        floatingActionButton: (currentIndex == 0 && !isDetails)
+            ? FloatingActionButton(
+                backgroundColor: colorFromPage(widget.isMarket),
+                shape: const CircleBorder(),
+                onPressed: () {
+                  final pageCacher = GetIt.I<PageCacher>();
+                  final newSection = widget.isMarket
+                      ? AppSection.restaurant
+                      : AppSection.store;
+                  pageCacher.setRoute(newSection);
+                  context.go(widget.oppositePath);
+                },
+                elevation: 3,
+                child: Icon(
+                  !widget.isMarket
+                      ? HugeIcons.strokeRoundedStore01
+                      : HugeIcons.strokeRoundedRestaurant03,
+                  // color: colorFromPage(widget.isMarket),
+                  color: Colors.white,
+                  size: 25,
+                ),
+              )
+            : null,
+        bottomNavigationBar: isDetails
+            ? null
+            : NavigationBar(
+                elevation: 4,
+                shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
+                backgroundColor: const Color(0xFFFFFFFF),
+                indicatorColor: Colors.transparent,
+                labelTextStyle: WidgetStatePropertyAll(
+                  TextStyle(color: colorFromPage(widget.isMarket)),
+                ),
+                height: 85.h,
+                selectedIndex: currentIndex,
+                labelBehavior:
+                    NavigationDestinationLabelBehavior.onlyShowSelected,
+                onDestinationSelected: (index) {
+                  if (currentIndex != index) {
+                    context.go(widget.navigationItems[index].path);
+                  }
+                },
+                destinations: [
+                  for (final (index, item) in widget.navigationItems.indexed)
+                    _NavigationDestinationIcon(
+                      color: colorFromPage(widget.isMarket),
+                      icon: item.icon,
+                      iconOn: item.iconOn,
+                      label: item.label,
+                      isSelected: currentIndex == index,
+                    ),
+                ],
               ),
-            )
-          : null,
-      bottomNavigationBar: isDetails
-          ? null
-          : NavigationBar(
-              elevation: 4,
-              shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
-              backgroundColor: const Color(0xFFFFFFFF),
-              indicatorColor: Colors.transparent,
-              labelTextStyle: WidgetStatePropertyAll(
-                TextStyle(color: colorFromPage(widget.isMarket)),
-              ),
-              height: 85.h,
-              selectedIndex: currentIndex,
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.onlyShowSelected,
-              onDestinationSelected: (index) {
-                if (currentIndex != index) {
-                  context.go(widget.navigationItems[index].path);
-                }
-              },
-              destinations: [
-                for (final (index, item) in widget.navigationItems.indexed)
-                  _NavigationDestinationIcon(
-                    color: colorFromPage(widget.isMarket),
-                    icon: item.icon,
-                    iconOn: item.iconOn,
-                    label: item.label,
-                    isSelected: currentIndex == index,
-                  ),
-              ],
-            ),
+      ),
     );
   }
 }

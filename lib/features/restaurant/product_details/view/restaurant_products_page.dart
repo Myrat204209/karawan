@@ -270,74 +270,77 @@ class RestaurantProductsPage extends HookWidget {
           ),
 
           // Bottom Action Bar
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 8,
-                  offset: const Offset(0, -2),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Jemi:',
-                      style: AppTextStyle.text().sm().medium().withColor(
-                        Colors.black,
-                      ),
-                    ),
-                    Text(
-                      'TMT ${(product.price * quantity.value).toStringAsFixed(2)}',
-                      style: AppTextStyle.text().md().semiBold().withColor(
-                        Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      storage.updateCartQuantity(
-                        productId,
-                        quantity.value,
-                        AppSection.restaurant,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('${product.name} sebede goşuldy!'),
-                          backgroundColor: AppColors.getSectionAccent(
-                            AppSection.restaurant,
-                          ),
+          SafeArea(
+            top: false,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Jemi:',
+                        style: AppTextStyle.text().sm().medium().withColor(
+                          Colors.black,
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.getSectionAccent(
-                        AppSection.restaurant,
                       ),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                      Text(
+                        'TMT ${(product.price * quantity.value).toStringAsFixed(2)}',
+                        style: AppTextStyle.text().md().semiBold().withColor(
+                          Colors.black,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Sebede goş',
-                      style: AppTextStyle.text().md().bold().withColor(
-                        Colors.white,
+                    ],
+                  ),
+                  const Spacer(),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        storage.updateCartQuantity(
+                          productId,
+                          quantity.value,
+                          AppSection.restaurant,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('${product.name} sebede goşuldy!'),
+                            backgroundColor: AppColors.getSectionAccent(
+                              AppSection.restaurant,
+                            ),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.getSectionAccent(
+                          AppSection.restaurant,
+                        ),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Text(
+                        'Sebede goş',
+                        style: AppTextStyle.text().md().bold().withColor(
+                          Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

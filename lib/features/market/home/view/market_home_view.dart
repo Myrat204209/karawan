@@ -1,111 +1,83 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:karawan/app/core/tutorial_service.dart';
+import 'package:flutter_intro/flutter_intro.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MarketHomeView extends HookWidget {
+class MarketHomeView extends StatefulWidget {
   const MarketHomeView({super.key});
 
-  // Global keys for tutorial targets - static to ensure they persist across rebuilds
-  static final GlobalKey searchKey = GlobalKey();
-  static final GlobalKey categoriesKey = GlobalKey();
-  static final GlobalKey bannerKey = GlobalKey();
+  @override
+  State<MarketHomeView> createState() => _MarketHomeViewState();
+}
+
+class _MarketHomeViewState extends State<MarketHomeView> {
+  static const _kIntroDoneKey = 'market_intro_done';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final prefs = GetIt.I<SharedPreferences>();
+      final done = prefs.getBool(_kIntroDoneKey) ?? false;
+      if (!done) {
+        Intro.of(context).start();
+        await prefs.setBool(_kIntroDoneKey, true);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Tutorial steps configuration
-    final tutorialSteps = useMemoized(
-      () => [
-        TutorialStepConfig(
-          key: 'welcome',
-          title: TutorialService.getText('welcome_title'),
-          subtitle: TutorialService.getText('welcome_subtitle'),
-          icon: Icons.home,
-          iconColor: Colors.blue,
-          targetKey: searchKey,
-        ),
-        TutorialStepConfig(
-          key: 'search',
-          title: TutorialService.getText('search_title'),
-          subtitle: TutorialService.getText('search_subtitle'),
-          icon: Icons.search,
-          iconColor: Colors.orange,
-          targetKey: searchKey,
-        ),
-        TutorialStepConfig(
-          key: 'categories',
-          title: TutorialService.getText('categories_title'),
-          subtitle: TutorialService.getText('categories_subtitle'),
-          icon: Icons.category,
-          iconColor: Colors.green,
-          targetKey: categoriesKey,
-        ),
-        TutorialStepConfig(
-          key: 'banner',
-          title: 'Banner',
-          subtitle: 'Promosyonlar we teklifler bu ýerde görüp bilersiňiz.',
-          icon: Icons.local_offer,
-          iconColor: Colors.purple,
-          targetKey: bannerKey,
-        ),
-      ],
-    );
+    final textTheme = Theme.of(context).textTheme;
 
-    return TutorialOverlay(
-      steps: tutorialSteps,
-      onComplete: () {
-        debugPrint('Market tutorial completed!');
-      },
-      onSkip: () {
-        debugPrint('Market tutorial skipped!');
-      },
-      child: Scaffold(
-        backgroundColor: const Color(0xFFFBFBFD),
-        body: CustomScrollView(
+    return Scaffold(
+      backgroundColor: const Color(0xFFFBFBFD),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+        child: CustomScrollView(
           slivers: [
-            // Status Bar with Search
             SliverToBoxAdapter(
-              child: AppStatusBar.box(
-                key: searchKey,
-                onSearchTap: _onSearchTap,
-                color: AppColors.mainAccent,
+              child: IntroStepBuilder(
+                order: 1,
+                text: 'Bu ýerde harytlary gözleýärsiňiz',
+                builder: (context, key) => Container(
+                  key: key,
+                  child: AppStatusBar.box(
+                    onSearchTap: _onSearchTap,
+                    color: AppColors.mainAccent,
+                  ),
+                ),
               ),
             ),
-
-            // Categories
+            AppCarousel(title: 'Banner'),
             SliverToBoxAdapter(
-              child: AppCategoryChips(
-                key: categoriesKey,
-                chipLabels: [
-                  'Harytlar',
-                  'Içgi',
-                  'Çaga harytlary',
-                  'Elektronika',
-                  'Geyim',
-                  'Aýakgap',
-                ],
+              child: IntroStepBuilder(
+                order: 2,
+                text: 'Kategoriýalar boýunça gezmek üçin ulanyň',
+                builder: (context, key) => Container(
+                  key: key,
+                  child: AppCategoryChips(
+                    chipLabels: const [
+                      'Ählisi',
+                      'Sowgat',
+                      'Arzanladyş',
+                      'Gök we ba',
+                    ],
+                  ),
+                ),
               ),
             ),
-
-            // Banner Carousel
-            SliverToBoxAdapter(
-              child: AppCarousel(key: bannerKey, title: 'Banner'),
+            AppCategoryGrid(
+              section: AppSection.store,
+              title: 'Top brendler',
+              itemCount: 4,
+              onProductPressed: (index) {
+                context.go('/store/home/products/$index');
+              },
             ),
-
-            // Products Grid (commented out for now)
-            // SliverToBoxAdapter(
-            //   child: AppCategoryGridSliver(
-            //     title: 'Harytlar',
-            //     products: getProductsBySection(AppSection.store),
-            //     onProductPressed: (index) {
-            //       final products = getProductsBySection(AppSection.store);
-            //       if (index < products.length) {
-            //         GoRouter.of(context).go('/store/home/products/${products[index].id}');
-            //       }
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -113,7 +85,6 @@ class MarketHomeView extends HookWidget {
   }
 
   void _onSearchTap() {
-    // TODO: Implement search functionality
     debugPrint('Search tapped - implement search functionality');
   }
 }

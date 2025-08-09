@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:karawan/blocs/cart/cart_bloc.dart';
 
-class MarketCartView extends HookWidget {
+class MarketCartView extends StatelessWidget {
   const MarketCartView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Reactive cart data
-    final cart = useCart(AppSection.store);
-    final storage = useMemoized(() => StorageProvider());
+    final cart = context.select((CartBloc b) => b.state.items);
 
     // Calculate total
     final total = cart.entries.fold<double>(0.0, (sum, entry) {
@@ -73,20 +73,19 @@ class MarketCartView extends HookWidget {
                       if (product == null) return SizedBox.shrink();
 
                       return AppCartItem(
-                        onRemove: () {
-                          storage.updateCartQuantity(
-                            productId,
-                            0,
-                            AppSection.store,
-                          );
-                        },
-                        onQuantityChanged: (newQuantity) {
-                          storage.updateCartQuantity(
-                            productId,
-                            newQuantity,
-                            AppSection.store,
-                          );
-                        },
+                        onRemove: () => context.read<CartBloc>().add(
+                          CartQuantityUpdated(
+                            productId: productId,
+                            quantity: 0,
+                          ),
+                        ),
+                        onQuantityChanged: (newQuantity) =>
+                            context.read<CartBloc>().add(
+                              CartQuantityUpdated(
+                                productId: productId,
+                                quantity: newQuantity,
+                              ),
+                            ),
                         name: product.name,
                         price: product.price,
                         description: product.description,

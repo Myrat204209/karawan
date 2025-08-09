@@ -1,10 +1,16 @@
+import 'package:app_ui/app_ui.dart' show AppSection, StorageProvider;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
 import 'package:karawan/app/router/route_names.dart';
+import 'package:karawan/blocs/cart/cart_bloc.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 import 'package:karawan/features/features.dart';
 import 'package:karawan/features/profile/view/profile_page.dart';
 import 'package:karawan/features/store/store_bottom_navigation.dart';
+import 'package:karawan/repositories/cart_repository.dart';
+import 'package:karawan/repositories/favorites_repository.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final goRouter = GoRouter(
@@ -19,11 +25,34 @@ final goRouter = GoRouter(
     // Store section with bottom navigation
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return GoRouterSectionScaffold(
-          navigationItems: storeNavigationItems,
-          oppositePath: '/restaurant/home',
-          isMarket: true,
-          child: navigationShell,
+        final storage = GetIt.I<StorageProvider>();
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>(
+              create: (_) => CartBloc(
+                repository: CartRepository(
+                  storageProvider: storage,
+                  section: AppSection.store,
+                ),
+                section: AppSection.store,
+              )..add(CartInitialized()),
+            ),
+            BlocProvider<FavoritesBloc>(
+              create: (_) => FavoritesBloc(
+                repository: FavoritesRepository(
+                  storageProvider: storage,
+                  section: AppSection.store,
+                ),
+                section: AppSection.store,
+              )..add(FavoritesInitialized()),
+            ),
+          ],
+          child: GoRouterSectionScaffold(
+            navigationItems: storeNavigationItems,
+            oppositePath: '/restaurant/home',
+            isMarket: true,
+            child: navigationShell,
+          ),
         );
       },
       branches: [
@@ -97,10 +126,33 @@ final goRouter = GoRouter(
     // Restaurant section with bottom navigation
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return GoRouterSectionScaffold(
-          navigationItems: restaurantNavigationItems,
-          oppositePath: '/store/home',
-          child: navigationShell,
+        final storage = GetIt.I<StorageProvider>();
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<CartBloc>(
+              create: (_) => CartBloc(
+                repository: CartRepository(
+                  storageProvider: storage,
+                  section: AppSection.restaurant,
+                ),
+                section: AppSection.restaurant,
+              )..add(CartInitialized()),
+            ),
+            BlocProvider<FavoritesBloc>(
+              create: (_) => FavoritesBloc(
+                repository: FavoritesRepository(
+                  storageProvider: storage,
+                  section: AppSection.restaurant,
+                ),
+                section: AppSection.restaurant,
+              )..add(FavoritesInitialized()),
+            ),
+          ],
+          child: GoRouterSectionScaffold(
+            navigationItems: restaurantNavigationItems,
+            oppositePath: '/store/home',
+            child: navigationShell,
+          ),
         );
       },
       branches: [
