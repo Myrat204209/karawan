@@ -13,13 +13,10 @@ class MarketCartView extends HookWidget {
     final storage = useMemoized(() => StorageProvider());
 
     // Calculate total
-    double total = 0.0;
-    for (final entry in cart.entries) {
+    final total = cart.entries.fold<double>(0.0, (sum, entry) {
       final product = getProductById(entry.key, AppSection.store);
-      if (product != null) {
-        total += product.price * entry.value;
-      }
-    }
+      return product == null ? sum : sum + product.price * entry.value;
+    });
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,19 +33,19 @@ class MarketCartView extends HookWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.shopping_cart_outlined,
                     size: 64,
                     color: Colors.grey,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     'Sebediňiz boş',
                     style: AppTextStyle.text().lg().semiBold().withColor(
                       Colors.grey,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Sebediňizi doldurmak üçin harytlar goşuň',
                     style: AppTextStyle.text().md().withColor(Colors.grey),
@@ -402,8 +399,8 @@ class _CheckoutModalBottomSheet extends HookWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.withValues(alpha: 0.2), width: 1),
       ),
-      child: TextField(
-        controller: TextEditingController(text: controller.value),
+      child: TextFormField(
+        initialValue: controller.value,
         onChanged: (value) => controller.value = value,
         style: AppTextStyle.text().md().withColor(Colors.black),
         decoration: InputDecoration(

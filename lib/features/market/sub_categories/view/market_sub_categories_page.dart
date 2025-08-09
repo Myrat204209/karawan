@@ -6,6 +6,6 @@ class MarketSubCategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MarketSubCategoriesView();
+    return const MarketSubCategoriesView();
   }
 }

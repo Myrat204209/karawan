@@ -5,12 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppSlider extends StatelessWidget {
   final List<Widget> promoItems;
+  final bool _isSliver;
 
-  const AppSlider({super.key, required this.promoItems});
+  const AppSlider({super.key, required this.promoItems}) : _isSliver = false;
+  const AppSlider.sliver({super.key, required this.promoItems})
+    : _isSliver = true;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CarouselSlider(
@@ -18,24 +21,25 @@ class AppSlider extends StatelessWidget {
           options: CarouselOptions(
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 5),
-
             viewportFraction: 388 / 428,
             aspectRatio: 388.w / 155.h,
-
             enlargeCenterPage: true,
             enlargeFactor: 0.25,
-
             onPageChanged: (index, reason) {},
           ),
         ),
-        // You can add your indicators back here
       ],
     ).paddingSymmetric(vertical: 15);
+
+    if (_isSliver) {
+      return SliverToBoxAdapter(child: content);
+    }
+    return content;
   }
 }
 
 extension AppSliderSliver on AppSlider {
   static Widget sliver({required List<Widget> promoItems}) {
-    return SliverToBoxAdapter(child: AppSlider(promoItems: promoItems));
+    return AppSlider.sliver(promoItems: promoItems);
   }
 }

@@ -8,28 +8,15 @@ class AccountDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: const Text('Hasabym'),
+        centerTitle: true,
+        leading: const BackButton(),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: Column(
         children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.white,
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.arrow_back),
-                ),
-                const Expanded(
-                  child: Text(
-                    'Hasabym',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
           // Account Content
           Expanded(
             child: Padding(

@@ -13,6 +13,7 @@ class _MarketAuthViewState extends State<MarketAuthView> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,7 @@ class _MarketAuthViewState extends State<MarketAuthView> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        leading: const BackButton(color: Colors.black),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -49,6 +47,7 @@ class _MarketAuthViewState extends State<MarketAuthView> {
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   hintText: '+993 XX XXXXXX',
                   border: OutlineInputBorder(
@@ -75,13 +74,24 @@ class _MarketAuthViewState extends State<MarketAuthView> {
               SizedBox(height: 10.h),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
+                obscureText: _obscurePassword,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   hintText: 'Parolyňyzy giriziň',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   prefixIcon: Icon(Icons.lock, color: AppColors.grey),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: AppColors.grey,
+                    ),
+                    onPressed: () =>
+                        setState(() => _obscurePassword = !_obscurePassword),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {

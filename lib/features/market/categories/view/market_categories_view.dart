@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +18,16 @@ class _MarketCategoriesViewState extends State<MarketCategoriesView>
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AppStatusBar.box(
-          onSearchTap: () {
-            log('asdsad');
-          },
-          color: AppColors.mainAccent,
-        ),
+        AppStatusBar.box(onSearchTap: () {}, color: AppColors.mainAccent),
         TabBar(
           indicatorSize: TabBarIndicatorSize.tab,
           controller: _tabController,

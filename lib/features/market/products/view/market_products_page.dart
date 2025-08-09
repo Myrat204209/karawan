@@ -29,33 +29,7 @@ class MarketProductsPage extends HookWidget {
       backgroundColor: const Color(0xFFFBFBFD),
       body: Column(
         children: [
-          // App Bar with back button and favorite icon
-          Container(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top + 10,
-              left: AppSpacing.screenPadding,
-              right: AppSpacing.screenPadding,
-              bottom: AppSpacing.sm,
-            ),
-            child: Row(
-              children: [
-                _buildCircularIconButton(
-                  onPressed: () => context.pop(),
-                  icon: Icons.arrow_back,
-                  color: Colors.grey,
-                ),
-                const Spacer(),
-                _buildCircularIconButton(
-                  onPressed: () {
-                    storage.toggleFavorite(productId, AppSection.store);
-                  },
-                  icon: isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Colors.red : Colors.grey,
-                ),
-              ],
-            ),
-          ),
-
+          // Image with overlayed controls
           // Main Content
           Expanded(
             child: SingleChildScrollView(
@@ -63,24 +37,53 @@ class MarketProductsPage extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Product Image
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    margin: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 300,
+                        margin: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(product.imagePath, fit: BoxFit.cover),
-                    ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            product.imagePath,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: MediaQuery.of(context).padding.top + 10,
+                        left: AppSpacing.screenPadding,
+                        child: _buildCircularIconButton(
+                          onPressed: () => context.pop(),
+                          icon: Icons.arrow_back,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Positioned(
+                        top: MediaQuery.of(context).padding.top + 10,
+                        right: AppSpacing.screenPadding,
+                        child: _buildCircularIconButton(
+                          onPressed: () {
+                            storage.toggleFavorite(productId, AppSection.store);
+                          },
+                          icon: isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: isFavorite ? Colors.red : Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: AppSpacing.xl),
 
@@ -161,20 +164,15 @@ class MarketProductsPage extends HookWidget {
                             Icon(
                               Icons.star,
                               size: 20,
-                              color: AppColors.highlightColor,
+                              color: AppColors.getSectionAccent(
+                                AppSection.store,
+                              ),
                             ),
                             SizedBox(width: AppSpacing.xs),
                             Text(
                               product.rating.toString(),
                               style: AppTextStyle.text().md().withColor(
-                                Colors.grey,
-                              ),
-                            ),
-                            SizedBox(width: AppSpacing.md),
-                            Text(
-                              '(${product.rating * 10} deňerlendirme)',
-                              style: AppTextStyle.text().sm().withColor(
-                                Colors.grey,
+                                Colors.black,
                               ),
                             ),
                           ],
@@ -183,7 +181,7 @@ class MarketProductsPage extends HookWidget {
 
                         // Description
                         Text(
-                          'Doly maglumat',
+                          'Mazmuny',
                           style: AppTextStyle.text().lg().bold().withColor(
                             Colors.black,
                           ),
@@ -199,7 +197,7 @@ class MarketProductsPage extends HookWidget {
 
                         // Related Products
                         Text(
-                          'Meňzeş harytlar',
+                          'Iň täze harytlar',
                           style: AppTextStyle.text().lg().bold().withColor(
                             Colors.black,
                           ),
@@ -254,26 +252,24 @@ class MarketProductsPage extends HookWidget {
             ),
             child: Row(
               children: [
-                // Price
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bahasy',
-                        style: AppTextStyle.text().sm().withColor(Colors.grey),
+                        'Jemi:',
+                        style: AppTextStyle.text().sm().withColor(Colors.black),
                       ),
                       Text(
-                        'TMT ${product.price.toStringAsFixed(2)}',
+                        'TMT ${(product.price * quantity.value).toStringAsFixed(2)}',
                         style: AppTextStyle.text().xl().bold().withColor(
-                          AppColors.getSectionAccent(AppSection.store),
+                          Colors.black,
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(width: AppSpacing.lg),
-                // Add to Cart Button
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {

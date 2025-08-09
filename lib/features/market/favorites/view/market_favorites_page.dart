@@ -6,6 +6,6 @@ class MarketFavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MarketFavoritesView();
+    return const MarketFavoritesView();
   }
 }

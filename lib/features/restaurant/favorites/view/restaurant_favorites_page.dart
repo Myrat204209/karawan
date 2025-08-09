@@ -6,6 +6,6 @@ class RestaurantFavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RestaurantFavoritesView();
+    return const RestaurantFavoritesView();
   }
 }

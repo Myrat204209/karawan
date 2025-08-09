@@ -13,13 +13,10 @@ class RestaurantOrderView extends HookWidget {
     final storage = useMemoized(() => StorageProvider());
 
     // Calculate total
-    double total = 0.0;
-    for (final entry in cart.entries) {
+    final total = cart.entries.fold<double>(0.0, (sum, entry) {
       final product = getProductById(entry.key, AppSection.restaurant);
-      if (product != null) {
-        total += product.price * entry.value;
-      }
-    }
+      return product == null ? sum : sum + product.price * entry.value;
+    });
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -387,8 +384,8 @@ class _CheckoutModalBottomSheet extends HookWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey.withValues(alpha: 0.2), width: 1),
       ),
-      child: TextField(
-        controller: TextEditingController(text: controller.value),
+      child: TextFormField(
+        initialValue: controller.value,
         onChanged: (value) => controller.value = value,
         style: AppTextStyle.text().md().withColor(Colors.black),
         decoration: const InputDecoration(

@@ -16,10 +16,7 @@ class MarketSubCategoriesView extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        leading: const BackButton(color: Colors.black),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),

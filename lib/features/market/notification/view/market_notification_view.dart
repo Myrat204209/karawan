@@ -16,10 +16,7 @@ class MarketNotificationView extends StatelessWidget {
             color: Colors.white,
             child: Row(
               children: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.arrow_back),
-                ),
+                const BackButton(),
                 const Expanded(
                   child: Text(
                     'Bildiriş',
@@ -41,11 +38,13 @@ class MarketNotificationView extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: AppColors.getSectionAccent(AppSection.store),
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.green.withValues(alpha: 0.2),
+                          color: AppColors.getSectionAccent(
+                            AppSection.store,
+                          ).withValues(alpha: 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),

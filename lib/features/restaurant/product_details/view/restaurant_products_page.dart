@@ -30,63 +30,7 @@ class RestaurantProductsPage extends HookWidget {
       backgroundColor: const Color(0xFFFBFBFD),
       body: Column(
         children: [
-          // App Bar with back button and favorite icon
-          Container(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top + 10,
-              left: 16,
-              right: 16,
-              bottom: 10,
-            ),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => context.pop(),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(Icons.arrow_back, size: 20),
-                  ),
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    storage.toggleFavorite(productId, AppSection.restaurant);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      size: 20,
-                      color: isFavorite ? Colors.red : Colors.grey,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
+          // Image with overlayed controls
           // Main Content
           Expanded(
             child: SingleChildScrollView(
@@ -94,24 +38,86 @@ class RestaurantProductsPage extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Product Image
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 300,
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(product.imagePath, fit: BoxFit.cover),
-                    ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            product.imagePath,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: MediaQuery.of(context).padding.top + 10,
+                        left: 16,
+                        child: GestureDetector(
+                          onTap: () => context.pop(),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(Icons.arrow_back, size: 20),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: MediaQuery.of(context).padding.top + 10,
+                        right: 16,
+                        child: GestureDetector(
+                          onTap: () {
+                            storage.toggleFavorite(
+                              productId,
+                              AppSection.restaurant,
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 20,
+                              color: isFavorite ? Colors.red : Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
 
@@ -186,7 +192,9 @@ class RestaurantProductsPage extends HookWidget {
                           children: [
                             Icon(
                               Icons.star,
-                              color: AppColors.highlightColor,
+                              color: AppColors.getSectionAccent(
+                                AppSection.restaurant,
+                              ),
                               size: 20,
                             ),
                             const SizedBox(width: 4),
@@ -219,7 +227,7 @@ class RestaurantProductsPage extends HookWidget {
 
                         // Menu Section
                         Text(
-                          'Menu',
+                          'Iň täze harytlar',
                           style: AppTextStyle.text().lg().bold().withColor(
                             Colors.black,
                           ),

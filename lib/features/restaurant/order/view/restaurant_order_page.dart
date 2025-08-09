@@ -6,6 +6,6 @@ class RestaurantOrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RestaurantOrderView();
+    return const RestaurantOrderView();
   }
 }

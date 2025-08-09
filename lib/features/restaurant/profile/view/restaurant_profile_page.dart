@@ -6,6 +6,6 @@ class RestaurantProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RestaurantProfileView();
+    return const RestaurantProfileView();
   }
 }

@@ -6,6 +6,6 @@ class MarketProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MarketProfileView();
+    return const MarketProfileView();
   }
 }
