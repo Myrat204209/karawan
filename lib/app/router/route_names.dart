@@ -49,16 +49,22 @@ final restaurantNavigationItems = <GoRouterNavigationItem>[
     iconOn: HugeIcons.strokeRoundedHome01,
   ),
   GoRouterNavigationItem(
-    path: '/restaurant/order',
-    label: 'Order',
-    icon: HugeIcons.strokeRoundedMarketOrder,
-    iconOn: HugeIcons.strokeRoundedMarketOrder,
+    path: '/restaurant/category',
+    label: 'Categories',
+    icon: HugeIcons.strokeRoundedCatalogue,
+    iconOn: HugeIcons.strokeRoundedCatalogue,
   ),
   GoRouterNavigationItem(
     path: '/restaurant/favorites',
     label: 'Favorites',
     icon: HugeIcons.strokeRoundedFavourite,
     iconOn: HugeIcons.strokeRoundedFavourite,
+  ),
+  GoRouterNavigationItem(
+    path: '/restaurant/order',
+    label: 'Order',
+    icon: HugeIcons.strokeRoundedCheckList,
+    iconOn: HugeIcons.strokeRoundedCheckList,
   ),
   GoRouterNavigationItem(
     path: '/restaurant/profile',

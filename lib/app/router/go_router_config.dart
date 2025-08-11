@@ -1,7 +1,7 @@
 // Suggested code for 'lib/app/router/go_router_config.dart' (or a new factory file)
 
 import 'package:app_ui/app_ui.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -44,13 +44,20 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
           routes: [
             GoRoute(
               path: item.path,
-              // Note: You would likely have a map or switch statement here
-              // to return the correct page widget based on the item.path or label.
-              // For simplicity, this example just returns a placeholder.
               builder: (context, state) {
                 // In a real app, you'd map path to page:
-                // if (item.path == '/market/home') return const MarketHomePage();
-                return Center(child: Text('Page for ${item.path}'));
+                if (item.path.endsWith('/home')) return const HomePage();
+                if (item.path.endsWith('/categories')) {
+                  return const CategoriesPage();
+                }
+                if (item.path.endsWith('/favorites')) {
+                  return const FavoritesPage();
+                }
+                if (item.path.endsWith('/cart')) return const CartPage();
+                if (item.path.endsWith('/profile')) {
+                  return const ProfilePage();
+                }
+                return SizedBox.shrink();
               },
               // Example of handling nested routes for the 'home' tab
               routes: item.path.endsWith('/home')
@@ -58,7 +65,7 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
                       GoRoute(
                         name: config.productDetailsRouteName,
                         path: 'products/:productId',
-                        builder: (context, state) => MarketProductsPage(
+                        builder: (context, state) => ProductDetailsPage(
                           productId: state.pathParameters['productId']!,
                         ),
                       ),

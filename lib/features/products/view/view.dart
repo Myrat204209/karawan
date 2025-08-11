@@ -1,2 +1,2 @@
-export 'market_products_page.dart';
-export 'market_products_view.dart';
+export 'product_details_page.dart';
+export 'product_details_view.dart';

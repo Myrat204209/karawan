@@ -5,14 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
-class MarketHomeView extends StatefulWidget {
-  const MarketHomeView({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<MarketHomeView> createState() => _MarketHomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _MarketHomeViewState extends State<MarketHomeView> {
+class _HomeViewState extends State<HomeView> {
   final ScrollController _scrollController = ScrollController();
 
   final List<Widget> _loadedWidgets = [];
@@ -69,7 +69,7 @@ class _MarketHomeViewState extends State<MarketHomeView> {
               // Navigate to product details with the first product ID
               final products = getProductsBySection(AppSection.store);
               if (products.isNotEmpty) {
-                context.go('/store/home/products/${products[0].id}');
+                context.go('/market/home/products/${products[0].id}');
               }
             },
             onFavoritePressed: (String productId) {
@@ -124,7 +124,7 @@ class _MarketHomeViewState extends State<MarketHomeView> {
             // Navigate to product details with the first product ID
             final products = getProductsBySection(AppSection.store);
             if (products.isNotEmpty) {
-              context.go('/store/home/products/${products[0].id}');
+              context.go('/market/home/products/${products[0].id}');
             }
           },
           onFavoritePressed: (String productId) {

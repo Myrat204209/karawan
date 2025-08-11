@@ -2,8 +2,8 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MarketProductsView extends StatelessWidget {
-  const MarketProductsView({super.key, required this.productId});
+class ProductDetailsView extends StatelessWidget {
+  const ProductDetailsView({super.key, required this.productId});
   final String productId;
   final double rating = 5.0;
 

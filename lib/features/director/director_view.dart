@@ -22,7 +22,7 @@ class DirectorView extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               _getIt<PageCacher>().setRoute(AppSection.store);
-              context.go('/store/home');
+              context.go('/market/home');
             },
             style: ElevatedButton.styleFrom(
               elevation: 2,

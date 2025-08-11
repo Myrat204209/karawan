@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
 
     // 3. Navigate when both are complete. Fallback to '/director' if invalid.
     if (mounted) {
-      const valid = {'/director', '/store/home', '/restaurant/home'};
+      const valid = {'/director', '/market/home', '/restaurant/home'};
       context.go(valid.contains(destination) ? destination : '/director');
     }
   }
@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
       case null:
         return '/director';
       case AppSection.store:
-        return '/store/home';
+        return '/market/home';
       case AppSection.restaurant:
         return '/restaurant/home';
     }

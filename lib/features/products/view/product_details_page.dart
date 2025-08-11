@@ -5,15 +5,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
-class MarketProductsPage extends HookWidget {
-  const MarketProductsPage({super.key, required this.productId});
+class ProductDetailsPage extends HookWidget {
+  const ProductDetailsPage({super.key, required this.productId});
 
   final String productId;
 
   @override
   Widget build(BuildContext context) {
     final product = getProductById(productId, AppSection.store);
-    final isFavorite = useIsFavorite(productId, AppSection.store);
+    // final isFavorite = useIsFavorite(productId, AppSection.store);
     final storage = useMemoized(() => StorageProvider());
     final quantity = useState(1);
 
@@ -229,7 +229,7 @@ class MarketProductsPage extends HookWidget {
                               product: relatedProduct,
                               onTap: () {
                                 context.go(
-                                  '/store/home/products/${relatedProduct.id}',
+                                  '/market/home/products/${relatedProduct.id}',
                                 );
                               },
                             );
@@ -398,9 +398,9 @@ class MarketRelatedProductCard extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = useIsFavorite(product.id, AppSection.store);
+    // final isFavorite = useIsFavorite(product.id, AppSection.store);
     final cartQuantity = useCartQuantity(product.id, AppSection.store);
-    final storage = useMemoized(() => StorageProvider());
+    // final storage = useMemoized(() => StorageProvider());
 
     return GestureDetector(
       onTap: onTap,
@@ -529,29 +529,29 @@ class MarketRelatedProductCard extends HookWidget {
     );
   }
 
-  Widget _buildCircularIconButton({
-    required VoidCallback onPressed,
-    required IconData icon,
-    required Color color,
-    double size = 40,
-  }) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.3),
-        shape: BoxShape.circle,
-      ),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: Icon(icon, color: color, size: size * 0.4),
-        style: IconButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: color,
-          padding: EdgeInsets.all(AppSpacing.xs),
-          minimumSize: Size(size, size),
-        ),
-      ),
-    );
-  }
+  // Widget _buildCircularIconButton({
+  //   required VoidCallback onPressed,
+  //   required IconData icon,
+  //   required Color color,
+  //   double size = 40,
+  // }) {
+  //   return Container(
+  //     width: size,
+  //     height: size,
+  //     decoration: BoxDecoration(
+  //       color: Colors.black.withValues(alpha: 0.3),
+  //       shape: BoxShape.circle,
+  //     ),
+  //     child: IconButton(
+  //       onPressed: onPressed,
+  //       icon: Icon(icon, color: color, size: size * 0.4),
+  //       style: IconButton.styleFrom(
+  //         backgroundColor: Colors.transparent,
+  //         foregroundColor: color,
+  //         padding: EdgeInsets.all(AppSpacing.xs),
+  //         minimumSize: Size(size, size),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

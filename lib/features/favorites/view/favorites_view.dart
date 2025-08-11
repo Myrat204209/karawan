@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
-class MarketFavoritesView extends StatelessWidget {
-  const MarketFavoritesView({super.key});
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class MarketFavoritesView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Holanlarym',
+          'Halanlarym',
           style: AppTextStyle.text().lg().bold().withColor(Colors.black),
         ),
         SizedBox(height: 20),

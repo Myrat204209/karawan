@@ -14,6 +14,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:karawan/app/app.dart' show App;
 import 'package:karawan/app/core/page_cacher.dart';
+import 'package:karawan/repositories/repositories.dart';
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -95,6 +96,21 @@ Future<void> _setupDependencies() async {
   final storageProvider = StorageProvider();
   await storageProvider.initialize();
   _getIt.registerSingleton<StorageProvider>(storageProvider);
+  _getIt.registerFactoryParam<CartRepository, AppSection, void>(
+    (section, _) => CartRepository(
+      storageProvider: _getIt<StorageProvider>(),
+      section: section,
+    ),
+  );
+
+  // ADD THIS REGISTRATION
+  // Register FavoritesRepository as a factory that also requires an AppSection
+  _getIt.registerFactoryParam<FavoritesRepository, AppSection, void>(
+    (section, _) => FavoritesRepository(
+      storageProvider: _getIt<StorageProvider>(),
+      section: section,
+    ),
+  );
 
   /// HydratedBLoC
   HydratedBloc.storage = await HydratedStorage.build(

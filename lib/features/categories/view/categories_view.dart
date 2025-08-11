@@ -1,14 +1,14 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-class MarketCategoriesView extends StatefulWidget {
-  const MarketCategoriesView({super.key});
+class CategoriesView extends StatefulWidget {
+  const CategoriesView({super.key});
 
   @override
-  State<MarketCategoriesView> createState() => _MarketCategoriesViewState();
+  State<CategoriesView> createState() => _CategoriesViewState();
 }
 
-class _MarketCategoriesViewState extends State<MarketCategoriesView>
+class _CategoriesViewState extends State<CategoriesView>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   @override
