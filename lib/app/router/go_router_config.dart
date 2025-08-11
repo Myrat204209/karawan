@@ -7,8 +7,8 @@ import 'package:karawan/app/router/route_names.dart';
 import 'package:karawan/blocs/cart/cart_bloc.dart';
 import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 import 'package:karawan/features/features.dart';
+import 'package:karawan/features/market/market_bottom_navigation.dart';
 import 'package:karawan/features/profile/view/profile_page.dart';
-import 'package:karawan/features/store/store_bottom_navigation.dart';
 import 'package:karawan/repositories/cart_repository.dart';
 import 'package:karawan/repositories/favorites_repository.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -48,7 +48,7 @@ final goRouter = GoRouter(
             ),
           ],
           child: GoRouterSectionScaffold(
-            navigationItems: storeNavigationItems,
+            navigationItems: marketNavigationItems,
             oppositePath: '/restaurant/home',
             isMarket: true,
             child: navigationShell,

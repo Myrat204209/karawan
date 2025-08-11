@@ -13,6 +13,7 @@ dependencies:
   talker_flutter: ^4.9.3
   retrofit: ^4.7.0
   json_annotation: ^4.9.0
+  internet_connection_checker_plus: ^2.7.2
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,114 @@
+{
+    "@@locale": "tk",
+
+    "networkError": "Internet baglanyşygy ýok.",
+    "networkErrorDescription": "Biraz wagtdan täzeden synanyşyň.",
+    "networkErrorButton": "Täzeden synanyş",
+
+    "notification" : "Bildiriş",
+    "unreadMessage" : "Täze",
+    "technicalSupportTitle": "Tehniki goldaw",
+    "technicalSupportDescription": "Kömek üçin bize ýüz tutuň",
+
+    "language": "Dil",
+    "languageChangeTitle": "Dili üýtgetmek",
+    "languageSelectDescription": "Programmanyň dilini saýlaň",
+    
+    "searching": "Dükandan gözläň...",
+    "startShopping": "Häzir satyn alyň",
+    "loadMore" : "Has köp görkez",
+    "merchLabel" : "Täjirler üçin",
+    "merchTitle" : "Ýörite teklipler",
+    "merchSubtitle" : "Ähli önümler, lomaý baha",
+    "viewAll" : "Ählisini görmek",
+
+    "productDetails" : "Harydyň maglumatlary",
+    "chooseColor" : "Reňk saýlaň",
+    "selectSize" : "Ölçegi saýlaň",
+    "addToCart" : "Sebede goş",
+    "similarProducts" : "Meňzeş önümler",
+
+    "filter" : "Süzgüç",
+    "selectAll" : "Ählisini saýla",
+
+    "productsAll" : "Önümler ({products})",
+    "@productsAll": {
+        "description": "Tapylan önümleriň sany.",
+        "placeholders": {
+            "products": {
+                "type": "int",
+                "example": "0"
+            }
+        }
+    },
+    "close": "Ýap",
+
+    "cart": "Sebedim",
+    "removeAll" : "Ählisini aýyr",
+    "cartConfirmation": "Sebedi tassykla",
+    "totalPrice" : "Jemi baha",
+    "price" : "Baha",
+    "totalCost": "Önümleriň jemi bahasy",
+    "deliverySerice": "Eltip bermek hyzmaty",
+    "discount" : "Arzanladyş",
+    "cartClearTitle": "Önümleri aýyrmak",
+    "cartClearContent": "Ähli önümleri aýyrmagy isleýärsiňizmi?",
+    "neglection" : "Ýok",
+    "affirmation" : "Hawa",
+    "checkOutCompleteTitle": "Sargydyňyz hasaba alyndy.",
+    "checkOutCompleteContent": "Tamamlanan söwda bellenen wagtda size gowşurylar. Satyn alşyňyz üçin sag boluň!",
+    "continueShop": "Söwda etmegi dowam ediň",
+    
+    "paymentMethod": "Töleg görnüşleri",
+    "paymentMethodCash": "Nagt",
+    "paymentMethodTerminal": "Terminal",
+    "selectAddress": "Salgy saýlaň",
+    "deliveryTime": "Eltip bermek wagtyny saýlaň",
+    "selectAddressEmpty": "Saýlanmady",
+    
+    "addressesCreate": "Täze salgy goş",
+    "myAddresses": "Salgylarym",
+    "address": "Salgy",
+    "addressName": "Salgyň ady",
+    "name": "At",
+    "phoneNumber": "Telefon belgisi",
+    "save" : "Ýatda sakla",
+    
+    "profile": "Meniň profilim",
+    "favorites" : "Halanlarym",
+    "account": "Hasap",
+    "orders": "Sargytlar",
+    "orderInformation" : "Sargytlar hasabaty",
+    "logout": "Çyk",
+    "region": "Sebit",
+    "accepted": "Kabul edildi",
+    "expected": "Garaşylýar",
+    "success": "Üstünlik",
+    "cancel": "Ýatyr",
+    "cartEmptyTitle": "Sebet boş",
+    "cartEmptyDescription": "Sebediňizdäki önümler şu ýerde görkeziler",
+    
+    "productsEmptyTitle": "Önüm tapylmady",
+    "productsEmptyDescription": "Häzirlikçe elýeterli önüm ýok.",
+    
+    "submit" : "Tabşyr",
+    "phoneInput": "Telefon belgiňizi giriziň!",
+    "otpSending" : "Telefon belgiňize SMS kody ibereris!",
+    "acceptPolice" : "Dowam etmek bilen gizlinlik syýasatyny we ulanyş şertlerini kabul edýärin",
+    "getCode" : "Kody al",
+    "otpEnter" : "SMS kody giriziň!",
+    "otpSentInformation" : "SMS kody +{phoneNumber} belgisine iberdik!", 
+    "@otpSentInformation" : {
+        "description": "Onümi tapmak.",
+        "placeholders": {
+            "phoneNumber": {
+                "type": "String",
+                "example": "99361234567"
+            }
+        }
+    },
+    "otpError" : "Kod alynmady.",
+    "sendAgain" : "Täzeden iber",
+    "authSucess" : "Üstünlikli döredildi!",
+    "ok" : "Bolýar"
+}

@@ -1,63 +1,278 @@
-# Karawan
+# Karawan - Smart Home Application
 
+A modern Flutter application built with Clean Architecture and BLoC pattern, featuring a dual-section marketplace for both store and restaurant services.
 
+## 🏗️ Architecture Overview
 
-## Getting started
+### Clean Architecture Implementation
+The project follows Clean Architecture principles with clear separation of concerns:
 
 ```
-cd existing_repo
-git remote add origin https://github.com/Myrat204209/karawan.git
-git branch -M main
-git push origin main
+lib/
+├── app/                    # Application layer
+│   ├── core/              # Core app functionality
+│   ├── router/            # Navigation configuration
+│   └── view/              # Main app view
+├── blocs/                 # Business Logic Components
+│   ├── cart/              # Shopping cart state management
+│   └── favorites/         # Favorites state management
+├── features/              # Feature modules
+│   ├── market/            # Store section features
+│   ├── restaurant/        # Restaurant section features
+│   ├── payment/           # Payment processing
+│   └── profile/           # User profile management
+├── repositories/          # Data access layer
+└── main/                  # Application entry point
 ```
 
-## Integrate with your tools
+### State Management
+- **BLoC Pattern**: Used for complex state management
+- **Repository Pattern**: Data access abstraction
+- **Dependency Injection**: GetIt for service locator pattern
 
+## 🚀 Features
 
-# Editing this README
+### Dual-Section Application
+1. **Store Section** (`/store/*`)
+   - Product browsing and search
+   - Shopping cart management
+   - Favorites system
+   - User authentication
+   - Profile management
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+2. **Restaurant Section** (`/restaurant/*`)
+   - Menu browsing with infinite scroll
+   - Order management
+   - Favorites system
+   - User profile
+   - Real-time order tracking
 
-## Suggestions for a good README
+### Core Features
+- **Infinite Scrolling**: Efficient content loading with pagination
+- **Local Storage**: Hive-based persistent storage for cart and favorites
+- **Navigation**: GoRouter for declarative routing
+- **Responsive Design**: ScreenUtil for adaptive layouts
+- **Error Handling**: Comprehensive error states and retry mechanisms
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## 🛠️ Technology Stack
 
-## Name
-Choose a self-explaining name for your project.
+### Core Dependencies
+- **Flutter**: 3.8.1+
+- **Dart**: 3.8.1+
+- **flutter_bloc**: State management
+- **go_router**: Navigation
+- **hive_ce**: Local database
+- **get_it**: Dependency injection
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### UI & UX
+- **flutter_screenutil**: Responsive design
+- **hugeicons**: Icon library
+- **carousel_slider_plus**: Image carousels
+- **input_quantity**: Quantity input widgets
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Development Tools
+- **talker**: Logging and debugging
+- **equatable**: Value equality
+- **flutter_hooks**: React-style hooks
+- **flutter_secure_storage**: Secure token storage
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 📱 Project Structure
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Packages
+```
+packages/
+├── app_ui/               # Shared UI components
+│   ├── assets/           # Images, fonts, icons
+│   ├── src/
+│   │   ├── colors/       # Color schemes
+│   │   ├── widgets/      # Reusable widgets
+│   │   ├── storage/      # Local storage utilities
+│   │   └── theme/        # App theming
+└── data_provider/        # Data layer abstraction
+    ├── api/              # HTTP client and interceptors
+    ├── client/           # API clients
+    ├── models/           # Data models
+    └── storage/          # Storage implementations
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Feature Modules
+Each feature follows a consistent structure:
+```
+feature_name/
+├── bloc/                 # Business logic
+├── view/                 # UI components
+├── widgets/              # Feature-specific widgets
+└── feature.dart          # Feature exports
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## 🚀 Getting Started
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Prerequisites
+- Flutter SDK 3.8.1 or higher
+- Dart SDK 3.8.1 or higher
+- Android Studio / VS Code
+- Git
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Installation
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd karawan
+   ```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+3. **Run the application**
+   ```bash
+   flutter run
+   ```
 
-## License
-For open source projects, say how it is licensed.
+### Development Setup
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+1. **Code Generation** (if needed)
+   ```bash
+   flutter packages pub run build_runner build
+   ```
+
+2. **Linting**
+   ```bash
+   flutter analyze
+   ```
+
+3. **Testing**
+   ```bash
+   flutter test
+   ```
+
+## 🏛️ Architecture Patterns
+
+### BLoC Pattern Implementation
+```dart
+// Event
+abstract class CartEvent extends Equatable {
+  const CartEvent();
+}
+
+// State
+class CartState extends Equatable {
+  final Map<String, int> items;
+  final CartStatus status;
+  
+  const CartState({
+    this.items = const {},
+    this.status = CartStatus.initial,
+  });
+}
+
+// BLoC
+class CartBloc extends Bloc<CartEvent, CartState> {
+  CartBloc({required CartRepository repository})
+      : super(const CartState()) {
+    on<CartInitialized>(_onInitialized);
+    on<CartQuantityUpdated>(_onQuantityUpdated);
+  }
+}
+```
+
+### Repository Pattern
+```dart
+class CartRepository {
+  final StorageProvider _storage;
+  final AppSection _section;
+
+  Map<String, int> getCart() => _storage.getCart(_section);
+  Future<void> updateQuantity(String productId, int quantity) =>
+      _storage.updateCartQuantity(productId, quantity, _section);
+}
+```
+
+## 📊 State Management Flow
+
+1. **UI Event** → User interaction triggers event
+2. **BLoC Event** → Event dispatched to BLoC
+3. **Repository** → BLoC calls repository method
+4. **Data Source** → Repository accesses data (local/remote)
+5. **State Update** → BLoC emits new state
+6. **UI Update** → Widget rebuilds with new state
+
+## 🔧 Configuration
+
+### Environment Setup
+- **Development**: Debug mode with detailed logging
+- **Production**: Release mode with optimized performance
+- **Testing**: Mock data and test configurations
+
+### Storage Configuration
+- **Hive**: Local database for cart and favorites
+- **Secure Storage**: Token management
+- **Shared Preferences**: App settings
+
+## 🧪 Testing Strategy
+
+### Unit Tests
+- BLoC logic testing
+- Repository method testing
+- Utility function testing
+
+### Widget Tests
+- UI component testing
+- User interaction testing
+- Navigation testing
+
+### Integration Tests
+- End-to-end user flows
+- Cross-feature integration
+
+## 📈 Performance Optimizations
+
+1. **Lazy Loading**: Infinite scroll with pagination
+2. **Memory Management**: Proper disposal of controllers and listeners
+3. **Image Caching**: Fast cached network images
+4. **Widget Optimization**: const constructors and efficient rebuilds
+
+## 🔒 Security Features
+
+- **Secure Storage**: Sensitive data encryption
+- **Token Management**: JWT token handling
+- **Input Validation**: Form validation and sanitization
+- **Error Handling**: Secure error messages
+
+## 🌐 Internationalization
+
+- **Multi-language Support**: Ready for localization
+- **RTL Support**: Right-to-left language support
+- **Cultural Adaptation**: Date, number, and currency formatting
+
+## 📱 Platform Support
+
+- **Android**: API level 21+
+- **iOS**: iOS 11.0+
+- **Web**: Progressive Web App ready
+- **Desktop**: Windows, macOS, Linux support
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Follow the coding standards
+4. Add tests for new features
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Contact the development team
+- Check the documentation
+
+---
+
+**Built with ❤️ using Flutter and Clean Architecture**

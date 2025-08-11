@@ -2,85 +2,181 @@
 
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppCategoryGrid extends StatelessWidget {
+class AppCategoryGrid extends HookWidget {
+  final String title;
+  final int itemCount;
+  final VoidCallback? onGridPressed;
+  final bool _isSliver;
+  final Function(String)? onFavoritePressed;
+  final List<ProductTemplate>? products;
+  final AppSection? section;
+
   const AppCategoryGrid({
     super.key,
     required this.title,
+    this.onGridPressed,
     required this.itemCount,
-    required this.section,
-    required this.onProductPressed,
-  });
+    this.onFavoritePressed,
+    this.products,
+    this.section,
+  }) : _isSliver = false;
 
-  final String title;
-  final int itemCount;
-  final AppSection section;
-  final ValueChanged<int> onProductPressed;
+  const AppCategoryGrid.sliver({
+    super.key,
+    required this.title,
+    this.onGridPressed,
+    required this.itemCount,
+    this.onFavoritePressed,
+    this.products,
+    this.section,
+  }) : _isSliver = true;
 
   @override
   Widget build(BuildContext context) {
-    final products = getProductsBySection(section);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: Text(
-            title,
-            style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+    if (_isSliver) {
+      return SliverMainAxisGroup(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyle.text().lg().bold().withColor(
+                      Colors.black,
+                    ),
+                  ),
+                  Text(
+                    'Seretmek',
+                    style: AppTextStyle.text().medium().withColor(
+                      AppColors.mainAccent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        SizedBox(height: AppSpacing.sm),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.63,
-            crossAxisSpacing: AppSpacing.md,
-            mainAxisSpacing: AppSpacing.md,
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            sliver: SliverGrid.builder(
+              itemCount: itemCount,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 5,
+                childAspectRatio: 175 / 210,
+              ),
+              itemBuilder: (context, index) {
+                // Use products if provided, otherwise use default data
+                final product =
+                    products != null && index < products!.length
+                        ? products![index]
+                        : null;
+
+                return AppProductItemHook(
+                  onGridPressed: onGridPressed,
+                  image:
+                      product != null
+                          ? Image.asset(product.imagePath, fit: BoxFit.cover)
+                          : Assets.images.meals.values[index % 4].image(
+                            fit: BoxFit.contain,
+                          ),
+                  name: product?.name ?? 'Doner Kebap',
+                  price: product?.price ?? 20.0,
+                  rating: product?.rating ?? 4.5,
+                  onCartAdded: () {},
+                  description:
+                      product?.description ??
+                      'Product designers who focuses on simplicity & usability',
+                  productId: product?.id,
+                  section: section,
+                  onFavoriteToggle:
+                      product != null && section != null
+                          ? () {
+                            // Dispatch BLoC event for favorite toggle
+                            onFavoritePressed?.call(product.id);
+                          }
+                          : null,
+                );
+              },
+            ),
           ),
-          itemCount: itemCount,
-          itemBuilder: (context, index) {
-            if (index >= products.length) {
-              return const SizedBox.shrink();
-            }
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyle.text().lg().bold().withColor(
+                    Colors.black,
+                  ),
+                ),
+                Text(
+                  'Seretmek',
+                  style: AppTextStyle.text().medium().withColor(
+                    AppColors.mainAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: itemCount,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 5,
+              childAspectRatio: 175 / 210,
+            ),
+            itemBuilder: (context, index) {
+              // Use products if provided, otherwise use default data
+              final product =
+                  products != null && index < products!.length
+                      ? products![index]
+                      : null;
 
-            final product = products[index];
-            return AppProductItemEnhanced(
-              onGridPressed: () => onProductPressed(index),
-              image: Image.asset(product.imagePath, fit: BoxFit.cover),
-              name: product.name,
-              price: product.price,
-              description: product.description,
-              rating: product.rating,
-              productId: product.id,
-              section: product.section,
-              imagePath: product.imagePath,
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
-extension AppCategoryGridSliver on AppCategoryGrid {
-  static Widget sliver({
-    required String title,
-    required int itemCount,
-    required AppSection section,
-    required ValueChanged<int> onProductPressed,
-  }) {
-    return SliverToBoxAdapter(
-      child: AppCategoryGrid(
-        title: title,
-        itemCount: itemCount,
-        section: section,
-        onProductPressed: onProductPressed,
-      ),
-    );
+              return AppProductItemHook(
+                onGridPressed: onGridPressed,
+                image:
+                    product != null
+                        ? Image.asset(product.imagePath, fit: BoxFit.cover)
+                        : Assets.images.meals.values[index % 4].image(
+                          fit: BoxFit.contain,
+                        ),
+                name: product?.name ?? 'Doner Kebap',
+                price: product?.price ?? 20.0,
+                rating: product?.rating ?? 4.5,
+                onCartAdded: () {},
+                description:
+                    product?.description ??
+                    'Product designers who focuses on simplicity & usability',
+                productId: product?.id,
+                section: section,
+                onFavoriteToggle:
+                    product != null && section != null
+                        ? () {
+                          // Dispatch BLoC event for favorite toggle
+                          onFavoritePressed?.call(product.id);
+                        }
+                        : null,
+              );
+            },
+          ),
+        ],
+      );
+    }
   }
 }

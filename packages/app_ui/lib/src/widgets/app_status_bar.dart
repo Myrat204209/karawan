@@ -8,17 +8,20 @@ class AppStatusBar extends StatelessWidget {
   final VoidCallback onSearchTap;
   final Color color;
   final bool _isSliver;
+  final Color? statusBarColor;
 
   const AppStatusBar({
     super.key,
     required this.onSearchTap,
     required this.color,
+    this.statusBarColor = AppColors.mainAccent,
   }) : _isSliver = true;
 
   const AppStatusBar.box({
     super.key,
     required this.onSearchTap,
     required this.color,
+    this.statusBarColor = AppColors.mainAccent,
   }) : _isSliver = false;
 
   @override
@@ -27,9 +30,9 @@ class AppStatusBar extends StatelessWidget {
       return SliverAppBar(
         backgroundColor: color,
         actionsPadding: EdgeInsets.only(right: AppSpacing.screenPadding),
-        systemOverlayStyle: const SystemUiOverlayStyle(
+        systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
-          statusBarColor: Colors.blue,
+          statusBarColor: statusBarColor,
         ),
         titleSpacing: 0,
         leading: Assets.images.logo.image().withPadding(
@@ -68,9 +71,9 @@ class AppStatusBar extends StatelessWidget {
             // Clear search functionality
           },
         ).withPadding(horizontal: AppSpacing.sm),
-        systemOverlayStyle: const SystemUiOverlayStyle(
+        systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
-          statusBarColor: Colors.blue,
+          statusBarColor: statusBarColor,
         ),
         titleSpacing: 0,
         leading: Assets.images.logo.image().withPadding(

@@ -1,7 +1,9 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
 class MarketProductsPage extends HookWidget {
   const MarketProductsPage({super.key, required this.productId});
@@ -73,14 +75,16 @@ class MarketProductsPage extends HookWidget {
                       Positioned(
                         top: MediaQuery.of(context).padding.top + 10,
                         right: AppSpacing.screenPadding,
-                        child: _buildCircularIconButton(
-                          onPressed: () {
-                            storage.toggleFavorite(productId, AppSection.store);
+                        child: AppFavoriteButtonCard(
+                          productId: productId,
+                          section: AppSection.store,
+                          onToggle: () {
+                            context.read<FavoritesBloc>().add(
+                              FavoriteToggled(productId),
+                            );
                           },
-                          icon: isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.grey,
+                          size: 40,
+                          iconSize: 20,
                         ),
                       ),
                     ],
@@ -432,13 +436,16 @@ class MarketRelatedProductCard extends HookWidget {
                 Positioned(
                   top: AppSpacing.sm,
                   right: AppSpacing.sm,
-                  child: _buildCircularIconButton(
-                    onPressed: () {
-                      storage.toggleFavorite(product.id, AppSection.store);
+                  child: AppFavoriteButton(
+                    productId: product.id,
+                    section: AppSection.store,
+                    onToggle: () {
+                      context.read<FavoritesBloc>().add(
+                        FavoriteToggled(product.id),
+                      );
                     },
-                    icon: isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.white,
                     size: 32,
+                    iconSize: 16,
                   ),
                 ),
               ],

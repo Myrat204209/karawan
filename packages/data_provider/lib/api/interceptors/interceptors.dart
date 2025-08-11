@@ -1,5 +1,4 @@
 export 'token_handle_interceptor.dart';
 export 'language_interceptor.dart';
-export 'language_service.dart';
 export 'always_accept_application_json_interceptor.dart';
 export 'error_interceptor.dart';

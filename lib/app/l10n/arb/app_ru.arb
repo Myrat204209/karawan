@@ -1,0 +1,113 @@
+{
+    "@@locale": "ru",
+
+    "networkError": "Нет подключения к интернету.",
+    "networkErrorDescription": "Пожалуйста, попробуйте еще раз позже.",
+    "networkErrorButton": "Повторить попытку",
+
+    "notification" : "Уведомление",
+    "unreadMessage" : "Новое",
+    "technicalSupportTitle": "Техническая поддержка",
+    "technicalSupportDescription": "Свяжитесь с нами для получения помощи",
+
+    "language": "Язык",
+    "languageChangeTitle": "Изменить язык",
+    "languageSelectDescription": "Выберите язык приложения",
+    
+    "searching": "Поиск в магазине...",
+    "startShopping": "Купить сейчас",
+    "loadMore" : "Загрузить еще",
+    "merchLabel" : "Для торговцев",
+    "merchTitle" : "Специальные предложения",
+    "merchSubtitle" : "Все товары, оптовая цена",
+    "viewAll" : "Посмотреть все",
+
+    "productDetails" : "Детали продукта",
+    "chooseColor" : "Выберите цвет",
+    "selectSize" : "Выберите размер",
+    "addToCart" : "Добавить в корзину",
+    "similarProducts" : "Похожие товары",
+
+    "filter" : "Фильтр",
+    "selectAll" : "Выбрать все",
+
+    "productsAll" : "Товары ({products})",
+    "@productsAll": {
+        "description": "Количество найденных товаров.",
+        "placeholders": {
+            "products": {
+                "type": "int",
+                "example": "0"
+            }
+        }
+    },
+    "close": "Закрыть",
+
+    "cart": "Моя корзина",
+    "removeAll" : "Удалить все",
+    "cartConfirmation": "Подтвердить корзину",
+    "totalPrice" : "Общая стоимость",
+    "price" : "Цена",
+    "totalCost": "Общая стоимость товаров",
+    "deliverySerice": "Служба доставки",
+    "discount" : "Скидка",
+    "cartClearTitle": "Удалить товары",
+    "cartClearContent": "Вы хотите удалить все товары?",
+    "neglection" : "Нет",
+    "affirmation" : "Да",
+    "checkOutCompleteTitle": "Ваш заказ зарегистрирован.",
+    "checkOutCompleteContent": "Завершенный торговый процесс будет добавлен к вам в указанное время. Спасибо за покупку!",
+    "continueShop": "Продолжить покупки",
+    
+    "paymentMethod": "Способы оплаты",
+    "paymentMethodCash": "Наличные",
+    "paymentMethodTerminal": "Терминал",
+    "selectAddress": "Выберите адрес",
+    "deliveryTime": "Выберите время доставки",
+    "selectAddressEmpty": "Не выбрано",
+    
+    "addressesCreate": "Добавить новый адрес",
+    "myAddresses": "Мои адреса",
+    "address": "Адрес",
+    "addressName": "Название адреса",
+    "name": "Имя",
+    "phoneNumber": "Номер телефона",
+    "save" : "Сохранить",
+    "favorites" : "Избранное",
+    "profile": "Мой профиль",
+    "account": "Аккаунт",
+    "orders": "Заказы",
+    "orderInformation" : "Информация о заказах",
+    "logout": "Выйти",
+    "region": "Регион",
+    "accepted": "Принято",
+    "expected": "Ожидается",
+    "success": "Успешно",
+    "cancel": "Отмена",
+    "cartEmptyTitle": "Корзина пуста",
+    "cartEmptyDescription": "Товары в вашей корзине отображаются здесь",
+    
+    "productsEmptyTitle": "Товары не найдены",
+    "productsEmptyDescription": "В настоящее время нет доступных товаров.",
+    
+    "submit" : "Отправить",
+    "phoneInput": "Введите номер телефона!",
+    "otpSending" : "Мы отправим вам код OTP на ваш номер телефона!",
+    "acceptPolice" : "Продолжая, я принимаю политику конфиденциальности и условия использования",
+    "getCode" : "Получить код",
+    "otpEnter" : "Введите код OTP!",
+    "otpSentInformation" : "Мы отправили код OTP на +{phoneNumber}!" , 
+    "@otpSentInformation" : {
+        "description": "Номер телефона для отправки кода OTP.",
+        "placeholders": {
+            "phoneNumber": {
+                "type": "String",
+                "example": "99361234567"
+            }
+        }
+    },
+    "otpError" : "Код не получен.",
+    "sendAgain" : "Отправить повторно",
+    "authSucess" : "Успешно создано!",
+    "ok" : "ОК"
+}

@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_intro/flutter_intro.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
 class MarketHomeView extends StatefulWidget {
   const MarketHomeView({super.key});
@@ -14,77 +13,136 @@ class MarketHomeView extends StatefulWidget {
 }
 
 class _MarketHomeViewState extends State<MarketHomeView> {
-  static const _kIntroDoneKey = 'market_intro_done';
+  final ScrollController _scrollController = ScrollController();
+
+  final List<Widget> _loadedWidgets = [];
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final prefs = GetIt.I<SharedPreferences>();
-      final done = prefs.getBool(_kIntroDoneKey) ?? false;
-      if (!done) {
-        Intro.of(context).start();
-        await prefs.setBool(_kIntroDoneKey, true);
-      }
+    _scrollController.addListener(_onScroll);
+    // Initial load
+    _loadMoreData();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 200 &&
+        !_isLoading) {
+      _loadMoreData();
+    }
+  }
+
+  Future<void> _loadMoreData() async {
+    if (_isLoading) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Simulate a network request
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    // IMPORTANT: Add sliver widgets here, not box widgets.
+    final nextWidgetIndex = _loadedWidgets.length;
+    final newWidget = nextWidgetIndex.isEven
+        ? AppSlider.sliver(
+            promoItems: [
+              Assets.images.banner.image(),
+              Assets.images.banner2.image(),
+            ],
+          )
+        : AppCategoryGrid.sliver(
+            title: 'New Grid',
+            itemCount: 4,
+            section: AppSection.store,
+            products: getProductsBySection(AppSection.store).take(4).toList(),
+            onGridPressed: () {
+              // Navigate to product details with the first product ID
+              final products = getProductsBySection(AppSection.store);
+              if (products.isNotEmpty) {
+                context.go('/store/home/products/${products[0].id}');
+              }
+            },
+            onFavoritePressed: (String productId) {
+              // Dispatch BLoC event for favorite toggle
+              context.read<FavoritesBloc>().add(FavoriteToggled(productId));
+            },
+          );
+
+    _loadedWidgets.add(newWidget);
+
+    setState(() {
+      _isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Scaffold(
-      backgroundColor: const Color(0xFFFBFBFD),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: IntroStepBuilder(
-                order: 1,
-                text: 'Bu ýerde harytlary gözleýärsiňiz',
-                builder: (context, key) => Container(
-                  key: key,
-                  child: AppStatusBar.box(
-                    onSearchTap: _onSearchTap,
-                    color: AppColors.mainAccent,
-                  ),
-                ),
-              ),
-            ),
-            AppCarousel(title: 'Banner'),
-            SliverToBoxAdapter(
-              child: IntroStepBuilder(
-                order: 2,
-                text: 'Kategoriýalar boýunça gezmek üçin ulanyň',
-                builder: (context, key) => Container(
-                  key: key,
-                  child: AppCategoryChips(
-                    chipLabels: const [
-                      'Ählisi',
-                      'Sowgat',
-                      'Arzanladyş',
-                      'Gök we ba',
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            AppCategoryGrid(
-              section: AppSection.store,
-              title: 'Top brendler',
-              itemCount: 4,
-              onProductPressed: (index) {
-                context.go('/store/home/products/$index');
-              },
-            ),
+    return CustomScrollView(
+      controller: _scrollController,
+      slivers: [
+        // --- Your initial, static widgets ---
+        AppStatusBar(
+          onSearchTap: () {},
+          color: AppColors.mainAccent,
+          statusBarColor: AppColors.mainAccent,
+        ),
+        AppSlider.sliver(
+          promoItems: [
+            Assets.images.banner.image(),
+            Assets.images.banner2.image(),
           ],
         ),
-      ),
-    );
-  }
+        SliverToBoxAdapter(
+          child: const AppCategoryChips(
+            chipLabels: [
+              'Ählisi',
+              'Sowgat',
+              'Arzanladyş',
+              'Gök we bakja',
+              'Miwe',
+              'Et',
+            ],
+          ),
+        ),
+        const AppCarousel(title: 'Top Brendler'),
+        AppCategoryGrid.sliver(
+          title: 'Iň täze harytlar',
+          itemCount: 4,
+          section: AppSection.store,
+          products: getProductsBySection(AppSection.store).take(4).toList(),
+          onGridPressed: () {
+            // Navigate to product details with the first product ID
+            final products = getProductsBySection(AppSection.store);
+            if (products.isNotEmpty) {
+              context.go('/store/home/products/${products[0].id}');
+            }
+          },
+          onFavoritePressed: (String productId) {
+            // Dispatch BLoC event for favorite toggle
+            context.read<FavoritesBloc>().add(FavoriteToggled(productId));
+          },
+        ),
 
-  void _onSearchTap() {
-    debugPrint('Search tapped - implement search functionality');
+        ..._loadedWidgets,
+
+        if (_isLoading)
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: Center(child: CircularProgressIndicator.adaptive()),
+            ),
+          ),
+      ],
+    );
   }
 }

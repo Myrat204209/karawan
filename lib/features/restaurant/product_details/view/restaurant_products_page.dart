@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
 class RestaurantProductsPage extends HookWidget {
   const RestaurantProductsPage({super.key, required this.productId});
@@ -87,34 +89,16 @@ class RestaurantProductsPage extends HookWidget {
                       Positioned(
                         top: MediaQuery.of(context).padding.top + 10,
                         right: 16,
-                        child: GestureDetector(
-                          onTap: () {
-                            storage.toggleFavorite(
-                              productId,
-                              AppSection.restaurant,
+                        child: AppFavoriteButtonCard(
+                          productId: productId,
+                          section: AppSection.restaurant,
+                          onToggle: () {
+                            context.read<FavoritesBloc>().add(
+                              FavoriteToggled(productId),
                             );
                           },
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.1),
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Icon(
-                              isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              size: 20,
-                              color: isFavorite ? Colors.red : Colors.grey,
-                            ),
-                          ),
+                          size: 40,
+                          iconSize: 20,
                         ),
                       ),
                     ],
@@ -400,22 +384,16 @@ class RelatedProductCard extends HookWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: GestureDetector(
-                    onTap: () {
-                      storage.toggleFavorite(product.id, AppSection.restaurant);
+                  child: AppFavoriteButton(
+                    productId: product.id,
+                    section: AppSection.restaurant,
+                    onToggle: () {
+                      context.read<FavoritesBloc>().add(
+                        FavoriteToggled(product.id),
+                      );
                     },
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        size: 14,
-                        color: isFavorite ? Colors.red : Colors.white,
-                      ),
-                    ),
+                    size: 24,
+                    iconSize: 14,
                   ),
                 ),
               ],

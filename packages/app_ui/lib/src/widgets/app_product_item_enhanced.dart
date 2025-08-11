@@ -28,7 +28,6 @@ class AppProductItemEnhanced extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = useIsFavorite(productId, section);
     final cartQuantity = useCartQuantity(productId, section);
     final storage = useMemoized(() => StorageProvider());
 
@@ -67,22 +66,14 @@ class AppProductItemEnhanced extends HookWidget {
                 Positioned(
                   top: AppSpacing.sm,
                   right: AppSpacing.sm,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: AppFavoriteButton(
+                    productId: productId,
+                    section: section,
+                    onToggle: () {
                       storage.toggleFavorite(productId, section);
                     },
-                    child: Container(
-                      padding: EdgeInsets.all(AppSpacing.xs),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        size: 18,
-                        color: isFavorite ? Colors.red : Colors.white,
-                      ),
-                    ),
+                    size: 36,
+                    iconSize: 18,
                   ),
                 ),
               ],

@@ -9,11 +9,13 @@ class AppMainImage extends StatelessWidget {
     required this.image,
     required this.onLiked,
     this.isLiked = false,
+    this.section,
   });
 
   final Widget image;
   final VoidCallback onLiked;
   final bool isLiked;
+  final AppSection? section;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,7 +31,12 @@ class AppMainImage extends StatelessWidget {
                     : Icons.favorite_border_rounded,
             onTap: onLiked,
             isSmall: true,
-            color: isLiked ? AppColors.mainAccent : AppColors.grey,
+            color:
+                isLiked
+                    ? (section != null
+                        ? AppColors.getSectionAccent(section!)
+                        : AppColors.mainAccent)
+                    : AppColors.grey,
           ),
         ),
       ],

@@ -15,7 +15,7 @@ class Http extends DioForNative {
     Talker? talker,
     required TokenStorage tokenStorage,
     // LanguageService? languageService,
-    // ConnectivityService? connectivityService,
+    ConnectivityService? connectivityService,
     bool enableLogger = true,
   }) : _defaultBaseUrl = defaultBaseUrl,
        _talker = talker,
@@ -28,8 +28,8 @@ class Http extends DioForNative {
          ),
        ) {
     interceptors.addAll([
-      // if (connectivityService != null)
-      //   ErrorInterceptor(connectivityService: connectivityService),
+      if (connectivityService != null)
+        ErrorInterceptor(connectivityService: connectivityService),
       TokenHandleInterceptor(
         dio: this,
         tokenStorage: tokenStorage,

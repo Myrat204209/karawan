@@ -1,8 +1,10 @@
 // lib/restaurant/home/view/restaurant_home_view.dart
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/app/app.dart';
+import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
 class RestaurantHomeView extends StatefulWidget {
   const RestaurantHomeView({super.key});
@@ -55,16 +57,23 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
               Assets.images.banner2.image(),
             ],
           )
-        : AppCategoryGridSliver.sliver(
+        : AppCategoryGrid.sliver(
             title: 'Menu ${nextWidgetIndex ~/ 2}',
             itemCount: 4,
             section: AppSection.restaurant,
-            onProductPressed: (index) {
+            products: getProductsBySection(
+              AppSection.restaurant,
+            ).take(4).toList(),
+            onGridPressed: () {
               // Navigate to product details with the specific product ID
               final products = getProductsBySection(AppSection.restaurant);
-              if (index < products.length) {
-                context.go('/restaurant/home/products/${products[index].id}');
+              if (products.isNotEmpty) {
+                context.go('/restaurant/home/products/${products[0].id}');
               }
+            },
+            onFavoritePressed: (String productId) {
+              // Dispatch BLoC event for favorite toggle
+              context.read<FavoritesBloc>().add(FavoriteToggled(productId));
             },
           );
 
@@ -80,7 +89,11 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
     return CustomScrollView(
       controller: _scrollController,
       slivers: [
-        AppStatusBar(onSearchTap: () {}, color: colorFromPage(false)),
+        AppStatusBar(
+          onSearchTap: () {},
+          color: colorFromPage(false),
+          statusBarColor: colorFromPage(false),
+        ),
         AppSliderSliver.sliver(
           promoItems: [
             Assets.images.banner.image(),
@@ -99,16 +112,23 @@ class _RestaurantHomeViewState extends State<RestaurantHomeView> {
           ),
         ),
         const AppCarousel(title: 'Top Naharlar'),
-        AppCategoryGridSliver.sliver(
+        AppCategoryGrid.sliver(
           title: 'Menu',
           itemCount: 4,
           section: AppSection.restaurant,
-          onProductPressed: (index) {
+          products: getProductsBySection(
+            AppSection.restaurant,
+          ).take(4).toList(),
+          onGridPressed: () {
             // Navigate to product details with the specific product ID
             final products = getProductsBySection(AppSection.restaurant);
-            if (index < products.length) {
-              context.go('/restaurant/home/products/${products[index].id}');
+            if (products.isNotEmpty) {
+              context.go('/restaurant/home/products/${products[0].id}');
             }
+          },
+          onFavoritePressed: (String productId) {
+            // Dispatch BLoC event for favorite toggle
+            context.read<FavoritesBloc>().add(FavoriteToggled(productId));
           },
         ),
 

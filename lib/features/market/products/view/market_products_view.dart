@@ -70,8 +70,7 @@ class MarketProductsView extends StatelessWidget {
                   AppCategoryGrid(
                     title: 'In taze harytlar',
                     itemCount: 4,
-                    section: AppSection.store,
-                    onProductPressed: (index) {
+                    onGridPressed: () {
                       // Handle product selection
                     },
                   ),

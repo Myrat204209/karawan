@@ -2,10 +2,11 @@
 
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppProductItem extends StatelessWidget {
-  const AppProductItem({
+class AppProductItemHook extends HookWidget {
+  const AppProductItemHook({
     super.key,
     required this.onGridPressed,
     required this.onCartAdded,
@@ -17,8 +18,8 @@ class AppProductItem extends StatelessWidget {
     this.productId,
     this.section,
     this.onFavoriteToggle,
-    this.isFavorite = false,
   });
+
   final Widget image;
   final VoidCallback? onGridPressed;
   final VoidCallback? onCartAdded;
@@ -29,10 +30,20 @@ class AppProductItem extends StatelessWidget {
   final String? productId;
   final AppSection? section;
   final VoidCallback? onFavoriteToggle;
-  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
+    // Use the favorites hook if productId and section are provided
+    final isFavorite =
+        productId != null && section != null
+            ? useIsFavorite(productId!, section!)
+            : false;
+
+    // Optimistic update state
+    final optimisticState = useState<bool?>(null);
+    final isOptimistic = optimisticState.value != null;
+    final displayFavorite = isOptimistic ? optimisticState.value! : isFavorite;
+
     return InkWell(
       onTap: onGridPressed ?? () {},
       child: DecoratedBox(
@@ -50,17 +61,49 @@ class AppProductItem extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: kCircular15Border,
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 flex: 6,
-                child: AppMainImage(
-                  onLiked: onFavoriteToggle ?? () {},
-                  image: image,
-                  isLiked: isFavorite,
-                  section: section,
+                child: Stack(
+                  children: [
+                    image,
+                    if (productId != null && section != null)
+                      Positioned(
+                        right: 8,
+                        top: 8,
+                        child: GestureDetector(
+                          onTap: () async {
+                            // Optimistic update
+                            optimisticState.value = !isFavorite;
+
+                            // Call the toggle callback
+                            onFavoriteToggle?.call();
+
+                            // Reset optimistic state after a short delay
+                            Future.delayed(
+                              const Duration(milliseconds: 100),
+                              () {
+                                optimisticState.value = null;
+                              },
+                            );
+                          },
+                          child: AppActionIcon(
+                            icon:
+                                displayFavorite
+                                    ? Icons.favorite_rounded
+                                    : Icons.favorite_border_rounded,
+                            onTap: () {}, // Handled by GestureDetector
+                            isSmall: true,
+                            color:
+                                displayFavorite
+                                    ? AppColors.getSectionAccent(section!)
+                                    : AppColors.grey,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
               Expanded(
@@ -87,7 +130,11 @@ class AppProductItem extends StatelessWidget {
                             style: AppTextStyle.text()
                                 .semiBold()
                                 .withFontSize(14.sp)
-                                .withColor(AppColors.secondRestAccent),
+                                .withColor(
+                                  section != null
+                                      ? AppColors.getSectionAccent(section!)
+                                      : AppColors.secondRestAccent,
+                                ),
                           ),
                         ],
                       ),
@@ -95,7 +142,6 @@ class AppProductItem extends StatelessWidget {
                         child: Text(
                           description,
                           softWrap: true,
-
                           style: AppTextStyle.text().copyWith(
                             color: Color(0xFF464646),
                             fontSize: 9.sp,
@@ -103,7 +149,6 @@ class AppProductItem extends StatelessWidget {
                           maxLines: 2,
                         ),
                       ),
-
                       Expanded(
                         child: Row(
                           children: [
@@ -117,9 +162,12 @@ class AppProductItem extends StatelessWidget {
                             ),
                             Spacer(),
                             OutlinedButton(
-                              onPressed: () {},
+                              onPressed: onCartAdded ?? () {},
                               style: OutlinedButton.styleFrom(
-                                backgroundColor: AppColors.secondRestAccent,
+                                backgroundColor:
+                                    section != null
+                                        ? AppColors.getSectionAccent(section!)
+                                        : AppColors.secondRestAccent,
                                 side: BorderSide(color: Colors.transparent),
                                 minimumSize: Size(76.w, 21),
                               ),
