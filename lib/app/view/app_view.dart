@@ -11,26 +11,28 @@ import 'package:turkmen_localization_support/turkmen_localization_support.dart';
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
-  static final ThemeData _theme = AppTheme().themeData;
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(428, 952),
       minTextAdapt: true,
+
+      useInheritedMediaQuery: true,
       child: BlocBuilder<LanguageCubit, Locale>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, locale) {
-          
           return MaterialApp.router(
             locale: locale,
 
             debugShowCheckedModeBanner: false,
-            theme: _theme,
-            localizationsDelegates: const[
+            theme: AppTheme().themeData,
+
+            // darkTheme: AppDarkTheme().themeData,
+            localizationsDelegates: const [
               ...AppLocalizations.localizationsDelegates,
-              ...TkDelegates.delegates
+              ...TkDelegates.delegates,
             ],
+            supportedLocales: AppLocalizations.supportedLocales,
             themeMode: ThemeMode.light,
             routerConfig: goRouter,
           );

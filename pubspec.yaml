@@ -23,7 +23,6 @@ dependencies:
   talker: ^4.9.3
   get_it: ^8.2.0
 
-  auto_route: ^10.1.0
   hive_ce: ^2.11.3
   hive_ce_flutter: ^2.3.1
   hydrated_bloc: ^10.1.1
@@ -45,11 +44,8 @@ dependencies:
   turkmen_localization_support: ^0.0.13
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_lints: ^6.0.0
-  auto_route_generator: ^10.2.3
-  build_runner: ^2.6.1
+  build_runner: ^2.6.0
   hive_ce_generator: ^1.9.3
   bloc_lint: ^0.2.1
 

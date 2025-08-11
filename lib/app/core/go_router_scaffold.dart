@@ -1,17 +1,9 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:karawan/app/router/route_names.dart';
-import 'package:karawan/blocs/cart/cart_bloc.dart';
-import 'package:karawan/blocs/favorites/favorites_bloc.dart';
-import 'package:karawan/repositories/cart_repository.dart';
-import 'package:karawan/repositories/favorites_repository.dart';
-
-import 'page_cacher.dart';
+import 'package:karawan/app/core/core.dart';
 
 // The NavigationItem class for GoRouter
 class GoRouterNavigationItem {
@@ -31,19 +23,14 @@ Color colorFromPage(bool isMarket) {
   return isMarket ? AppColors.mainAccent : AppColors.restaurantAccent;
 }
 
-// GoRouter-compatible scaffold widget
 class GoRouterSectionScaffold extends StatefulWidget {
   const GoRouterSectionScaffold({
     super.key,
-    required this.navigationItems,
-    required this.oppositePath,
-    this.isMarket = false,
+    required this.config,
     required this.child,
   });
 
-  final List<GoRouterNavigationItem> navigationItems;
-  final String oppositePath;
-  final bool isMarket;
+  final SectionConfig config;
   final Widget child;
 
   @override
@@ -58,110 +45,66 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
 
   int _getCurrentIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
-    for (int i = 0; i < widget.navigationItems.length; i++) {
-      if (location.startsWith(widget.navigationItems[i].path)) {
+    for (int i = 0; i < widget.config.navigationItems.length; i++) {
+      if (location.startsWith(widget.config.navigationItems[i].path)) {
         return i;
       }
     }
     return 0;
   }
 
-  bool _isProductDetailsPage(BuildContext context) {
-    final name = GoRouterState.of(context).name;
-    return name == RouteNames.storeProductDetails ||
-        name == RouteNames.restaurantProductDetails;
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
+    final location = GoRouterState.of(context).uri.path;
     final currentIndex = _getCurrentIndex(context);
-    final isDetails = _isProductDetailsPage(context);
+    final isMarket = widget.config.appSection == AppSection.store;
 
-    final storage = GetIt.I<StorageProvider>();
-    final section = widget.isMarket ? AppSection.store : AppSection.restaurant;
-
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CartBloc>(
-          create: (_) {
-            final repo = CartRepository(
-              storageProvider: storage,
-              section: section,
-            );
-            final bloc = CartBloc(repository: repo, section: section);
-            bloc.add(CartInitialized());
-            return bloc;
-          },
-        ),
-        BlocProvider<FavoritesBloc>(
-          create: (_) {
-            final repo = FavoritesRepository(
-              storageProvider: storage,
-              section: section,
-            );
-            final bloc = FavoritesBloc(repository: repo, section: section);
-            bloc.add(FavoritesInitialized());
-            return bloc;
-          },
-        ),
-      ],
-      child: Scaffold(
-        body: widget.child,
-        floatingActionButton: (currentIndex == 0 && !isDetails)
-            ? FloatingActionButton(
-                backgroundColor: colorFromPage(widget.isMarket),
-                shape: const CircleBorder(),
-                onPressed: () {
-                  final pageCacher = GetIt.I<PageCacher>();
-                  final newSection = widget.isMarket
-                      ? AppSection.restaurant
-                      : AppSection.store;
-                  pageCacher.setRoute(newSection);
-                  context.go(widget.oppositePath);
-                },
-                elevation: 3,
-                child: Icon(
-                  !widget.isMarket
-                      ? HugeIcons.strokeRoundedStore01
-                      : HugeIcons.strokeRoundedRestaurant03,
-                  // color: colorFromPage(widget.isMarket),
-                  color: Colors.white,
-                  size: 25,
-                ),
-              )
-            : null,
-        bottomNavigationBar: isDetails
-            ? null
-            : NavigationBar(
-                elevation: 4,
-                shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
-                backgroundColor: const Color(0xFFFFFFFF),
-                indicatorColor: Colors.transparent,
-                labelTextStyle: WidgetStatePropertyAll(
-                  TextStyle(color: colorFromPage(widget.isMarket)),
-                ),
-                height: 85.h,
-                selectedIndex: currentIndex,
-                labelBehavior:
-                    NavigationDestinationLabelBehavior.onlyShowSelected,
-                onDestinationSelected: (index) {
-                  if (currentIndex != index) {
-                    context.go(widget.navigationItems[index].path);
-                  }
-                },
-                destinations: [
-                  for (final (index, item) in widget.navigationItems.indexed)
-                    _NavigationDestinationIcon(
-                      color: colorFromPage(widget.isMarket),
-                      icon: item.icon,
-                      iconOn: item.iconOn,
-                      label: item.label,
-                      isSelected: currentIndex == index,
-                    ),
-                ],
+    return Scaffold(
+      body: widget.child,
+      floatingActionButton: location == '/${widget.config.pathPrefix}/home'
+          ? FloatingActionButton(
+              backgroundColor: colorFromPage(isMarket),
+              shape: const CircleBorder(),
+              onPressed: () {
+                context.go(widget.config.oppositePath);
+              },
+              elevation: 3,
+              child: Icon(
+                !isMarket
+                    ? HugeIcons.strokeRoundedStore01
+                    : HugeIcons.strokeRoundedRestaurant03,
+                color: Colors.white,
+                size: 25,
               ),
+            )
+          : null,
+      bottomNavigationBar: NavigationBar(
+        elevation: 4,
+        shadowColor: const Color(0xFF000000).withValues(alpha: 0.02),
+        backgroundColor: const Color(0xFFFFFFFF),
+        indicatorColor: Colors.transparent,
+        labelTextStyle: WidgetStatePropertyAll(
+          TextStyle(color: colorFromPage(isMarket)),
+        ),
+        height: 85.h,
+        selectedIndex: currentIndex,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        onDestinationSelected: (index) {
+          if (currentIndex != index) {
+            context.go(widget.config.navigationItems[index].path);
+          }
+        },
+        destinations: [
+          for (final (index, item) in widget.config.navigationItems.indexed)
+            _NavigationDestinationIcon(
+              color: colorFromPage(isMarket),
+              icon: item.icon,
+              iconOn: item.iconOn,
+              label: item.label,
+              isSelected: currentIndex == index,
+            ),
+        ],
       ),
     );
   }
@@ -188,7 +131,7 @@ class _NavigationDestinationIcon extends StatelessWidget {
       label: label,
       icon: isSelected
           ? HugeIcon(icon: iconOn, color: color)
-          : HugeIcon(icon: icon, color: Color(0xFF969696)),
+          : HugeIcon(icon: icon, color: const Color(0xFF969696)),
     );
   }
 }

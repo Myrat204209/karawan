@@ -39,7 +39,7 @@ class AppTextStyle extends TextStyle {
     super.color = AppColors.textColor,
   }) : super(
          package: 'app_ui',
-         //  fontFamily: 'Inter',
+          fontFamily: 'Poppins',
          decoration: TextDecoration.none,
          textBaseline: TextBaseline.alphabetic,
          height:
