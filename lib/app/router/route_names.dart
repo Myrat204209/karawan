@@ -4,7 +4,7 @@ import 'package:karawan/app/core/go_router_scaffold.dart';
 class RouteNames {
   RouteNames._();
 
-  static const String storeProductDetails = 'storeProductDetails';
+  static const String marketProductDetails = 'marketProductDetails';
   static const String restaurantProductDetails = 'restaurantProductDetails';
 }
 

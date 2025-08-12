@@ -38,12 +38,12 @@ class MarketNotificationView extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: AppColors.getSectionAccent(AppSection.store),
+                      color: AppColors.getSectionAccent(AppSection.market),
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.getSectionAccent(
-                            AppSection.store,
+                            AppSection.market,
                           ).withValues(alpha: 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
@@ -113,14 +113,14 @@ class MarketNotificationView extends StatelessWidget {
                                 height: 40,
                                 decoration: BoxDecoration(
                                   color: AppColors.getSectionAccent(
-                                    AppSection.store,
+                                    AppSection.market,
                                   ).withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Icon(
                                   Icons.notifications,
                                   color: AppColors.getSectionAccent(
-                                    AppSection.store,
+                                    AppSection.market,
                                   ),
                                   size: 20,
                                 ),

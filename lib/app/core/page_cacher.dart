@@ -6,26 +6,26 @@ class PageCacher {
   final SharedPreferences prefs;
   static const String _routeKey = 'last_route';
 
-  bool _isStoreRoute = false;
+  bool _isMarketRoute = false;
 
   void setRoute(AppSection section) {
-    _isStoreRoute = section == AppSection.store;
-    prefs.setBool(_routeKey, _isStoreRoute);
+    _isMarketRoute = section == AppSection.market;
+    prefs.setBool(_routeKey, _isMarketRoute);
   }
 
   void clearRoute() {
-    _isStoreRoute = false;
+    _isMarketRoute = false;
     prefs.remove(_routeKey);
   }
 
-  bool isStoreRoute() {
-    _isStoreRoute = prefs.getBool(_routeKey) ?? false;
-    return _isStoreRoute;
+  bool isMarketRoute() {
+    _isMarketRoute = prefs.getBool(_routeKey) ?? false;
+    return _isMarketRoute;
   }
 
   AppSection? getCurrentSection() {
-    final isStore = prefs.getBool(_routeKey);
-    if (isStore == null) return null;
-    return isStore ? AppSection.store : AppSection.restaurant;
+    final isMarket = prefs.getBool(_routeKey);
+    if (isMarket == null) return null;
+    return isMarket ? AppSection.market : AppSection.restaurant;
   }
 }

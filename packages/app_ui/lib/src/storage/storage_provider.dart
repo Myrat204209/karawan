@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
-enum AppSection { store, restaurant }
+enum AppSection { market, restaurant }
 
 class StorageProvider extends ChangeNotifier {
   static final StorageProvider _instance = StorageProvider._internal();
@@ -91,7 +91,7 @@ class StorageProvider extends ChangeNotifier {
   // Favorites methods
   bool isFavorite(String productId, AppSection section) {
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         return _storeFavorites.value.contains(productId);
       case AppSection.restaurant:
         return _restaurantFavorites.value.contains(productId);
@@ -104,7 +104,7 @@ class StorageProvider extends ChangeNotifier {
     }
 
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         final newFavorites = Set<String>.from(_storeFavorites.value);
         if (newFavorites.contains(productId)) {
           newFavorites.remove(productId);
@@ -136,7 +136,7 @@ class StorageProvider extends ChangeNotifier {
 
   Set<String> getFavorites(AppSection section) {
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         return _storeFavorites.value;
       case AppSection.restaurant:
         return _restaurantFavorites.value;
@@ -146,7 +146,7 @@ class StorageProvider extends ChangeNotifier {
   // Cart methods
   int getCartQuantity(String productId, AppSection section) {
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         return _storeCart.value[productId] ?? 0;
       case AppSection.restaurant:
         return _restaurantCart.value[productId] ?? 0;
@@ -163,7 +163,7 @@ class StorageProvider extends ChangeNotifier {
     }
 
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         final newCart = Map<String, int>.from(_storeCart.value);
         if (quantity <= 0) {
           newCart.remove(productId);
@@ -195,7 +195,7 @@ class StorageProvider extends ChangeNotifier {
 
   Map<String, int> getCart(AppSection section) {
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         return _storeCart.value;
       case AppSection.restaurant:
         return _restaurantCart.value;
@@ -204,7 +204,7 @@ class StorageProvider extends ChangeNotifier {
 
   int getCartItemCount(AppSection section) {
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         return _storeCart.value.values.fold(
           0,
           (sum, quantity) => sum + quantity,
@@ -223,7 +223,7 @@ class StorageProvider extends ChangeNotifier {
     }
 
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         await _cartStoreBox.clear();
         _storeCart.value = {};
         break;

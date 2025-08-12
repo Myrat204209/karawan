@@ -37,7 +37,7 @@ class AppBottomNavigationItem extends StatelessWidget {
                   color:
                       isSelected
                           ? AppColors.getSectionAccent(
-                            section ?? AppSection.store,
+                            section ?? AppSection.market,
                           )
                           : Colors.grey,
                   size: 24,
@@ -47,7 +47,7 @@ class AppBottomNavigationItem extends StatelessWidget {
                     right: -8,
                     top: -8,
                     child: AppCartBadge(
-                      section: section ?? AppSection.store,
+                      section: section ?? AppSection.market,
                       size: 16,
                     ),
                   ),
@@ -62,7 +62,7 @@ class AppBottomNavigationItem extends StatelessWidget {
                 color:
                     isSelected
                         ? AppColors.getSectionAccent(
-                          section ?? AppSection.store,
+                          section ?? AppSection.market,
                         )
                         : Colors.grey,
               ),

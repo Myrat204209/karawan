@@ -3,11 +3,13 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:karawan/app/core/go_router_scaffold.dart';
 import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({super.key, required this.section});
 
+  final AppSection section;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -63,13 +65,15 @@ class _HomeViewState extends State<HomeView> {
         : AppCategoryGrid.sliver(
             title: 'New Grid',
             itemCount: 4,
-            section: AppSection.store,
-            products: getProductsBySection(AppSection.store).take(4).toList(),
+            section: widget.section,
+            products: getProductsBySection(widget.section).take(4).toList(),
             onGridPressed: () {
               // Navigate to product details with the first product ID
-              final products = getProductsBySection(AppSection.store);
+              final products = getProductsBySection(widget.section);
               if (products.isNotEmpty) {
-                context.go('/market/home/products/${products[0].id}');
+                context.go(
+                  '/${widget.section == AppSection.market ? 'market' : 'restaurant'}/home/products/${products[0].id}',
+                );
               }
             },
             onFavoritePressed: (String productId) {
@@ -93,8 +97,8 @@ class _HomeViewState extends State<HomeView> {
         // --- Your initial, static widgets ---
         AppStatusBar(
           onSearchTap: () {},
-          color: AppColors.mainAccent,
-          statusBarColor: AppColors.mainAccent,
+          color: colorFromPage(widget.section == AppSection.market),
+          statusBarColor: colorFromPage(widget.section == AppSection.market),
         ),
         AppSlider.sliver(
           promoItems: [
@@ -118,13 +122,15 @@ class _HomeViewState extends State<HomeView> {
         AppCategoryGrid.sliver(
           title: 'Iň täze harytlar',
           itemCount: 4,
-          section: AppSection.store,
-          products: getProductsBySection(AppSection.store).take(4).toList(),
+          section: widget.section,
+          products: getProductsBySection(widget.section).take(4).toList(),
           onGridPressed: () {
             // Navigate to product details with the first product ID
-            final products = getProductsBySection(AppSection.store);
+            final products = getProductsBySection(widget.section);
             if (products.isNotEmpty) {
-              context.go('/market/home/products/${products[0].id}');
+              context.go(
+                '/${widget.section == AppSection.market ? 'market' : 'restaurant'}/home/products/${products[0].id}',
+              );
             }
           },
           onFavoritePressed: (String productId) {

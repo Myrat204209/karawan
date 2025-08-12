@@ -52,7 +52,7 @@ class _SplashPageState extends State<SplashPage> {
     switch (currentSection) {
       case null:
         return '/director';
-      case AppSection.store:
+      case AppSection.market:
         return '/market/home';
       case AppSection.restaurant:
         return '/restaurant/home';

@@ -14,7 +14,7 @@ class CartRepository {
 
   /// Reactive listenable for cart map changes.
   ValueListenable<Map<String, int>> get cartListenable =>
-      _section == AppSection.store
+      _section == AppSection.market
       ? _storage.storeCart
       : _storage.restaurantCart;
 

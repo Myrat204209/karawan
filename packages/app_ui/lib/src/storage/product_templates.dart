@@ -29,7 +29,7 @@ const List<ProductTemplate> storeProducts = [
     description: 'Fresh grilled meat with vegetables and sauce',
     rating: 5.0,
     imagePath: 'packages/app_ui/assets/images/meals/meal_1.png',
-    section: AppSection.store,
+    section: AppSection.market,
   ),
   ProductTemplate(
     id: 'store_product_2',
@@ -38,7 +38,7 @@ const List<ProductTemplate> storeProducts = [
     description: 'Delicious pizza with melted cheese and toppings',
     rating: 5.0,
     imagePath: 'packages/app_ui/assets/images/meals/meal_2.png',
-    section: AppSection.store,
+    section: AppSection.market,
   ),
   ProductTemplate(
     id: 'store_product_3',
@@ -47,7 +47,7 @@ const List<ProductTemplate> storeProducts = [
     description: 'Fresh sushi rolls with premium ingredients',
     rating: 5.0,
     imagePath: 'packages/app_ui/assets/images/meals/meal_3.png',
-    section: AppSection.store,
+    section: AppSection.market,
   ),
   ProductTemplate(
     id: 'store_product_4',
@@ -56,7 +56,7 @@ const List<ProductTemplate> storeProducts = [
     description: 'Grilled meat wrapped in flatbread with fresh vegetables',
     rating: 5.0,
     imagePath: 'packages/app_ui/assets/images/meals/meal_4.png',
-    section: AppSection.store,
+    section: AppSection.market,
   ),
 ];
 
@@ -103,7 +103,7 @@ const List<ProductTemplate> restaurantProducts = [
 // Helper function to get product by ID
 ProductTemplate? getProductById(String id, AppSection section) {
   final products =
-      section == AppSection.store ? storeProducts : restaurantProducts;
+      section == AppSection.market ? storeProducts : restaurantProducts;
   try {
     return products.firstWhere((product) => product.id == id);
   } catch (e) {
@@ -113,5 +113,5 @@ ProductTemplate? getProductById(String id, AppSection section) {
 
 // Helper function to get all products for a section
 List<ProductTemplate> getProductsBySection(AppSection section) {
-  return section == AppSection.store ? storeProducts : restaurantProducts;
+  return section == AppSection.market ? storeProducts : restaurantProducts;
 }

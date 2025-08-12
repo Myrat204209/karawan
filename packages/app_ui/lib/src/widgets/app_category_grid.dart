@@ -54,7 +54,9 @@ class AppCategoryGrid extends HookWidget {
                   Text(
                     'Seretmek',
                     style: AppTextStyle.text().medium().withColor(
-                      AppColors.mainAccent,
+                      section == AppSection.market
+                          ? AppColors.mainAccent
+                          : AppColors.restaurantAccent,
                     ),
                   ),
                 ],
@@ -94,7 +96,7 @@ class AppCategoryGrid extends HookWidget {
                       product?.description ??
                       'Product designers who focuses on simplicity & usability',
                   productId: product?.id,
-                  section: section,
+                  section: section!,
                   onFavoriteToggle:
                       product != null && section != null
                           ? () {
@@ -164,7 +166,7 @@ class AppCategoryGrid extends HookWidget {
                     product?.description ??
                     'Product designers who focuses on simplicity & usability',
                 productId: product?.id,
-                section: section,
+                section: section!,
                 onFavoriteToggle:
                     product != null && section != null
                         ? () {

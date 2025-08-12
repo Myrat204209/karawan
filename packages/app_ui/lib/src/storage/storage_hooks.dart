@@ -12,7 +12,7 @@ T useReactiveValue<T>(ValueNotifier<T> notifier, T Function() computeValue) {
 bool useIsFavorite(String productId, AppSection section) {
   final storage = useMemoized(() => StorageProvider());
   final favoritesNotifier =
-      section == AppSection.store
+      section == AppSection.market
           ? storage.storeFavorites
           : storage.restaurantFavorites;
 
@@ -23,7 +23,7 @@ bool useIsFavorite(String productId, AppSection section) {
 Set<String> useFavorites(AppSection section) {
   final storage = useMemoized(() => StorageProvider());
   final favoritesNotifier =
-      section == AppSection.store
+      section == AppSection.market
           ? storage.storeFavorites
           : storage.restaurantFavorites;
 
@@ -35,7 +35,7 @@ Set<String> useFavorites(AppSection section) {
 int useCartQuantity(String productId, AppSection section) {
   final storage = useMemoized(() => StorageProvider());
   final cartNotifier =
-      section == AppSection.store ? storage.storeCart : storage.restaurantCart;
+      section == AppSection.market ? storage.storeCart : storage.restaurantCart;
 
   useListenable(cartNotifier);
   return cartNotifier.value[productId] ?? 0;
@@ -44,7 +44,7 @@ int useCartQuantity(String productId, AppSection section) {
 Map<String, int> useCart(AppSection section) {
   final storage = useMemoized(() => StorageProvider());
   final cartNotifier =
-      section == AppSection.store ? storage.storeCart : storage.restaurantCart;
+      section == AppSection.market ? storage.storeCart : storage.restaurantCart;
 
   useListenable(cartNotifier);
   return cartNotifier.value;
@@ -53,7 +53,7 @@ Map<String, int> useCart(AppSection section) {
 int useCartItemCount(AppSection section) {
   final storage = useMemoized(() => StorageProvider());
   final cartNotifier =
-      section == AppSection.store ? storage.storeCart : storage.restaurantCart;
+      section == AppSection.market ? storage.storeCart : storage.restaurantCart;
 
   useListenable(cartNotifier);
   return cartNotifier.value.values.fold(0, (sum, quantity) => sum + quantity);

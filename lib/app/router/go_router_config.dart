@@ -46,7 +46,9 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
               path: item.path,
               builder: (context, state) {
                 // In a real app, you'd map path to page:
-                if (item.path.endsWith('/home')) return const HomePage();
+                if (item.path.endsWith('/home')) {
+                  return HomePage(section: config.appSection);
+                }
                 if (item.path.endsWith('/categories')) {
                   return const CategoriesPage();
                 }
@@ -67,6 +69,7 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
                         path: 'products/:productId',
                         builder: (context, state) => ProductDetailsPage(
                           productId: state.pathParameters['productId']!,
+                          section: config.appSection,
                         ),
                       ),
                     ]
@@ -80,8 +83,8 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
 
 final marketConfig = SectionConfig(
   pathPrefix: 'market',
-  appSection: AppSection.store,
-  productDetailsRouteName: RouteNames.storeProductDetails,
+  appSection: AppSection.market,
+  productDetailsRouteName: RouteNames.marketProductDetails,
   navigationItems: marketNavigationItems,
   oppositePath: '/restaurant/home',
 );

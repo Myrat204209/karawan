@@ -58,7 +58,7 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
     super.build(context);
     final location = GoRouterState.of(context).uri.path;
     final currentIndex = _getCurrentIndex(context);
-    final isMarket = widget.config.appSection == AppSection.store;
+    final isMarket = widget.config.appSection == AppSection.market;
 
     return Scaffold(
       body: widget.child,

@@ -21,7 +21,7 @@ class DirectorView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              _getIt<PageCacher>().setRoute(AppSection.store);
+              _getIt<PageCacher>().setRoute(AppSection.market);
               context.go('/market/home');
             },
             style: ElevatedButton.styleFrom(

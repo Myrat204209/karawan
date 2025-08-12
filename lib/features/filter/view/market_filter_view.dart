@@ -96,7 +96,9 @@ class FilterModalBottomSheet extends HookWidget {
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.getSectionAccent(AppSection.store),
+                  backgroundColor: AppColors.getSectionAccent(
+                    AppSection.market,
+                  ),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
@@ -181,7 +183,7 @@ class FilterModalBottomSheet extends HookWidget {
           min: 10,
           max: 1000,
           divisions: 99,
-          activeColor: AppColors.getSectionAccent(AppSection.store),
+          activeColor: AppColors.getSectionAccent(AppSection.market),
           inactiveColor: Colors.grey[300],
           onChanged: (RangeValues values) => priceRange.value = values,
         ),
@@ -214,11 +216,11 @@ class FilterModalBottomSheet extends HookWidget {
                 ),
                 decoration: BoxDecoration(
                   color: isOn
-                      ? AppColors.getSectionAccent(AppSection.store)
+                      ? AppColors.getSectionAccent(AppSection.market)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: AppColors.getSectionAccent(AppSection.store),
+                    color: AppColors.getSectionAccent(AppSection.market),
                   ),
                 ),
                 child: Row(
@@ -229,7 +231,7 @@ class FilterModalBottomSheet extends HookWidget {
                       size: 16,
                       color: isOn
                           ? Colors.white
-                          : AppColors.getSectionAccent(AppSection.store),
+                          : AppColors.getSectionAccent(AppSection.market),
                     ),
                     const SizedBox(width: 4),
                     Text(
@@ -237,7 +239,7 @@ class FilterModalBottomSheet extends HookWidget {
                       style: AppTextStyle.text().xs().withColor(
                         isOn
                             ? Colors.white
-                            : AppColors.getSectionAccent(AppSection.store),
+                            : AppColors.getSectionAccent(AppSection.market),
                       ),
                     ),
                   ],

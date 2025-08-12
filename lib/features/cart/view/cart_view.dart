@@ -14,7 +14,7 @@ class CartView extends StatelessWidget {
 
     // Calculate total
     final total = cart.entries.fold<double>(0.0, (sum, entry) {
-      final product = getProductById(entry.key, AppSection.store);
+      final product = getProductById(entry.key, AppSection.market);
       return product == null ? sum : sum + product.price * entry.value;
     });
 
@@ -67,7 +67,7 @@ class CartView extends StatelessWidget {
                       final quantity = cart[productId]!;
                       final product = getProductById(
                         productId,
-                        AppSection.store,
+                        AppSection.market,
                       );
 
                       if (product == null) return SizedBox.shrink();
@@ -94,7 +94,7 @@ class CartView extends StatelessWidget {
                           product.imagePath,
                           fit: BoxFit.cover,
                         ),
-                        section: AppSection.store,
+                        section: AppSection.market,
                       );
                     },
                     separatorBuilder: (context, index) => SizedBox(height: 10),
@@ -159,7 +159,7 @@ class CartView extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.getSectionAccent(
-                              AppSection.store,
+                              AppSection.market,
                             ),
                             foregroundColor: Colors.white,
                             padding: EdgeInsets.symmetric(
@@ -193,7 +193,7 @@ class CartView extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) =>
-          _CheckoutModalBottomSheet(section: AppSection.store),
+          _CheckoutModalBottomSheet(section: AppSection.market),
     );
   }
 }

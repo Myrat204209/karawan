@@ -16,7 +16,7 @@ class AppProductItemHook extends HookWidget {
     required this.description,
     required this.rating,
     this.productId,
-    this.section,
+    required this.section,
     this.onFavoriteToggle,
   });
 
@@ -28,16 +28,14 @@ class AppProductItemHook extends HookWidget {
   final String description;
   final double rating;
   final String? productId;
-  final AppSection? section;
+  final AppSection section;
   final VoidCallback? onFavoriteToggle;
 
   @override
   Widget build(BuildContext context) {
     // Use the favorites hook if productId and section are provided
     final isFavorite =
-        productId != null && section != null
-            ? useIsFavorite(productId!, section!)
-            : false;
+        productId != null ? useIsFavorite(productId!, section) : false;
 
     // Optimistic update state
     final optimisticState = useState<bool?>(null);
@@ -69,7 +67,7 @@ class AppProductItemHook extends HookWidget {
                 child: Stack(
                   children: [
                     image,
-                    if (productId != null && section != null)
+                    if (productId != null)
                       Positioned(
                         right: 8,
                         top: 8,
@@ -96,10 +94,7 @@ class AppProductItemHook extends HookWidget {
                                     : Icons.favorite_border_rounded,
                             onTap: () {}, // Handled by GestureDetector
                             isSmall: true,
-                            color:
-                                displayFavorite
-                                    ? AppColors.getSectionAccent(section!)
-                                    : AppColors.grey,
+                            color: AppColors.getSectionAccent(section),
                           ),
                         ),
                       ),
@@ -130,11 +125,7 @@ class AppProductItemHook extends HookWidget {
                             style: AppTextStyle.text()
                                 .semiBold()
                                 .withFontSize(14.sp)
-                                .withColor(
-                                  section != null
-                                      ? AppColors.getSectionAccent(section!)
-                                      : AppColors.secondRestAccent,
-                                ),
+                                .withColor(AppColors.getSectionAccent(section)),
                           ),
                         ],
                       ),
@@ -164,10 +155,9 @@ class AppProductItemHook extends HookWidget {
                             OutlinedButton(
                               onPressed: onCartAdded ?? () {},
                               style: OutlinedButton.styleFrom(
-                                backgroundColor:
-                                    section != null
-                                        ? AppColors.getSectionAccent(section!)
-                                        : AppColors.secondRestAccent,
+                                backgroundColor: AppColors.getSectionAccent(
+                                  section,
+                                ),
                                 side: BorderSide(color: Colors.transparent),
                                 minimumSize: Size(76.w, 21),
                               ),

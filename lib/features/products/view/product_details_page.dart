@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,14 +7,17 @@ import 'package:go_router/go_router.dart';
 import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 
 class ProductDetailsPage extends HookWidget {
-  const ProductDetailsPage({super.key, required this.productId});
-
+  const ProductDetailsPage({
+    super.key,
+    required this.section,
+    required this.productId,
+  });
+  final AppSection section;
   final String productId;
 
   @override
   Widget build(BuildContext context) {
-    final product = getProductById(productId, AppSection.store);
-    // final isFavorite = useIsFavorite(productId, AppSection.store);
+    final product = getProductById(productId, section);
     final storage = useMemoized(() => StorageProvider());
     final quantity = useState(1);
 
@@ -21,7 +25,7 @@ class ProductDetailsPage extends HookWidget {
       return Scaffold(
         appBar: AppBar(
           title: const Text('Product Not Found'),
-          backgroundColor: AppColors.getSectionAccent(AppSection.store),
+          backgroundColor: AppColors.getSectionAccent(section),
         ),
         body: const Center(child: Text('Product not found')),
       );
@@ -75,16 +79,16 @@ class ProductDetailsPage extends HookWidget {
                       Positioned(
                         top: MediaQuery.of(context).padding.top + 10,
                         right: AppSpacing.screenPadding,
-                        child: AppFavoriteButtonCard(
+                        child: AppFavoriteButton(
                           productId: productId,
-                          section: AppSection.store,
+                          section: AppSection.market,
                           onToggle: () {
                             context.read<FavoritesBloc>().add(
                               FavoriteToggled(productId),
                             );
                           },
                           size: 40,
-                          iconSize: 20,
+                          iconSize: 30,
                         ),
                       ),
                     ],
@@ -151,9 +155,7 @@ class ProductDetailsPage extends HookWidget {
                                       quantity.value++;
                                     },
                                     icon: Icons.add,
-                                    color: AppColors.getSectionAccent(
-                                      AppSection.store,
-                                    ),
+                                    color: AppColors.getSectionAccent(section),
                                   ),
                                 ],
                               ),
@@ -168,9 +170,7 @@ class ProductDetailsPage extends HookWidget {
                             Icon(
                               Icons.star,
                               size: 20,
-                              color: AppColors.getSectionAccent(
-                                AppSection.store,
-                              ),
+                              color: AppColors.getSectionAccent(section),
                             ),
                             SizedBox(width: AppSpacing.xs),
                             Text(
@@ -222,14 +222,15 @@ class ProductDetailsPage extends HookWidget {
                           itemCount: 4,
                           itemBuilder: (context, index) {
                             final relatedProduct = getProductsBySection(
-                              AppSection.store,
+                              AppSection.market,
                             )[index];
 
-                            return MarketRelatedProductCard(
+                            return RelatedProductCard(
                               product: relatedProduct,
+                              section: section,
                               onTap: () {
                                 context.go(
-                                  '/market/home/products/${relatedProduct.id}',
+                                  '/${section == AppSection.market ? 'store' : 'restaurant'}/home/products/${relatedProduct.id}',
                                 );
                               },
                             );
@@ -286,21 +287,19 @@ class ProductDetailsPage extends HookWidget {
                         storage.updateCartQuantity(
                           productId,
                           quantity.value,
-                          AppSection.store,
+                          AppSection.market,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('${product.name} sebede goşuldy!'),
                             backgroundColor: AppColors.getSectionAccent(
-                              AppSection.store,
+                              section,
                             ),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.getSectionAccent(
-                          AppSection.store,
-                        ),
+                        backgroundColor: AppColors.getSectionAccent(section),
                         foregroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
                         shape: RoundedRectangleBorder(
@@ -368,7 +367,7 @@ class ProductDetailsPage extends HookWidget {
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          color: color == AppColors.getSectionAccent(AppSection.store)
+          color: color == AppColors.getSectionAccent(AppSection.market)
               ? color
               : Colors.grey.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(4),
@@ -376,7 +375,7 @@ class ProductDetailsPage extends HookWidget {
         child: Icon(
           icon,
           size: 16,
-          color: color == AppColors.getSectionAccent(AppSection.store)
+          color: color == AppColors.getSectionAccent(AppSection.market)
               ? Colors.white
               : color,
         ),
@@ -386,20 +385,21 @@ class ProductDetailsPage extends HookWidget {
 }
 
 // Separate HookWidget for related product cards
-class MarketRelatedProductCard extends HookWidget {
-  const MarketRelatedProductCard({
+class RelatedProductCard extends HookWidget {
+  const RelatedProductCard({
     super.key,
     required this.product,
     required this.onTap,
+    required this.section,
   });
 
   final ProductTemplate product;
   final VoidCallback onTap;
+  final AppSection section;
 
   @override
   Widget build(BuildContext context) {
-    // final isFavorite = useIsFavorite(product.id, AppSection.store);
-    final cartQuantity = useCartQuantity(product.id, AppSection.store);
+    final cartQuantity = useCartQuantity(product.id, section);
     // final storage = useMemoized(() => StorageProvider());
 
     return GestureDetector(
@@ -438,7 +438,7 @@ class MarketRelatedProductCard extends HookWidget {
                   right: AppSpacing.sm,
                   child: AppFavoriteButton(
                     productId: product.id,
-                    section: AppSection.store,
+                    section: section,
                     onToggle: () {
                       context.read<FavoritesBloc>().add(
                         FavoriteToggled(product.id),
@@ -467,7 +467,7 @@ class MarketRelatedProductCard extends HookWidget {
                   Text(
                     'TMT ${product.price.toStringAsFixed(2)}',
                     style: AppTextStyle.text().sm().bold().withColor(
-                      AppColors.getSectionAccent(AppSection.store),
+                      AppColors.getSectionAccent(AppSection.market),
                     ),
                   ),
                   SizedBox(height: AppSpacing.xs),
@@ -491,7 +491,7 @@ class MarketRelatedProductCard extends HookWidget {
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(vertical: AppSpacing.xs),
                       decoration: BoxDecoration(
-                        color: AppColors.getSectionAccent(AppSection.store),
+                        color: AppColors.getSectionAccent(section),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
@@ -528,30 +528,4 @@ class MarketRelatedProductCard extends HookWidget {
       ),
     );
   }
-
-  // Widget _buildCircularIconButton({
-  //   required VoidCallback onPressed,
-  //   required IconData icon,
-  //   required Color color,
-  //   double size = 40,
-  // }) {
-  //   return Container(
-  //     width: size,
-  //     height: size,
-  //     decoration: BoxDecoration(
-  //       color: Colors.black.withValues(alpha: 0.3),
-  //       shape: BoxShape.circle,
-  //     ),
-  //     child: IconButton(
-  //       onPressed: onPressed,
-  //       icon: Icon(icon, color: color, size: size * 0.4),
-  //       style: IconButton.styleFrom(
-  //         backgroundColor: Colors.transparent,
-  //         foregroundColor: color,
-  //         padding: EdgeInsets.all(AppSpacing.xs),
-  //         minimumSize: Size(size, size),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

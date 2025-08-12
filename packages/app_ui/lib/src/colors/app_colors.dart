@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_ui/src/storage/storage_provider.dart';
+import 'package:flutter/material.dart';
 
 /// `AppColors` is a utility class that holds color constants
 /// for both Light and Dark modes to maintain color consistency
@@ -20,6 +20,7 @@ abstract class AppColors {
 
   static const Color grey = Color(0xFF666666);
   static const Color lightGrey = Color(0xFFD7D7D7);
+
   /// Background color for primary surfaces in Light Mode.
   /// Typically used as a screen or main content background.
   static const Color bgMain = Color(0xFF161919);
@@ -81,7 +82,7 @@ abstract class AppColors {
   /// Helper method to get section-specific accent color
   static Color getSectionAccent(AppSection section) {
     switch (section) {
-      case AppSection.store:
+      case AppSection.market:
         return mainAccent;
       case AppSection.restaurant:
         return restaurantAccent;

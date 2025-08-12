@@ -14,7 +14,7 @@ class FavoritesRepository {
 
   /// Reactive listenable for favorites set changes.
   ValueListenable<Set<String>> get favoritesListenable =>
-      _section == AppSection.store
+      _section == AppSection.market
       ? _storage.storeFavorites
       : _storage.restaurantFavorites;
 

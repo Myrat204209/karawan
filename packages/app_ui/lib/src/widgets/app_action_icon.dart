@@ -1,4 +1,3 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppActionIcon extends StatelessWidget {
@@ -6,7 +5,7 @@ class AppActionIcon extends StatelessWidget {
     super.key,
     required this.icon,
     required this.onTap,
-    this.color = AppColors.grey,
+    required this.color,
     this.isSmall = false, // New boolean parameter
   });
 
@@ -41,11 +40,7 @@ class AppActionIcon extends StatelessWidget {
         ),
         child: IconButton(
           padding: EdgeInsets.zero,
-          icon: Icon(
-            icon,
-            color: isSmall ? Color(0xFF151515) : color,
-            size: iconSize,
-          ),
+          icon: Icon(icon, color: color, size: iconSize),
           style: IconButton.styleFrom(
             backgroundColor: Colors.white,
             shape: const CircleBorder(),

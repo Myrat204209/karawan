@@ -49,7 +49,7 @@ class FavoritesView extends StatelessWidget {
               itemCount: favorites.length,
               itemBuilder: (context, index) {
                 final productId = favorites.elementAt(index);
-                final product = getProductById(productId, AppSection.store);
+                final product = getProductById(productId, AppSection.market);
 
                 if (product == null) return SizedBox.shrink();
 
@@ -66,9 +66,9 @@ class FavoritesView extends StatelessWidget {
                   },
                   onAddToCart: () {
                     final storage = StorageProvider();
-                    storage.updateCartQuantity(productId, 1, AppSection.store);
+                    storage.updateCartQuantity(productId, 1, AppSection.market);
                   },
-                  section: AppSection.store,
+                  section: AppSection.market,
                 );
               },
               separatorBuilder: (context, index) => SizedBox(height: 10),
