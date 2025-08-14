@@ -2,7 +2,6 @@
 
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppCategoryGrid extends HookWidget {
@@ -47,18 +46,18 @@ class AppCategoryGrid extends HookWidget {
                 children: [
                   Text(
                     title,
-                    style: AppTextStyle.text().lg().bold().withColor(
+                    style: AppTextStyle.text().md().semiBold().withColor(
                       Colors.black,
                     ),
                   ),
-                  Text(
-                    'Seretmek',
-                    style: AppTextStyle.text().medium().withColor(
-                      section == AppSection.market
-                          ? AppColors.mainAccent
-                          : AppColors.restaurantAccent,
-                    ),
-                  ),
+                  // Text(
+                  //   'Seretmek',
+                  //   style: AppTextStyle.text().medium().withColor(
+                  //     section == AppSection.market
+                  //         ? AppColors.mainAccent
+                  //         : AppColors.restaurantAccent,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -74,7 +73,6 @@ class AppCategoryGrid extends HookWidget {
                 childAspectRatio: 175 / 210,
               ),
               itemBuilder: (context, index) {
-                // Use products if provided, otherwise use default data
                 final product =
                     products != null && index < products!.length
                         ? products![index]
@@ -112,26 +110,24 @@ class AppCategoryGrid extends HookWidget {
       );
     } else {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.text().lg().bold().withColor(
-                    Colors.black,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: AppTextStyle.text().md().semiBold().withColor(
+                  Colors.black,
                 ),
-                Text(
-                  'Seretmek',
-                  style: AppTextStyle.text().medium().withColor(
-                    AppColors.mainAccent,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              // Text(
+              //   'Seretmek',
+              //   style: AppTextStyle.text().medium().withColor(
+              //     AppColors.mainAccent,
+              //   ),
+              // ),
+            ],
           ),
           GridView.builder(
             shrinkWrap: true,
@@ -144,7 +140,6 @@ class AppCategoryGrid extends HookWidget {
               childAspectRatio: 175 / 210,
             ),
             itemBuilder: (context, index) {
-              // Use products if provided, otherwise use default data
               final product =
                   products != null && index < products!.length
                       ? products![index]

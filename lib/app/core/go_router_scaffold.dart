@@ -5,14 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:karawan/app/core/core.dart';
 
-// The NavigationItem class for GoRouter
 class GoRouterNavigationItem {
-  const GoRouterNavigationItem({
+  GoRouterNavigationItem({
     required this.path,
     required this.icon,
-    required this.iconOn,
     required this.label,
-  });
+    IconData? iconOn,
+  }) : iconOn = iconOn ?? icon;
 
   final String path;
   final IconData icon, iconOn;
@@ -43,8 +42,7 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
   @override
   bool get wantKeepAlive => true;
 
-  int _getCurrentIndex(BuildContext context) {
-    final location = GoRouterState.of(context).uri.path;
+  int _getCurrentIndex(String location) {
     for (int i = 0; i < widget.config.navigationItems.length; i++) {
       if (location.startsWith(widget.config.navigationItems[i].path)) {
         return i;
@@ -56,8 +54,12 @@ class _GoRouterSectionScaffoldState extends State<GoRouterSectionScaffold>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final location = GoRouterState.of(context).uri.path;
-    final currentIndex = _getCurrentIndex(context);
+    // Call it once and store the result
+    final routerState = GoRouterState.of(context);
+
+    // Use the local variable
+    final location = routerState.uri.path;
+    final currentIndex = _getCurrentIndex(location);
     final isMarket = widget.config.appSection == AppSection.market;
 
     return Scaffold(

@@ -1,3 +1,2 @@
-export 'storage_provider.dart';
-export 'storage_hooks.dart';
-export 'product_templates.dart'; 
+export '../../../../data_provider/lib/storage/storage_provider.dart';
+export '../../../../data_provider/lib/storage/product_templates.dart'; 

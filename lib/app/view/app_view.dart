@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:karawan/app/app.dart';
-import 'package:karawan/app/l10n/app_localizations/app_localizations.dart';
-import 'package:karawan/app/language/cubit/language_cubit.dart';
-import 'package:karawan/app/router/go_router_config.dart';
 import 'package:turkmen_localization_support/turkmen_localization_support.dart';
 
 class AppView extends StatelessWidget {

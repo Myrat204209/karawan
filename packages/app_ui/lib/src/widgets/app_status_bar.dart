@@ -38,7 +38,7 @@ class AppStatusBar extends StatelessWidget {
         leading: Assets.images.logo.image().withPadding(
           left: AppSpacing.screenPadding,
         ),
-        leadingWidth: 120.w,
+        leadingWidth: 75.w,
         elevation: 2,
         automaticallyImplyLeading: false,
         toolbarHeight: AppSpacing.appBarHeight,

@@ -36,16 +36,16 @@ abstract class AppBaseTheme {
       const DividerThemeData(color: AppColors.secondStoreAccent, thickness: 1);
 
   /// Restores your original `AppTextStyle` for the `TextTheme`
-  TextTheme get textTheme => TextTheme(
-    displayLarge: const AppTextStyle.text().pageTitleBold(),
-    displayMedium: const AppTextStyle.text().pageTitle(),
-    displaySmall: const AppTextStyle.text().contentTitle(),
-    headlineMedium: const AppTextStyle.text().pageTitle(),
-    headlineSmall: const AppTextStyle.text().contentTitle(),
-    titleLarge: const AppTextStyle.text().title(),
-    titleMedium: const AppTextStyle.text().title(),
-    titleSmall: const AppTextStyle.text().description(),
-  );
+  // TextTheme get textTheme => TextTheme(
+  //   displayLarge: const AppTextStyle.text().pageTitleBold(),
+  //   displayMedium: const AppTextStyle.text().pageTitle(),
+  //   displaySmall: const AppTextStyle.text().contentTitle(),
+  //   headlineMedium: const AppTextStyle.text().pageTitle(),
+  //   headlineSmall: const AppTextStyle.text().contentTitle(),
+  //   titleLarge: const AppTextStyle.text().title(),
+  //   titleMedium: const AppTextStyle.text().title(),
+  //   titleSmall: const AppTextStyle.text().description(),
+  // );
 }
 
 /// Light Theme
@@ -66,9 +66,9 @@ class AppTheme extends AppBaseTheme {
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.dark,
         ),
-        titleTextStyle: textTheme.titleLarge,
+        // titleTextStyle: textTheme.titleLarge,
       ),
-      textTheme: textTheme,
+      // textTheme: textTheme,
       iconTheme: iconTheme,
       inputDecorationTheme: inputDecorationTheme,
       // buttonTheme: buttonTheme,

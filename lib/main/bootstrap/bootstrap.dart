@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:app_ui/app_ui.dart';
 import 'package:data_provider/data_provider.dart';
 import 'package:data_provider/storage/storage.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
@@ -38,7 +37,7 @@ Future<void> bootstrap() async {
       };
       _getIt.registerSingleton<Talker>(talker);
       await _setupDependencies();
-
+      _getIt.allReady();
       Bloc.observer = TalkerBlocObserver(talker: talker);
 
       // Orientation lock
@@ -93,9 +92,11 @@ Future<void> _setupDependencies() async {
   _getIt.registerSingleton<PageCacher>(pageCacher);
 
   // StorageProvider (cart/favorites local storage)
-  final storageProvider = StorageProvider();
-  await storageProvider.initialize();
-  _getIt.registerSingleton<StorageProvider>(storageProvider);
+  _getIt.registerSingletonAsync<StorageProvider>(() async {
+    final provider = StorageProvider();
+    await provider.initialize();
+    return provider;
+  });
   _getIt.registerFactoryParam<CartRepository, AppSection, void>(
     (section, _) => CartRepository(
       storageProvider: _getIt<StorageProvider>(),
@@ -103,8 +104,6 @@ Future<void> _setupDependencies() async {
     ),
   );
 
-  // ADD THIS REGISTRATION
-  // Register FavoritesRepository as a factory that also requires an AppSection
   _getIt.registerFactoryParam<FavoritesRepository, AppSection, void>(
     (section, _) => FavoritesRepository(
       storageProvider: _getIt<StorageProvider>(),

@@ -71,31 +71,21 @@ class AppProductItemHook extends HookWidget {
                       Positioned(
                         right: 8,
                         top: 8,
-                        child: GestureDetector(
-                          onTap: () async {
-                            // Optimistic update
+                        child: AppActionIcon(
+                          icon:
+                              displayFavorite
+                                  ? Icons.favorite_rounded
+                                  : Icons.favorite_border_rounded,
+                          onTap: () {
                             optimisticState.value = !isFavorite;
 
-                            // Call the toggle callback
                             onFavoriteToggle?.call();
-
-                            // Reset optimistic state after a short delay
-                            Future.delayed(
-                              const Duration(milliseconds: 100),
-                              () {
-                                optimisticState.value = null;
-                              },
-                            );
-                          },
-                          child: AppActionIcon(
-                            icon:
-                                displayFavorite
-                                    ? Icons.favorite_rounded
-                                    : Icons.favorite_border_rounded,
-                            onTap: () {}, // Handled by GestureDetector
-                            isSmall: true,
-                            color: AppColors.getSectionAccent(section),
-                          ),
+                          }, // Handled by GestureDetector
+                          isSmall: true,
+                          color:
+                              isFavorite
+                                  ? AppColors.getSectionAccent(section)
+                                  : Color(0xFF151515).withValues(alpha: 0.4),
                         ),
                       ),
                   ],
@@ -114,17 +104,18 @@ class AppProductItemHook extends HookWidget {
                           Expanded(
                             child: Text(
                               name,
+                              overflow: TextOverflow.ellipsis,
                               style: AppTextStyle.text()
-                                  .withFontSize(14.sp)
+                                  .sm()
                                   .semiBold()
-                                  .withColor(Colors.black),
+                                  .withColor(Color(0xFF666666)),
                             ),
                           ),
                           Text(
                             'TMT ${price.toStringAsFixed(2)}',
                             style: AppTextStyle.text()
                                 .semiBold()
-                                .withFontSize(14.sp)
+                                .sm()
                                 .withColor(AppColors.getSectionAccent(section)),
                           ),
                         ],
@@ -133,23 +124,27 @@ class AppProductItemHook extends HookWidget {
                         child: Text(
                           description,
                           softWrap: true,
-                          style: AppTextStyle.text().copyWith(
-                            color: Color(0xFF464646),
-                            fontSize: 9.sp,
+                          style: AppTextStyle.text().xs().regular().withColor(
+                            Color(0xFF464646),
                           ),
+                          overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
                       ),
                       Expanded(
                         child: Row(
+                          spacing: 3,
                           children: [
-                            Icon(Icons.star, color: Colors.yellow, size: 15),
+                            Icon(
+                              Icons.star,
+                              color: AppColors.getSectionAccent(section),
+                              size: 15,
+                            ),
                             Text(
                               rating.toStringAsFixed(1),
-                              style: AppTextStyle.text()
-                                  .withFontSize(13.sp)
-                                  .medium()
-                                  .withColor(Colors.black),
+                              style: AppTextStyle.text().xs().bold().withColor(
+                                Colors.black,
+                              ),
                             ),
                             Spacer(),
                             OutlinedButton(

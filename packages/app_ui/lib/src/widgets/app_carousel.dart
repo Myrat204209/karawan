@@ -25,7 +25,9 @@ class AppCarousel extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: Text(
                 title,
-                style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+                style: AppTextStyle.text().md().semiBold().withColor(
+                  Colors.black,
+                ),
               ),
             ),
           ),
@@ -80,7 +82,9 @@ class AppCarousel extends StatelessWidget {
             ),
             child: Text(
               title,
-              style: AppTextStyle.text().lg().bold().withColor(Colors.black),
+              style: AppTextStyle.text().md().semiBold().withColor(
+                Colors.black,
+              ),
             ),
           ),
           // The ListView is placed directly in the Column, constrained by a SizedBox.

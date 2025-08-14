@@ -1,75 +1,57 @@
+// Suggested replacement for your current file content
+
 import 'package:hugeicons/hugeicons.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
 
 class RouteNames {
   RouteNames._();
-
   static const String marketProductDetails = 'marketProductDetails';
   static const String restaurantProductDetails = 'restaurantProductDetails';
 }
 
-final marketNavigationItems = <GoRouterNavigationItem>[
-  GoRouterNavigationItem(
-    path: '/market/home',
-    label: 'Home',
-    icon: HugeIcons.strokeRoundedHome01,
-    iconOn: HugeIcons.strokeRoundedHome01,
-  ),
-  GoRouterNavigationItem(
-    path: '/market/categories',
-    label: 'Categories',
-    icon: HugeIcons.strokeRoundedCatalogue,
-    iconOn: HugeIcons.strokeRoundedCatalogue,
-  ),
-  GoRouterNavigationItem(
-    path: '/market/favorites',
-    label: 'Favorites',
-    icon: HugeIcons.strokeRoundedFavourite,
-    iconOn: HugeIcons.strokeRoundedFavourite,
-  ),
-  GoRouterNavigationItem(
-    path: '/market/cart',
-    label: 'Cart',
-    icon: HugeIcons.strokeRoundedShoppingCart01,
-    iconOn: HugeIcons.strokeRoundedShoppingCart01,
-  ),
-  GoRouterNavigationItem(
-    path: '/market/profile',
-    label: 'Profile',
-    icon: HugeIcons.strokeRoundedUser03,
-    iconOn: HugeIcons.strokeRoundedUser03,
-  ),
-];
+List<GoRouterNavigationItem> createNavigationItems({
+  required String sectionPrefix,
+}) {
+  final isMarket = sectionPrefix == 'market';
+  return [
+    GoRouterNavigationItem(
+      path: '/$sectionPrefix/home',
+      label: 'Home',
+      icon: HugeIcons.strokeRoundedHome01,
+    ),
+    GoRouterNavigationItem(
+      path: '/$sectionPrefix/categories',
+      label: 'Categories',
+      icon: HugeIcons.strokeRoundedCatalogue,
+    ),
+    GoRouterNavigationItem(
+      path: '/$sectionPrefix/favorites',
+      label: 'Favorites',
+      icon: HugeIcons.strokeRoundedFavourite,
+    ),
+    // Section-specific tab
+    if (isMarket)
+      GoRouterNavigationItem(
+        path: '/$sectionPrefix/cart',
+        label: 'Cart',
+        icon: HugeIcons.strokeRoundedShoppingCart01,
+      )
+    else
+      GoRouterNavigationItem(
+        path: '/$sectionPrefix/order',
+        label: 'Order',
+        icon: HugeIcons.strokeRoundedCheckList,
+      ),
+    GoRouterNavigationItem(
+      path: '/$sectionPrefix/profile',
+      label: 'Profile',
+      icon: HugeIcons.strokeRoundedUser03,
+    ),
+  ];
+}
 
-final restaurantNavigationItems = <GoRouterNavigationItem>[
-  GoRouterNavigationItem(
-    path: '/restaurant/home',
-    label: 'Home',
-    icon: HugeIcons.strokeRoundedHome01,
-    iconOn: HugeIcons.strokeRoundedHome01,
-  ),
-  GoRouterNavigationItem(
-    path: '/restaurant/category',
-    label: 'Categories',
-    icon: HugeIcons.strokeRoundedCatalogue,
-    iconOn: HugeIcons.strokeRoundedCatalogue,
-  ),
-  GoRouterNavigationItem(
-    path: '/restaurant/favorites',
-    label: 'Favorites',
-    icon: HugeIcons.strokeRoundedFavourite,
-    iconOn: HugeIcons.strokeRoundedFavourite,
-  ),
-  GoRouterNavigationItem(
-    path: '/restaurant/order',
-    label: 'Order',
-    icon: HugeIcons.strokeRoundedCheckList,
-    iconOn: HugeIcons.strokeRoundedCheckList,
-  ),
-  GoRouterNavigationItem(
-    path: '/restaurant/profile',
-    label: 'Profile',
-    icon: HugeIcons.strokeRoundedUser,
-    iconOn: HugeIcons.strokeRoundedUser,
-  ),
-];
+// Now, defining your lists is clean and simple.
+final marketNavigationItems = createNavigationItems(sectionPrefix: 'market');
+final restaurantNavigationItems = createNavigationItems(
+  sectionPrefix: 'restaurant',
+);

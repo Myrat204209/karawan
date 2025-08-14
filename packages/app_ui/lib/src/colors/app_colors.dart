@@ -1,4 +1,4 @@
-import 'package:app_ui/src/storage/storage_provider.dart';
+import 'package:app_ui/data_provider/lib/storage/storage_provider.dart';
 import 'package:flutter/material.dart';
 
 /// `AppColors` is a utility class that holds color constants
@@ -51,11 +51,11 @@ abstract class AppColors {
 
   /// Light title text color (Gray) for Light Mode.
   /// Typically used for subtitles and minor headings.
-  static const Color textLightTitle = Color(0xFF6b7278);
+  static const Color textLightTitle = Color(0xFF222222);
 
   /// Border color (Light Gray) for Light Mode.
   /// Used for dividers, outlines, and card borders.
-  static const Color border = Color(0xFFd9dade);
+  static const Color border = Color(0xFFE3E3E3);
 
   /// Major accent color (Purple) in Light Mode.
   /// Often used to draw attention to important elements like promotional banners.

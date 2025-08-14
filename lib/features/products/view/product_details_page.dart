@@ -35,8 +35,6 @@ class ProductDetailsPage extends HookWidget {
       backgroundColor: const Color(0xFFFBFBFD),
       body: Column(
         children: [
-          // Image with overlayed controls
-          // Main Content
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -47,7 +45,6 @@ class ProductDetailsPage extends HookWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 300,
                         margin: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
@@ -66,33 +63,37 @@ class ProductDetailsPage extends HookWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                      ),
+                      ).paddingOnly(top: 20),
                       Positioned(
-                        top: MediaQuery.of(context).padding.top + 10,
-                        left: AppSpacing.screenPadding,
-                        child: _buildCircularIconButton(
-                          onPressed: () => context.pop(),
+                        top: MediaQuery.paddingOf(context).top,
+                        left: AppSpacing.screenPadding + 10,
+                        child: AppActionIcon(
                           icon: Icons.arrow_back,
+                          onTap: () => context.pop(),
+                          isSmall: true,
                           color: Colors.grey,
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).padding.top + 10,
-                        right: AppSpacing.screenPadding,
-                        child: AppFavoriteButton(
-                          productId: productId,
-                          section: AppSection.market,
-                          onToggle: () {
+                        top: MediaQuery.paddingOf(context).top,
+                        right: AppSpacing.screenPadding + 10,
+                        child: AppActionIcon(
+                          icon: true
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
+                          onTap: () {
                             context.read<FavoritesBloc>().add(
                               FavoriteToggled(productId),
                             );
-                          },
-                          size: 40,
-                          iconSize: 30,
+                          }, // Handled by GestureDetector
+                          isSmall: true,
+                          color: true
+                              ? AppColors.getSectionAccent(section)
+                              : Color(0xFF151515).withValues(alpha: 0.4),
                         ),
                       ),
                     ],
-                  ),
+                  ).paddingOnly(top: 30),
                   SizedBox(height: AppSpacing.xl),
 
                   // Product Info Section
@@ -107,23 +108,23 @@ class ProductDetailsPage extends HookWidget {
                             Expanded(
                               child: Text(
                                 product.name,
+                                overflow: TextOverflow.ellipsis,
                                 style: AppTextStyle.text()
-                                    .xl()
-                                    .bold()
-                                    .withColor(Colors.black),
+                                    .xxl()
+                                    .semiBold()
+                                    .withColor(Color(0xFF666666)),
                               ),
                             ),
                             // Quantity Selector
-                            Container(
+                            DecoratedBox(
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: Colors.grey.withValues(alpha: 0.3),
-                                ),
+                                color: Color(0xFFF3F3F3),
+                                borderRadius: BorderRadius.circular(17),
+                                border: null,
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
+                                spacing: 18,
                                 children: [
                                   _buildQuantityButton(
                                     onPressed: () {
@@ -134,21 +135,12 @@ class ProductDetailsPage extends HookWidget {
                                     icon: Icons.remove,
                                     color: Colors.black,
                                   ),
-                                  Container(
-                                    width: 40,
-                                    height: 32,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        quantity.value.toString(),
-                                        style: AppTextStyle.text()
-                                            .md()
-                                            .bold()
-                                            .withColor(Colors.black),
-                                      ),
-                                    ),
+                                  Text(
+                                    quantity.value.toString(),
+                                    style: AppTextStyle.text()
+                                        .lg()
+                                        .semiBold()
+                                        .withColor(Color(0xFF6D6D6D)),
                                   ),
                                   _buildQuantityButton(
                                     onPressed: () {
@@ -158,7 +150,7 @@ class ProductDetailsPage extends HookWidget {
                                     color: AppColors.getSectionAccent(section),
                                   ),
                                 ],
-                              ),
+                              ).paddingAll(5),
                             ),
                           ],
                         ),
@@ -175,9 +167,10 @@ class ProductDetailsPage extends HookWidget {
                             SizedBox(width: AppSpacing.xs),
                             Text(
                               product.rating.toString(),
-                              style: AppTextStyle.text().md().withColor(
-                                Colors.black,
-                              ),
+                              style: AppTextStyle.text()
+                                  .semiBold()
+                                  .lg()
+                                  .withColor(Colors.black),
                             ),
                           ],
                         ),
@@ -186,55 +179,25 @@ class ProductDetailsPage extends HookWidget {
                         // Description
                         Text(
                           'Mazmuny',
-                          style: AppTextStyle.text().lg().bold().withColor(
+                          style: AppTextStyle.text().md().semiBold().withColor(
                             Colors.black,
                           ),
                         ),
                         SizedBox(height: AppSpacing.sm),
                         Text(
                           product.description,
-                          maxLines: 3,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: AppTextStyle.text().md().withColor(
-                            Colors.grey,
+                          style: AppTextStyle.text().xs().medium().withColor(
+                            Color(0xFF464646),
                           ),
                         ),
                         SizedBox(height: AppSpacing.xl),
 
-                        // Related Products
-                        Text(
-                          'Iň täze harytlar',
-                          style: AppTextStyle.text().lg().bold().withColor(
-                            Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: AppSpacing.md),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.75,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 12,
-                              ),
+                        AppCategoryGrid(
+                          title: 'Iň täze harytlar',
                           itemCount: 4,
-                          itemBuilder: (context, index) {
-                            final relatedProduct = getProductsBySection(
-                              AppSection.market,
-                            )[index];
-
-                            return RelatedProductCard(
-                              product: relatedProduct,
-                              section: section,
-                              onTap: () {
-                                context.go(
-                                  '/${section == AppSection.market ? 'store' : 'restaurant'}/home/products/${relatedProduct.id}',
-                                );
-                              },
-                            );
-                          },
+                          section: section,
                         ),
                       ],
                     ),
@@ -323,39 +286,6 @@ class ProductDetailsPage extends HookWidget {
     );
   }
 
-  Widget _buildCircularIconButton({
-    required VoidCallback onPressed,
-    required IconData icon,
-    required Color color,
-    double size = 40,
-  }) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: Icon(icon, color: color, size: size * 0.4),
-        style: IconButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: color,
-          padding: EdgeInsets.all(AppSpacing.xs),
-          minimumSize: Size(size, size),
-        ),
-      ),
-    );
-  }
-
   Widget _buildQuantityButton({
     required VoidCallback onPressed,
     required IconData icon,
@@ -363,21 +293,22 @@ class ProductDetailsPage extends HookWidget {
   }) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: color == AppColors.getSectionAccent(AppSection.market)
-              ? color
-              : Colors.grey.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Icon(
-          icon,
-          size: 16,
-          color: color == AppColors.getSectionAccent(AppSection.market)
-              ? Colors.white
-              : color,
+      child: SizedBox.square(
+        dimension: 26,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: color == AppColors.getSectionAccent(AppSection.market)
+                ? color
+                : Color(0xFFD7D7D7),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            size: 22,
+            color: color == AppColors.getSectionAccent(AppSection.market)
+                ? Colors.white
+                : color,
+          ),
         ),
       ),
     );

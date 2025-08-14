@@ -39,7 +39,7 @@ class AppTextStyle extends TextStyle {
     super.color = AppColors.textColor,
   }) : super(
          package: 'app_ui',
-          fontFamily: 'Poppins',
+         fontFamily: 'Poppins',
          decoration: TextDecoration.none,
          textBaseline: TextBaseline.alphabetic,
          height:
@@ -170,31 +170,4 @@ extension AppTextStyleFontWeightExtension on AppTextStyle {
   /// Font weight to bold - FontWeight.w700
   AppTextStyle bold() => _copyWith(fontWeight: AppFontWeight.bold);
   AppTextStyle extrabold() => _copyWith(fontWeight: AppFontWeight.extraBold);
-}
-
-/// Material typography
-extension AppTextStyleMaterialExtension on AppTextStyle {
-  /// Title Text Style
-  AppTextStyle title() =>
-      _copyWith(fontSize: 16, fontWeight: AppFontWeight.regular, height: 1.22);
-
-  /// Description Text Style
-  AppTextStyle description() =>
-      _copyWith(fontSize: 14, fontWeight: AppFontWeight.regular);
-
-  /// Page Title Text Style
-  AppTextStyle pageTitle() =>
-      _copyWith(fontSize: 22, fontWeight: AppFontWeight.regular);
-
-  /// Page Title Text Style
-  AppTextStyle contentTitle() =>
-      _copyWith(fontSize: 20, fontWeight: AppFontWeight.regular);
-
-  /// Title Bold Text Style
-  AppTextStyle titleBold() =>
-      _copyWith(fontSize: 16, fontWeight: AppFontWeight.bold);
-
-  /// Page Title Bold Text Style
-  AppTextStyle pageTitleBold() =>
-      _copyWith(fontSize: 22, fontWeight: AppFontWeight.bold);
 }

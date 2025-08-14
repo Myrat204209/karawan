@@ -1,11 +1,13 @@
+// Suggested code for lib/blocs/favorites/favorites_state.dart
+
 part of 'favorites_bloc.dart';
 
-enum FavoritesStatus { initial, idle }
+enum FavoritesStatus { initial, loading, success, failure }
 
 final class FavoritesState extends Equatable {
   const FavoritesState({
     this.status = FavoritesStatus.initial,
-    this.favorites = const {},
+    this.favorites = const <String>{}, // Use a Set for fast lookups
   });
 
   final FavoritesStatus status;
@@ -19,5 +21,5 @@ final class FavoritesState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, favorites];
+  List<Object> get props => [status, favorites];
 }

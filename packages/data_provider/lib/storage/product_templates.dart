@@ -26,7 +26,8 @@ const List<ProductTemplate> storeProducts = [
     id: 'store_product_1',
     name: 'Döner kebap',
     price: 20.00,
-    description: 'Fresh grilled meat with vegetables and sauce',
+    description:
+        'Stay refreshed with our ultra-pure, mineral-balanced water sourced from natural springs. Perfectly sized for on-the-go hydration, each bottle is BPA-free, recyclable, and sealed for freshness.',
     rating: 5.0,
     imagePath: 'packages/app_ui/assets/images/meals/meal_1.png',
     section: AppSection.market,

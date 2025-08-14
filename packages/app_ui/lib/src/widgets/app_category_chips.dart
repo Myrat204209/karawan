@@ -2,9 +2,14 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppCategoryChips extends StatefulWidget {
-  const AppCategoryChips({super.key, required this.chipLabels});
+  const AppCategoryChips({
+    super.key,
+    required this.chipLabels,
+    required this.selectedColor,
+  });
 
   final List<String> chipLabels;
+  final Color selectedColor;
   @override
   State<AppCategoryChips> createState() => _AppCategoryChipsState();
 }
@@ -44,8 +49,8 @@ class _AppCategoryChipsState extends State<AppCategoryChips> {
                       ? BorderSide.none
                       : const BorderSide(color: AppColors.border),
               backgroundColor: Colors.transparent,
-              selectedColor: AppColors.mainAccent,
-              labelStyle: AppTextStyle.text().sm().withColor(
+              selectedColor: widget.selectedColor,
+              labelStyle: AppTextStyle.text().sm().regular().withColor(
                 isSelected ? Colors.white : AppColors.textLightTitle,
               ),
             ),

@@ -1,6 +1,7 @@
 // Suggested code for 'lib/app/router/go_router_config.dart' (or a new factory file)
 
 import 'package:app_ui/app_ui.dart';
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -13,6 +14,37 @@ import 'package:karawan/features/features.dart';
 import 'package:karawan/repositories/repositories.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+final _getIt = GetIt.I;
+final goRouter = GoRouter(
+  debugLogDiagnostics: !kReleaseMode,
+  observers: [TalkerRouteObserver(_getIt<Talker>())],
+  initialLocation: '/splash',
+  redirect: (BuildContext context, GoRouterState state) {
+    if (state.matchedLocation != '/splash') {
+      return null;
+    }
+
+    final pageCacher = _getIt<PageCacher>();
+    final lastSection = pageCacher.getCurrentSection();
+    if (lastSection == null) {
+      return '/director';
+    } else if (lastSection == AppSection.market) {
+      return '/market/home';
+    } else {
+      // Otherwise, go to the restaurant home.
+      return '/restaurant/home';
+    }
+  },
+  routes: [
+    GoRoute(path: '/splash', builder: (context, state) => const SplashPage()),
+    GoRoute(
+      path: '/director',
+      builder: (context, state) => const DirectorPage(),
+    ),
+    createTabbedSection(config: marketConfig),
+    createTabbedSection(config: restaurantConfig),
+  ],
+);
 StatefulShellRoute createTabbedSection({required SectionConfig config}) {
   return StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
@@ -20,7 +52,7 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
         providers: [
           BlocProvider<CartBloc>(
             create: (_) => CartBloc(
-              repository: GetIt.I.get<CartRepository>(
+              repository: _getIt.get<CartRepository>(
                 param1: config.appSection,
               ),
               section: config.appSection,
@@ -28,7 +60,7 @@ StatefulShellRoute createTabbedSection({required SectionConfig config}) {
           ),
           BlocProvider<FavoritesBloc>(
             create: (_) => FavoritesBloc(
-              repository: GetIt.I.get<FavoritesRepository>(
+              repository: _getIt.get<FavoritesRepository>(
                 param1: config.appSection,
               ),
               section: config.appSection,
@@ -95,19 +127,4 @@ final restaurantConfig = SectionConfig(
   productDetailsRouteName: RouteNames.restaurantProductDetails,
   navigationItems: restaurantNavigationItems,
   oppositePath: '/market/home',
-);
-
-final goRouter = GoRouter(
-  debugLogDiagnostics: true,
-  observers: [TalkerRouteObserver(GetIt.I<Talker>())],
-  initialLocation: '/splash',
-  routes: [
-    GoRoute(path: '/splash', builder: (context, state) => const SplashPage()),
-    GoRoute(
-      path: '/director',
-      builder: (context, state) => const DirectorPage(),
-    ),
-    createTabbedSection(config: marketConfig),
-    createTabbedSection(config: restaurantConfig),
-  ],
 );
