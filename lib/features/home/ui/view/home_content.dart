@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:app_ui/app_ui.dart';
+import 'package:data_provider/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
 import 'package:karawan/app/router/route_names.dart';
-import 'package:karawan/blocs/favorites/favorites_bloc.dart';
 import 'package:karawan/features/features.dart';
 
 class HomeContent extends StatefulWidget {

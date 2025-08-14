@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart';
+import 'package:data_provider/data_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PageCacher {

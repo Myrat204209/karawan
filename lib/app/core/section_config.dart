@@ -1,6 +1,6 @@
 // Suggested code for 'lib/app/router/section_config.dart'
 
-import 'package:app_ui/app_ui.dart' show AppSection;
+import 'package:data_provider/data_provider.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
 
 /// A configuration model that holds all the unique properties for a major

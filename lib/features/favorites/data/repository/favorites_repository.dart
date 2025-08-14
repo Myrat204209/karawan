@@ -1,13 +1,10 @@
 // Suggested code for lib/repositories/favorites_repository.dart
 
-import 'package:app_ui/app_ui.dart';
+import 'package:data_provider/data_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritesRepository {
-  FavoritesRepository({
-    required this.prefs,
-    required this.section,
-  });
+  FavoritesRepository({required this.prefs, required this.section});
 
   final SharedPreferences prefs;
   final AppSection section;
