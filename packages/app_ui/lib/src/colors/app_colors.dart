@@ -1,4 +1,3 @@
-import 'package:app_ui/data_provider/lib/storage/storage_provider.dart';
 import 'package:flutter/material.dart';
 
 /// `AppColors` is a utility class that holds color constants
@@ -78,14 +77,4 @@ abstract class AppColors {
   static const Color buttonBackground = Color(0xFFE8ECEF);
 
   static const Color iconColor = Color(0xff6b7278);
-
-  /// Helper method to get section-specific accent color
-  static Color getSectionAccent(AppSection section) {
-    switch (section) {
-      case AppSection.market:
-        return mainAccent;
-      case AppSection.restaurant:
-        return restaurantAccent;
-    }
-  }
 }

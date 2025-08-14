@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:data_provider/data_provider.dart';
-import 'package:data_provider/storage/storage.dart';
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:karawan/app/app.dart' show App;
-import 'package:karawan/app/core/page_cacher.dart';
-import 'package:karawan/repositories/repositories.dart';
+import 'package:karawan/app/app.dart';
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,19 +94,6 @@ Future<void> _setupDependencies() async {
     await provider.initialize();
     return provider;
   });
-  _getIt.registerFactoryParam<CartRepository, AppSection, void>(
-    (section, _) => CartRepository(
-      storageProvider: _getIt<StorageProvider>(),
-      section: section,
-    ),
-  );
-
-  _getIt.registerFactoryParam<FavoritesRepository, AppSection, void>(
-    (section, _) => FavoritesRepository(
-      storageProvider: _getIt<StorageProvider>(),
-      section: section,
-    ),
-  );
 
   /// HydratedBLoC
   HydratedBloc.storage = await HydratedStorage.build(

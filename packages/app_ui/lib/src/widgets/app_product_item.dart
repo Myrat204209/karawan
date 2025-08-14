@@ -15,7 +15,6 @@ class AppProductItem extends StatelessWidget {
     required this.description,
     required this.rating,
     this.productId,
-    this.section,
     this.onFavoriteToggle,
     this.isFavorite = false,
   });
@@ -27,7 +26,6 @@ class AppProductItem extends StatelessWidget {
   final String description;
   final double rating;
   final String? productId;
-  final AppSection? section;
   final VoidCallback? onFavoriteToggle;
   final bool isFavorite;
 
@@ -56,12 +54,13 @@ class AppProductItem extends StatelessWidget {
             children: [
               Expanded(
                 flex: 6,
-                child: AppMainImage(
-                  onLiked: onFavoriteToggle ?? () {},
-                  image: image,
-                  isLiked: isFavorite,
-                  section: section,
-                ),
+                child: SizedBox.shrink(),
+                // AppMainImage(
+                //   onLiked: onFavoriteToggle ?? () {},
+                //   image: image,
+                //   isLiked: isFavorite,
+                //   section: section,
+                // ),
               ),
               Expanded(
                 flex: 5,

@@ -1,3 +1,4 @@
+export 'about_us/about_us.dart';
 export 'auth/auth.dart';
 export 'cart/cart.dart';
 export 'categories/categories.dart';
@@ -6,7 +7,9 @@ export 'favorites/favorites.dart';
 export 'filter/filter.dart';
 export 'home/home.dart';
 export 'notification/notification.dart';
+export 'product_details/product_details.dart';
 export 'products/products.dart';
 export 'profile/profile.dart';
+export 'search/search.dart';
 export 'splash/splash.dart';
 export 'sub_categories/sub_categories.dart';

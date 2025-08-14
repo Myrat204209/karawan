@@ -66,9 +66,7 @@ class AppCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    isCart
-                        ? AppInputQuantity(onRemove: () {}, onAdd: () {})
-                        : AddToCartButton(onCartAdded: () {}),
+                    AddToCartButton(onCartAdded: () {}),
                   ],
                 ).paddingOnly(right: 6),
               ],

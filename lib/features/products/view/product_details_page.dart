@@ -197,7 +197,6 @@ class ProductDetailsPage extends HookWidget {
                         AppCategoryGrid(
                           title: 'Iň täze harytlar',
                           itemCount: 4,
-                          section: section,
                         ),
                       ],
                     ),
