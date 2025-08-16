@@ -1,5 +1,3 @@
-import 'package:app_ui/app_ui.dart';
-import 'package:data_provider/data_provider.dart';
 import 'package:flutter/material.dart';
 
 class MarketNotificationView extends StatelessWidget {
@@ -38,19 +36,7 @@ class MarketNotificationView extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: AppColors.getSectionAccent(AppSection.market),
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.getSectionAccent(
-                            AppSection.market,
-                          ).withValues(alpha: 0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
+
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -109,22 +95,11 @@ class MarketNotificationView extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Container(
+                              SizedBox(
                                 width: 40,
                                 height: 40,
-                                decoration: BoxDecoration(
-                                  color: AppColors.getSectionAccent(
-                                    AppSection.market,
-                                  ).withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Icon(
-                                  Icons.notifications,
-                                  color: AppColors.getSectionAccent(
-                                    AppSection.market,
-                                  ),
-                                  size: 20,
-                                ),
+
+                                child: Icon(Icons.notifications, size: 20),
                               ),
                               const SizedBox(width: 12),
                               Expanded(

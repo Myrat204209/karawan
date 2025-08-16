@@ -67,12 +67,12 @@ class _CategoriesViewState extends State<CategoriesView>
               ).withPadding(horizontal: AppSpacing.screenPadding),
               ListView(
                 children: [
-                  AppCarousel.box(title: 'Top Brendlar'),
-                  AppCarousel.box(title: 'Egin-eşik'),
-                  AppCarousel.box(title: ''),
-                  AppCarousel.box(title: 'Himiki serişdeler'),
-                  AppCarousel.box(title: ''),
-                  AppCarousel.box(title: 'Top Brendlar'),
+                  AppCarousel(title: 'Top Brendlar'),
+                  AppCarousel(title: 'Egin-eşik'),
+                  AppCarousel(title: ''),
+                  AppCarousel(title: 'Himiki serişdeler'),
+                  AppCarousel(title: ''),
+                  AppCarousel(title: 'Top Brendlar'),
                 ],
               ),
             ],

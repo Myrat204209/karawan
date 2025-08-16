@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:karawan/features/favorites/favorites.dart';
 
 class FavoritesView extends StatelessWidget {
   const FavoritesView({super.key});
@@ -47,28 +48,7 @@ class FavoritesView extends StatelessWidget {
             child: ListView.separated(
               itemCount: favorites.length,
               itemBuilder: (context, index) {
-                final productId = favorites.elementAt(index);
-                final product = getProductById(productId, AppSection.market);
-
-                if (product == null) return SizedBox.shrink();
-
-                return AppFavoriteItem(
-                  name: product.name,
-                  description: product.description,
-                  price: product.price,
-                  rating: product.rating,
-                  image: Image.asset(product.imagePath, fit: BoxFit.cover),
-                  onRemove: () {
-                    context.read<FavoritesBloc>().add(
-                      FavoriteToggled(productId),
-                    );
-                  },
-                  onAddToCart: () {
-                    final storage = StorageProvider();
-                    storage.updateCartQuantity(productId, 1, AppSection.market);
-                  },
-                  section: AppSection.market,
-                );
+                return SizedBox();
               },
               separatorBuilder: (context, index) => SizedBox(height: 10),
             ),

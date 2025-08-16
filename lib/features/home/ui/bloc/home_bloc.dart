@@ -30,17 +30,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     // In a real app, you would fetch data and then build widgets
     final nextItemIndex = state.items.length;
-    final newItem = nextItemIndex.isEven
-        ? HomeSliderItem(
-            promoItems: [
-              Assets.images.banner.image(),
-              Assets.images.banner2.image(),
-            ],
-          )
-        : HomeGridItem(
-            title: 'New Grid',
-            products: getProductsBySection(event.section).take(4).toList(),
-          );
+    final newItem = HomeSliderItem(
+      promoItems: [Assets.images.banner.image(), Assets.images.banner2.image()],
+    );
 
     emit(
       state.copyWith(

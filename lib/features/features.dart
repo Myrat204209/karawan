@@ -4,7 +4,6 @@ export 'cart/cart.dart';
 export 'categories/categories.dart';
 export 'director/director.dart';
 export 'favorites/favorites.dart';
-export 'filter/filter.dart';
 export 'home/home.dart';
 export 'notification/notification.dart';
 export 'product_details/product_details.dart';

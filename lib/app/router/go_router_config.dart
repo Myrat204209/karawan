@@ -1,17 +1,12 @@
-// Suggested code for 'lib/app/router/go_router_config.dart' (or a new factory file)
-
-import 'package:app_ui/app_ui.dart';
 import 'package:data_provider/data_provider.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:karawan/app/app.dart';
 import 'package:karawan/app/core/go_router_scaffold.dart';
 import 'package:karawan/app/router/route_names.dart';
 import 'package:karawan/features/features.dart';
-import 'package:karawan/repositories/repositories.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final _getIt = GetIt.I;
@@ -48,25 +43,26 @@ final goRouter = GoRouter(
 StatefulShellRoute createTabbedSection({required SectionConfig config}) {
   return StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
-      return MultiBlocProvider(
-        providers: [
-          BlocProvider<CartBloc>(
-            create: (_) => CartBloc(
-              repository: _getIt.get<CartRepository>(param1: config.appSection),
-              section: config.appSection,
-            )..add(CartInitialized()),
-          ),
-          BlocProvider<FavoritesBloc>(
-            create: (_) => FavoritesBloc(
-              repository: _getIt.get<FavoritesRepository>(
-                param1: config.appSection,
-              ),
-              section: config.appSection,
-            )..add(FavoritesInitialized()),
-          ),
-        ],
-        child: GoRouterSectionScaffold(config: config, child: navigationShell),
-      );
+      // return MultiBlocProvider(
+      //   providers: [
+      //     BlocProvider<CartBloc>(
+      //       create: (_) => CartBloc(
+      //         repository: _getIt.get<CartRepository>(param1: config.appSection),
+      //         section: config.appSection,
+      //       )..add(CartInitialized()),
+      //     ),
+      //     BlocProvider<FavoritesBloc>(
+      //       create: (_) => FavoritesBloc(
+      //         repository: _getIt.get<FavoritesRepository>(
+      //           param1: config.appSection,
+      //         ),
+      //         section: config.appSection,
+      //       )..add(FavoritesInitialized()),
+      //     ),
+      //   ],
+      //   child: GoRouterSectionScaffold(config: config, child: navigationShell),
+      // );
+      return GoRouterSectionScaffold(config: config, child: navigationShell);
     },
     branches: [
       for (final item in config.navigationItems)

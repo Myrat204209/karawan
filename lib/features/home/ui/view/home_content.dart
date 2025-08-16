@@ -41,56 +41,6 @@ class _HomeContentState extends State<HomeContent> {
     }
   }
 
-  // Future<void> _loadMoreData() async {
-  //   if (_isLoading) return;
-
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-
-  //   // Simulate a network request
-  //   await Future.delayed(const Duration(milliseconds: 800));
-
-  //   // IMPORTANT: Add sliver widgets here, not box widgets.
-  //   final nextWidgetIndex = _loadedWidgets.length;
-  //   final newWidget = nextWidgetIndex.isEven
-  //       ? AppSlider.sliver(
-  //           promoItems: [
-  //             Assets.images.banner.image(),
-  //             Assets.images.banner2.image(),
-  //           ],
-  //         )
-  //       : AppCategoryGrid.sliver(
-  //           title: 'New Grid',
-  //           itemCount: 4,
-  //           section: widget.section,
-  //           products: getProductsBySection(widget.section).take(4).toList(),
-  //           onGridPressed: () {
-  //             // Navigate to product details with the first product ID
-  //             final products = getProductsBySection(widget.section);
-  //             if (products.isNotEmpty) {
-  //               context.goNamed(
-  //                 widget.section == AppSection.market
-  //                     ? RouteNames.marketProductDetails
-  //                     : RouteNames
-  //                           .restaurantProductDetails, // Or RouteNames.restaurantProductDetails
-  //                 pathParameters: {'productId': products[0].id},
-  //               );
-  //             }
-  //           },
-  //           onFavoritePressed: (String productId) {
-  //             // Dispatch BLoC event for favorite toggle
-  //             context.read<FavoritesBloc>().add(FavoriteToggled(productId));
-  //           },
-  //         );
-
-  //   _loadedWidgets.add(newWidget);
-
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final activeSection = context.select(
@@ -133,22 +83,11 @@ class _HomeContentState extends State<HomeContent> {
                 ),
               ),
               const AppCarousel(title: 'Top Brendler'),
-              AppCategoryGrid.sliver(
+              AppCategoryGrid(
                 title: 'Iň täze harytlar',
                 itemCount: 4,
-                section: activeSection,
-                products: getProductsBySection(activeSection).take(4).toList(),
                 onGridPressed: () {
                   // Navigate to product details with the first product ID
-                  final products = getProductsBySection(activeSection);
-                  if (products.isNotEmpty) {
-                    context.goNamed(
-                      isMarket
-                          ? RouteNames.marketProductDetails
-                          : RouteNames.restaurantProductDetails,
-                      pathParameters: {'productId': products[0].id},
-                    );
-                  }
                 },
                 onFavoritePressed: (String productId) {
                   // Dispatch BLoC event for favorite toggle
@@ -160,20 +99,16 @@ class _HomeContentState extends State<HomeContent> {
                   HomeSliderItem sliderItem => AppSlider.sliver(
                     promoItems: sliderItem.promoItems,
                   ),
-                  HomeGridItem gridItem => AppCategoryGrid.sliver(
+                  HomeGridItem gridItem => AppCategoryGrid(
                     title: gridItem.title,
                     itemCount: gridItem.products.length,
-                    section: activeSection,
-                    products: gridItem.products,
                     onGridPressed: () {
                       if (gridItem.products.isNotEmpty) {
                         context.goNamed(
                           isMarket
                               ? RouteNames.marketProductDetails
                               : RouteNames.restaurantProductDetails,
-                          pathParameters: {
-                            'productId': gridItem.products[0].id,
-                          },
+                          pathParameters: {'productId': 'gridItem.products[0]'},
                         );
                       }
                     },

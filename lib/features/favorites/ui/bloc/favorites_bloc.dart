@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:karawan/repositories/favorites_repository.dart';
+import 'package:karawan/features/favorites/favorites.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';

@@ -26,3 +26,5 @@ class HomeGridItem extends HomeItem {
   @override
   List<Object> get props => [title, products];
 }
+
+class ProductTemplate {}
